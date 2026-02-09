@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MALLKU | Catálogo Oficial</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- GSAP Animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            /* Paleta Luxury & Mystic */
+            --mallku-coffee: #5D4037;
+            --mallku-gold: #D4AF37;
+            --mallku-purple: #9333EA;
+            --mallku-green: #39FF14;
+            --deep-bg: #030303;
+        }
+
+        body {
+            background-color: var(--deep-bg);
+            color: #ECECEC;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .font-brand {
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+        }
+
+        .text-gradient-mallku {
+            /* Gradiente: Café -> Amarillo -> Verde */
+            background: linear-gradient(90deg, var(--mallku-coffee) 0%, var(--mallku-gold) 45%, var(--mallku-green) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 0 15px rgba(57, 255, 20, 0.2));
+        }
+
+        /* Efecto "Liquid Metal" - Elegante y Moderno */
+        .text-gradient-mystic {
+            background: linear-gradient(90deg,
+                    #FFFFFF 0%,
+                    /* Blanco Puro */
+                    #FCD34D 30%,
+                    /* Dorado Suave */
+                    #C084FC 60%,
+                    /* Morado Pastel */
+                    #4ADE80 100%
+                    /* Verde Menta */
+                );
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shineGradient 10s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
+        }
+
+        @keyframes shineGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .bg-noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+        }
+
+        .modal-box {
+            position: relative;
+            background: #0a0a0a;
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            max-width: 550px;
+            width: 95%;
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalPop 0.3s ease-out;
+        }
+
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Bento Grid Card Style */
+        .bento-card {
+            background: #111111;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card:hover {
+            background: rgba(57, 255, 20, 0.05);
+            border-color: rgba(57, 255, 20, 0.3);
+            transform: translateY(-5px);
+        }
+
+        /* Product Card */
+        .product-card {
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--mallku-lime);
+            box-shadow: 0 10px 30px -10px rgba(57, 255, 20, 0.15);
+        }
+
+        /* Inputs */
+        .input-modern {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 0;
+            width: 100%;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .input-modern:focus {
+            border-bottom-color: var(--mallku-lime);
+            padding-left: 10px;
+        }
+
+        .cat-pill {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        .cat-pill:hover,
+        .cat-pill.active {
+            color: #fff;
+            background: linear-gradient(#030303, #030303) padding-box, linear-gradient(90deg, #FFFFFF 0%, #FCD34D 30%, #C084FC 60%, #4ADE80 100%) border-box;
+            border: 1px solid transparent;
+            box-shadow: 0 0 20px rgba(192, 132, 252, 0.15);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            font-weight: 700;
+        }
+
+        .payment-option {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-option.active {
+            border-color: var(--mallku-lime);
+            background: rgba(57, 255, 20, 0.1);
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Botón de la marca (Estilo Green/Purple Neon) */
+        .btn-mallku {
+            background: #000;
+            color: white;
+            font-weight: 700;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 10;
+            /* Green Glow Bottom (Siempre visible) */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 4px solid #39FF14;
+            box-shadow: 0 10px 20px -5px rgba(57, 255, 20, 0.4);
+        }
+
+        .btn-mallku:hover {
+            transform: translateY(-2px);
+            /* Purple Neon on Hover */
+            border-bottom-color: #9333EA;
+            /* Mallku Purple */
+            box-shadow: 0 10px 30px rgba(147, 51, 234, 0.6);
+            color: #fff;
+            text-shadow: 0 0 10px rgba(147, 51, 234, 0.8);
+        }
+
+        @keyframes kenBurns {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+
+            50% {
+                transform: scale(1.1) translate(-2%, -2%);
+            }
+
+            100% {
+                transform: scale(1) translate(0, 0);
+            }
+        }
+
+        .animate-ken-burns {
+            animation: kenBurns 15s ease-in-out infinite alternate;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--mallku-lime);
+        }
+
+        @keyframes shake {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            20% {
+                transform: rotate(10deg);
+            }
+
+            40% {
+                transform: rotate(-10deg);
+            }
+
+            60% {
+                transform: rotate(5deg);
+            }
+
+            80% {
+                transform: rotate(-5deg);
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+
+        .cart-shake {
+            animation: shake 0.5s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-noise"></div>
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav
+        class="fixed w-full z-50 top-0 left-0 bg-[#050505]/90 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-4 cursor-pointer group">
+                    <div class="relative flex items-center justify-center">
+                        <img src="WhatsApp Image 2026-02-04 at 11.03.07 PM.jpeg" alt="Logo Mallku"
+                            class="w-12 h-12 object-cover rounded-full border border-white/10 shadow-[0_0_15px_rgba(57,255,20,0.2)]">
+                    </div>
+                    <span class="font-brand text-3xl font-bold text-gradient-mallku tracking-widest">MALLKU</span>
+                </div>
+
+                <div class="hidden md:flex space-x-8">
+                    <a href="#inicio"
+                        class="text-sm font-medium text-gray-400 hover:text-white transition-colors tracking-wide">INICIO</a>
+                    <a href="#esencia"
+                        class="text-sm font-medium text-gray-400 hover:text-white transition-colors tracking-wide">NOSOTROS</a>
+                    <a href="#catalogo"
+                        class="text-sm font-bold text-[#39FF14] transition-colors tracking-wide border border-[#39FF14]/30 px-4 py-1 rounded-full hover:bg-[#39FF14] hover:text-black">TIENDA</a>
+                </div>
+
+                <button onclick="openCart()"
+                    class="relative p-2 text-white hover:text-[#39FF14] transition-colors group">
+                    <i data-lucide="shopping-bag" class="w-6 h-6 group-hover:scale-110 transition-transform"></i>
+                    <span id="mobile-cart-count"
+                        class="absolute -top-1 -right-1 bg-[#F59E0B] text-black text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section: Volcán de Energía (Rediseño Lujo/Tierra) -->
+    <section id="inicio"
+        class="relative py-24 md:py-0 md:min-h-screen flex flex-col justify-center items-center text-center overflow-x-hidden">
+
+        <!-- Background: Montañas Misticas con Blur Suave -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1519681393784-d8e5b5a45458?q=80&w=2000&auto=format&fit=crop"
+                class="w-full h-full object-cover opacity-40 blur-[2px] scale-105">
+            <div class="absolute inset-0 bg-gradient-to-b from-[#030303] via-transparent to-[#030303]"></div>
+            <div class="absolute inset-0 bg-black/50 mix-blend-multiply"></div>
+        </div>
+
+        <div class="relative z-10 w-full px-4 max-w-[100vw] overflow-x-hidden">
+
+            <!-- Contenedor del "Volcán" de Energía (Sin formas bruscas) -->
+            <div class="relative flex flex-col items-center justify-center py-4 md:py-10">
+
+                <!-- Glow Central (Energía Volcánica Suave) -->
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gradient-to-r from-[#B45309]/20 via-[#F59E0B]/10 to-[#A855F7]/20 blur-[100px] rounded-full z-[-1] pointer-events-none">
+                </div>
+
+                <!-- 1. CIMA (Punta del Volcán - Pequeño) -->
+                <div class="mb-4">
+                    <span
+                        class="text-white/80 font-brand tracking-[0.5em] text-xs md:text-sm font-bold uppercase border-b border-transparent pb-2">
+                        Dejamos que la
+                    </span>
+                </div>
+
+                <!-- 2. CUERPO (Medio - Grande) -->
+                <h1 class="font-brand font-black leading-none mb-2 scale-y-110">
+                    <span
+                        class="block text-5xl md:text-7xl text-gradient-mystic drop-shadow-[0_0_15px_rgba(255,255,255,0.15)] tracking-tight">
+                        NATURALEZA
+                    </span>
+                </h1>
+
+                <!-- 3. BASE (Base del Volcán - El más Grande) -->
+                <h2 class="font-brand font-black leading-tight max-w-7xl">
+                    <span
+                        class="block text-6xl md:text-8xl tracking-[0.1em] text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#8D6E63] to-[#5D4037] drop-shadow-md opacity-100">
+                        HAGA LO SUYO
+                    </span>
+                </h2>
+            </div>
+
+            <!-- Descripción Refinada -->
+            <p class="text-gray-400 max-w-md mx-auto text-base font-light mt-8 mb-12 leading-relaxed tracking-wide">
+                Medicina viva y ancestral que brota del corazón de los Andes.
+            </p>
+
+            <!-- Botón CTA Premium -->
+            <div class="flex justify-center">
+                <a href="#catalogo" class="btn-mallku">
+                    Explorar Catálogo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: NUESTRA ESENCIA (ORIGEN & QUIENES SOMOS) -->
+    <section id="esencia" class="py-24 px-4 relative z-10 border-t border-white/5 bg-[#050505]">
+        <div class="max-w-7xl mx-auto">
+
+            <!-- Intro Content: Quiénes Somos -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
+                <!-- Image Side -->
+                <div
+                    class="relative rounded-[32px] overflow-hidden border border-white/10 group h-[600px] reveal-text shadow-2xl">
+
+                    <!-- Imagen de Fondo con Efecto Ken Burns -->
+                    <div class="absolute inset-0 overflow-hidden bg-black">
+                        <img src="WhatsApp Image 2026-02-04 at 11.03.07 PM.jpeg"
+                            class="w-full h-full object-cover opacity-80 animate-ken-burns">
+                    </div>
+
+                    <!-- Textura Noise Sutil (Calidad Cine) -->
+                    <div class="absolute inset-0 opacity-[0.15] pointer-events-none mix-blend-overlay"
+                        style="background-image: url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\' opacity=\'1\'/%3E%3C/svg%3E');">
+                    </div>
+
+                    <!-- Overlay Gradiente Profesional -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+
+                    <!-- Tarjeta de Contenido Glassmorphism (Flotante) -->
+                    <div
+                        class="absolute bottom-6 left-6 right-6 p-8 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-transform group-hover:-translate-y-2 duration-500">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-8 h-[2px] bg-[#39FF14]"></span>
+                            <span class="text-[#39FF14] font-brand tracking-[0.2em] text-xs uppercase font-bold">Sur de
+                                Colombia</span>
+                        </div>
+
+                        <h3 class="text-3xl font-brand font-bold text-white mb-2 leading-tight">MALLKU <br>
+                            <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-400 text-xl">SENTIRES
+                                ANDINOS</span>
+                        </h3>
+
+                        <p class="text-gray-300 text-sm leading-relaxed opacity-90">
+                            Procesos artesanales, saberes y tradiciones autóctonas de la medicina, cosmética y
+                            gastronomía alternativa.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Text Side -->
+                <div class="space-y-10">
+                    <div class="reveal-text">
+                        <h2 class="text-4xl md:text-5xl font-brand font-bold mb-6"><span
+                                class="text-gradient-mystic">¿QUIÉNES SOMOS?</span></h2>
+                        <p class="text-lg text-gray-400 leading-relaxed mb-6">
+                            Somos <strong class="text-white">MALLKU SENTIRES ANDINOS</strong>, un emprendimiento que
+                            llega desde las <strong class="text-white">mágicas montañas del sur de Colombia</strong>.
+                        </p>
+                        <p class="text-gray-400 leading-relaxed text-justify mb-6">
+                            Resaltamos los procesos artesanales de los macerados y conservas como <span
+                                class="text-[#39FF14]">saberes, sabores y tradiciones autóctonas</span> de la medicina,
+                            cosmética y gastronomía alternativa.
+                        </p>
+                        <p class="text-gray-500 leading-relaxed text-justify">
+                            De la chagra a su mesa, transformamos plantas aromáticas cultivadas en nuestra región andina
+                            (manzanilla, caléndula, tomillo, orégano, cannabis, romero, lavanda) en productos de
+                            bienestar presentados en vidrio para su perfecta conservación.
+                        </p>
+                    </div>
+
+                    <!-- Feature Box -->
+                    <div
+                        class="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm reveal-text hover:border-[#39FF14]/50 transition-colors">
+                        <i data-lucide="sprout" class="w-10 h-10 text-[#39FF14] mb-4"></i>
+                        <h3 class="font-brand text-xl text-white mb-2">Complemento de Vida</h3>
+                        <p class="text-gray-400 text-sm">
+                            Nuestros productos nos han demostrado una gran mejoría en la salud de las personas. No
+                            reemplazan la medicina tradicional, sino que la complementan, creando un estilo de vida
+                            saludable.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Section: Beneficios & Afecciones (Grid Layout) -->
+            <div class="mb-24">
+                <div class="text-center mb-16 reveal-text">
+                    <span class="text-[#FFFF00] font-brand tracking-[0.3em] text-sm uppercase">Aplicaciones
+                        Terapéuticas</span>
+                    <h2 class="text-3xl md:text-5xl font-brand font-bold text-white mt-3">SANACIÓN <span
+                            class="text-white">HOLÍSTICA</span></h2>
+                    <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Tratamientos naturales efectivos para diversas
+                        afecciones.</p>
+                </div>
+
+                <div id="benefits-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Cards for ailments (Multicolor Palette) -->
+                    <div class="bento-card group hover:bg-[#A855F7]/10 cursor-default">
+                        <i data-lucide="smile"
+                            class="w-8 h-8 text-[#A855F7] mb-4 group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-brand text-lg text-white mb-2">Salud Mental</h4>
+                        <ul class="text-sm text-gray-200 space-y-1 list-disc list-inside">
+                            <li>Ansiedad y Agitación</li>
+                            <li>Estrés</li>
+                            <li>Depresión</li>
+                        </ul>
+                    </div>
+                    <div class="bento-card group hover:bg-[#F59E0B]/10 cursor-default">
+                        <i data-lucide="activity"
+                            class="w-8 h-8 text-[#F59E0B] mb-4 group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-brand text-lg text-white mb-2">Dolores Físicos</h4>
+                        <ul class="text-sm text-gray-200 space-y-1 list-disc list-inside">
+                            <li>Dolores Musculares</li>
+                            <li>Dolores Corporales</li>
+                            <li>Dolores de Cabeza</li>
+                        </ul>
+                    </div>
+                    <div class="bento-card group hover:bg-[#39FF14]/10 cursor-default">
+                        <i data-lucide="battery-charging"
+                            class="w-8 h-8 text-[#39FF14] mb-4 group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-brand text-lg text-white mb-2">Energía & Sueño</h4>
+                        <ul class="text-sm text-gray-200 space-y-1 list-disc list-inside">
+                            <li>Fatiga Crónica</li>
+                            <li>Insomnio</li>
+                            <li>Recuperación</li>
+                        </ul>
+                    </div>
+                    <div class="bento-card group hover:bg-[#D97706]/10 cursor-default">
+                        <i data-lucide="heart-pulse"
+                            class="w-8 h-8 text-[#D97706] mb-4 group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-brand text-lg text-white mb-2">Salud General</h4>
+                        <ul class="text-sm text-gray-200 space-y-1 list-disc list-inside">
+                            <li>Probl. Menstruales</li>
+                            <li>Menopausia</li>
+                            <li>Presión Alta</li>
+                        </ul>
+                    </div>
+                    <div class="bento-card group hover:bg-[#A855F7]/10 cursor-default lg:col-span-2">
+                        <i data-lucide="flower-2"
+                            class="w-8 h-8 text-[#A855F7] mb-4 group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-brand text-lg text-white mb-2">Piel & Estética</h4>
+                        <p class="text-sm text-gray-200">Tratamiento para alopecia (caída del cabello), psoriasis y
+                            otras afecciones dermatológicas.</p>
+                    </div>
+                    <div class="bento-card group hover:bg-[#F59E0B]/10 cursor-default lg:col-span-2">
+                        <i data-lucide="utensils"
+                            class="w-8 h-8 text-[#F59E0B] mb-4 group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-brand text-lg text-white mb-2">Sistema Digestivo</h4>
+                        <p class="text-sm text-gray-200">Alivio natural de náuseas, infecciones y problemas del tracto
+                            digestivo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Science/Absorption Section (Creative Adjustment) -->
+            <div
+                class="relative rounded-3xl overflow-hidden bg-[#0a0a0a] border border-white/5 p-8 md:p-16 text-center reveal-text group">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#39FF14] to-[#FFFF00]"></div>
+                <!-- Background Glow -->
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#39FF14] rounded-full blur-[150px] opacity-5 group-hover:opacity-10 transition-opacity duration-1000">
+                </div>
+
+                <h3 class="text-2xl md:text-3xl font-brand font-bold text-white mb-6 relative z-10">CIENCIA NATURAL</h3>
+                <p class="text-lg text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed relative z-10">
+                    Mejorar la mente, el cuerpo y el espíritu es posible. Su cuerpo asimila nuestros aceites esenciales
+                    de manera rápida y eficiente gracias a dos características únicas:
+                </p>
+
+                <div class="flex flex-col md:flex-row justify-center gap-8 md:gap-20 relative z-10">
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="w-24 h-24 rounded-full bg-[#39FF14]/5 border border-[#39FF14]/30 flex items-center justify-center mb-6 text-[#39FF14] font-bold text-3xl shadow-[0_0_30px_rgba(57,255,20,0.1)]">
+                            <i data-lucide="microscope" class="w-10 h-10"></i>
+                        </div>
+                        <h4 class="text-white font-bold mb-2 tracking-wider">COMPUESTOS PEQUEÑOS</h4>
+                        <p class="text-sm text-gray-500 max-w-[200px]">Micro-moléculas que penetran profundamente en los
+                            tejidos.</p>
+                    </div>
+                    <div class="hidden md:block w-px bg-white/10"></div>
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="w-24 h-24 rounded-full bg-[#FFFF00]/5 border border-[#FFFF00]/30 flex items-center justify-center mb-6 text-[#FFFF00] font-bold text-3xl shadow-[0_0_30px_rgba(255,255,0,0.1)]">
+                            <i data-lucide="droplet" class="w-10 h-10"></i>
+                        </div>
+                        <h4 class="text-white font-bold mb-2 tracking-wider">LIPOSOLUBLES</h4>
+                        <p class="text-sm text-gray-500 max-w-[200px]">Solubles en grasas, facilitando una asimilación
+                            inmediata por el cuerpo.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- NUEVA SECCIÓN: CALIDAD Y TRADICIÓN -->
+    <section id="calidad" class="py-24 px-4 relative z-10 border-t border-white/5 bg-[#080808] overflow-hidden">
+        <!-- Decoration -->
+        <div
+            class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#39FF14]/5 to-transparent pointer-events-none">
+        </div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16 reveal-text">
+                <span class="text-[#39FF14] font-brand tracking-[0.3em] text-sm uppercase">Nuestra Promesa</span>
+                <h2 class="text-3xl md:text-5xl font-brand font-bold text-white mt-3">CALIDAD & <span
+                        class="text-white">TRADICIÓN</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div
+                    class="group p-8 rounded-3xl bg-[#111] border border-white/5 hover:border-[#39FF14]/30 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#39FF14] to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-[#39FF14]/10 flex items-center justify-center mb-6 text-[#39FF14] group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="mountain" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-brand font-bold text-white mb-3">Origen Andino</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Nuestros ingredientes provienen directamente de la <strong>chagra</strong>, cultivados con
+                        técnicas ancestrales en las montañas del sur de Colombia.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div
+                    class="group p-8 rounded-3xl bg-[#111] border border-white/5 hover:border-[#FFFF00]/30 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#FFFF00] to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-[#FFFF00]/10 flex items-center justify-center mb-6 text-[#FFFF00] group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="flask-conical" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-brand font-bold text-white mb-3">Proceso Artesanal</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Respetamos los tiempos de la naturaleza. Realizamos <strong>macerados y conservas</strong>
+                        meticulosas para extraer la esencia pura de cada planta.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div
+                    class="group p-8 rounded-3xl bg-[#111] border border-white/5 hover:border-[#39FF14]/30 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#39FF14] to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-[#39FF14]/10 flex items-center justify-center mb-6 text-[#39FF14] group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="package-check" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-brand font-bold text-white mb-3">Conservación Ideal</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Envasamos en <strong>vidrio ámbar</strong> para proteger las propiedades fotosensibles,
+                        garantizando frescura y una mayor vida útil del producto.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CATÁLOGO -->
+    <section id="catalogo" class="py-24 px-4 relative z-10 border-t border-white/5 bg-[#030303]">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-8">
+                <div class="text-center md:text-left w-full md:w-auto">
+                    <!-- 1. CIMA (Pequeño) -->
+                    <span
+                        class="text-gray-300 font-brand tracking-[0.4em] text-[10px] md:text-xs uppercase mb-3 block opacity-90 border-b border-white/10 pb-1 inline-block">
+                        Catálogo Oficial
+                    </span>
+
+                    <h2 class="font-brand font-bold leading-none tracking-tight">
+                        <!-- 2. CUERPO (Grande) -->
+                        <span
+                            class="block text-4xl sm:text-5xl md:text-6xl mb-1 md:mb-2 text-gradient-mystic opacity-90">NUESTROS</span>
+                        <!-- 3. BASE (Más Grande) -->
+                        <span
+                            class="block text-5xl sm:text-6xl md:text-7xl text-gradient-mystic font-black drop-shadow-lg">
+                            PRODUCTOS
+                        </span>
+                    </h2>
+
+                    <p
+                        class="md:hidden text-gray-300 font-light text-sm mt-4 max-w-xs mx-auto leading-relaxed border-t border-white/20 pt-3">
+                        Explora la medicina de la tierra.
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap justify-center md:justify-end gap-3 mt-4 md:mt-0" id="filters">
+                    <button onclick="filterProducts('all')" class="cat-pill active">Todo</button>
+                    <button onclick="filterProducts('aceites')" class="cat-pill">Aceites</button>
+                    <button onclick="filterProducts('hidrolatos')" class="cat-pill">Hidrolatos</button>
+                    <button onclick="filterProducts('aromaticas')" class="cat-pill">Aromáticas</button>
+                    <button onclick="filterProducts('cuidado')" class="cat-pill">Cuidado</button>
+                </div>
+            </div>
+            <!-- Grid de Productos -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Se llena con JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DEJA TUS DATOS -->
+    <section id="contacto" class="py-24 px-4 relative z-10 bg-[#080808] border-t border-white/10">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-brand font-bold text-white mb-4">¿QUIERES UNA ASESORÍA?</h2>
+            <p class="text-gray-400 mb-12">Déjanos tus datos y te contactaremos para guiarte en tu proceso de sanación.
+            </p>
+
+            <div class="bg-white/5 p-8 rounded-3xl border border-white/10 backdrop-blur-sm max-w-2xl mx-auto">
+                <div class="space-y-6 text-left">
+                    <div>
+                        <label
+                            class="text-[#39FF14] text-xs font-bold uppercase tracking-widest mb-2 block">Nombre</label>
+                        <input type="text" id="contact-name" placeholder="Tu nombre completo" class="input-modern">
+                    </div>
+                    <div>
+                        <label
+                            class="text-[#39FF14] text-xs font-bold uppercase tracking-widest mb-2 block">Correo</label>
+                        <input type="email" id="contact-email" placeholder="tu@correo.com" class="input-modern">
+                    </div>
+                    <div>
+                        <label
+                            class="text-[#39FF14] text-xs font-bold uppercase tracking-widest mb-2 block">WhatsApp</label>
+                        <input type="tel" id="contact-phone" placeholder="Número de contacto" class="input-modern">
+                    </div>
+                    <button onclick="sendContactData()" class="w-full py-4 btn-mallku justify-center mt-4">
+                        ENVIAR DATOS
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Botón Flotante Carrito (Derecha) -->
+    <!-- Botón Flotante Carrito (Derecha) -->
+    <button id="floating-cart-btn" onclick="openCart()"
+        class="fixed bottom-8 right-8 z-50 group hover:scale-105 transition-transform duration-300">
+        <!-- Glow suave Verde -->
+        <div
+            class="absolute inset-0 bg-[#39FF14] rounded-full blur-md opacity-20 group-hover:opacity-40 transition-opacity">
+        </div>
+        <!-- Botón delicado -->
+        <div
+            class="relative w-16 h-16 bg-[#0a0a0a] rounded-full border border-[#39FF14]/30 flex items-center justify-center text-white shadow-xl backdrop-blur-sm">
+            <i data-lucide="shopping-bag"
+                class="w-7 h-7 text-[#39FF14]/80 group-hover:text-[#39FF14] transition-colors"></i>
+            <div id="cart-count"
+                class="absolute -top-1 -right-1 bg-[#F59E0B] text-black font-bold text-xs w-6 h-6 rounded-full flex items-center justify-center border-2 border-black">
+                0</div>
+        </div>
+    </button>
+
+    <!-- Botón Flotante WhatsApp (Izquierda) - MEJORADO -->
+    <!-- Botón Flotante WhatsApp (Izquierda) - ORIGINAL -->
+    <a href="https://wa.me/573159452314" target="_blank" onclick="trackWhatsAppClick()"
+        class="fixed bottom-8 left-8 z-50 group hover:scale-110 transition-transform duration-300">
+        <div
+            class="relative w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.5)] hover:bg-[#20bd5a] transition-colors">
+            <!-- Icono Original WhatsApp SVG -->
+            <svg viewBox="0 0 24 24" class="w-9 h-9 fill-white" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+            </svg>
+        </div>
+    </a>
+
+    <!-- MODAL CARRITO -->
+    <div id="cart-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="p-6 border-b border-white/5 bg-white/5 flex justify-between items-center backdrop-blur-md">
+                <h2 class="font-brand text-2xl text-white flex items-center gap-3 tracking-wide">
+                    <span class="text-[#39FF14]">///</span> TU PEDIDO
+                </h2>
+                <button onclick="closeCart()"
+                    class="text-gray-400 hover:text-white hover:bg-white/10 p-2 rounded-full transition-all">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-6 custom-scrollbar bg-[#0a0a0a]/50">
+                <div id="cart-items" class="space-y-4 mb-8">
+                    <div class="flex flex-col items-center justify-center py-10 opacity-40">
+                        <i data-lucide="shopping-bag" class="w-12 h-12 mb-2"></i>
+                        <p class="font-brand">CARRITO VACÍO</p>
+                    </div>
+                </div>
+                <div id="checkout-form" class="hidden space-y-8 animate-fade-in">
+                    <div>
+                        <h3
+                            class="font-brand text-[#39FF14] text-sm mb-4 tracking-widest border-b border-white/10 pb-2">
+                            01. TUS DATOS</h3>
+                        <div class="space-y-4">
+                            <input type="text" id="cust-name" placeholder="Nombre Completo" class="input-modern">
+                            <div class="grid grid-cols-2 gap-4">
+                                <input type="tel" id="cust-phone" placeholder="WhatsApp" class="input-modern">
+                                <input type="email" id="cust-email" placeholder="Email" class="input-modern">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3
+                            class="font-brand text-[#39FF14] text-sm mb-4 tracking-widest border-b border-white/10 pb-2">
+                            02. ENVÍO</h3>
+                        <label
+                            class="flex items-center gap-3 text-sm text-gray-300 cursor-pointer mb-4 p-3 rounded-lg border border-white/10 hover:bg-white/5 transition-colors">
+                            <input type="checkbox" id="pickup-store" onchange="toggleAddress()"
+                                class="accent-[#39FF14] w-4 h-4">
+                            <span>Recoger en Tienda (Sector Bomboná, Pasto)</span>
+                        </label>
+                        <div class="grid grid-cols-3 gap-4 transition-all duration-300" id="address-container">
+                            <select id="cust-city" class="input-modern bg-transparent appearance-none">
+                                <option value="Pasto" class="bg-black">Pasto</option>
+                                <option value="Otra Ciudad" class="bg-black">Otra Ciudad</option>
+                            </select>
+                            <div class="col-span-2">
+                                <input type="text" id="cust-address" placeholder="Dirección (Barrio, Calle #)"
+                                    class="input-modern">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3
+                            class="font-brand text-[#39FF14] text-sm mb-4 tracking-widest border-b border-white/10 pb-2">
+                            03. PAGO</h3>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="payment-option active group" onclick="selectPayment('Nequi', this)">
+                                <span class="font-bold block text-sm text-white group-hover:text-[#39FF14]">NEQUI</span>
+                            </div>
+                            <div class="payment-option group" onclick="selectPayment('Daviplata', this)">
+                                <span
+                                    class="font-bold block text-sm text-white group-hover:text-[#39FF14]">DAVIPLATA</span>
+                            </div>
+                            <div class="payment-option group" onclick="selectPayment('Efectivo', this)">
+                                <span
+                                    class="font-bold block text-sm text-white group-hover:text-[#39FF14]">EFECTIVO</span>
+                            </div>
+                        </div>
+                        <div id="payment-info"
+                            class="mt-3 text-xs text-gray-400 bg-white/5 p-3 rounded-lg border border-white/5 flex gap-2 items-start">
+                            <i data-lucide="info" class="w-4 h-4 text-[#39FF14] shrink-0"></i>
+                            <p>Para Nequi/Daviplata, deberás enviar el comprobante a nuestro WhatsApp al finalizar.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 bg-[#050505] border-t border-white/10">
+                <div class="flex justify-between items-baseline mb-4">
+                    <span class="text-gray-500 font-brand tracking-widest text-xs">TOTAL A PAGAR</span>
+                    <span id="cart-total" class="font-brand text-4xl text-white font-bold">$0</span>
+                </div>
+                <button onclick="checkout()" class="w-full py-4 btn-mallku justify-center">
+                    <i data-lucide="check-circle" class="w-5 h-5"></i> FINALIZAR COMPRA
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PRODUCTO -->
+    <div id="product-modal" class="modal-overlay">
+        <div class="modal-box max-w-3xl flex-row h-auto overflow-hidden bg-[#0a0a0a]">
+            <button onclick="closeProductModal()"
+                class="absolute top-4 right-4 z-20 text-white hover:text-[#39FF14] bg-black/50 p-2 rounded-full backdrop-blur-sm transition-all">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="hidden md:block w-1/2 relative bg-[#111]">
+                <img id="modal-img" src="" class="w-full h-full object-cover opacity-90">
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#0a0a0a]"></div>
+                <div
+                    class="absolute bottom-6 left-6 bg-black/80 backdrop-blur border border-[#39FF14] px-4 py-2 rounded-full">
+                    <span id="modal-price-float" class="text-[#39FF14] font-brand font-bold text-xl">$0</span>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-center relative">
+                <div class="md:hidden w-full h-48 mb-6 rounded-xl overflow-hidden bg-[#111]">
+                    <img id="modal-img-mobile" src="" class="w-full h-full object-cover">
+                </div>
+                <span id="modal-cat"
+                    class="text-[#39FF14] text-[10px] font-bold uppercase tracking-[0.2em] mb-3">CATEGORÍA</span>
+                <h2 id="modal-title" class="text-3xl md:text-4xl font-brand text-white font-bold leading-none mb-6">
+                    Nombre</h2>
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center gap-3 text-gray-400 text-sm">
+                        <i data-lucide="package" class="w-4 h-4 text-[#39FF14]"></i>
+                        <span id="modal-size">Tamaño</span>
+                    </div>
+                    <p id="modal-desc"
+                        class="text-gray-300 text-sm leading-relaxed font-light border-l border-white/20 pl-4">
+                        Descripción...</p>
+                </div>
+                <div class="mt-auto">
+                    <div class="flex justify-between items-center mb-4 md:hidden">
+                        <span class="text-gray-500 text-xs">PRECIO</span>
+                        <span id="modal-price-mobile" class="text-[#39FF14] font-bold text-xl">$0</span>
+                    </div>
+                    <button id="modal-add-btn" class="w-full py-3 btn-mallku justify-center gap-2">
+                        AGREGAR AL CARRITO <i data-lucide="plus" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer & Redes Sociales -->
+    <footer class="bg-[#050505] pt-24 pb-12 border-t border-white/10 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+
+                <!-- BRAND INFO -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="leaf" class="text-[#39FF14] w-8 h-8"></i>
+                        <span class="font-brand text-2xl font-bold text-white tracking-widest">MALLKU</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Saberes, sabores y tradiciones autóctonas de la medicina y cosmética desde las montañas del sur.
+                        Sanación consciente y natural.
+                    </p>
+                    <div class="flex gap-4">
+                        <!-- Facebook: Azul Neon -->
+                        <a href="https://www.facebook.com/share/1Cb8Pr4UWT/" target="_blank"
+                            class="w-10 h-10 rounded-full bg-[#1877F2]/10 border border-[#1877F2]/20 flex items-center justify-center text-[#1877F2] hover:bg-[#1877F2] hover:text-white transition-all shadow-[0_0_10px_rgba(24,119,242,0.2)] hover:shadow-[0_0_20px_rgba(24,119,242,0.6)]">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <!-- Instagram: Rosa/Purpura Neon -->
+                        <a href="https://www.instagram.com/mallku_sentiresandinos?igsh=MWhlYnBvZjdkM3EwYw=="
+                            target="_blank"
+                            class="w-10 h-10 rounded-full bg-[#E1306C]/10 border border-[#E1306C]/20 flex items-center justify-center text-[#E1306C] hover:bg-[#E1306C] hover:text-white transition-all shadow-[0_0_10px_rgba(225,48,108,0.2)] hover:shadow-[0_0_20px_rgba(225,48,108,0.6)]">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <!-- Teléfono: Verde Neon Tienda -->
+                        <a href="https://wa.me/573159452314" target="_blank"
+                            class="w-10 h-10 rounded-full bg-[#39FF14]/10 border border-[#39FF14]/20 flex items-center justify-center text-[#39FF14] hover:bg-[#39FF14] hover:text-black transition-all shadow-[0_0_10px_rgba(57,255,20,0.2)] hover:shadow-[0_0_20px_rgba(57,255,20,0.6)]">
+                            <i data-lucide="phone" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CONTACTO -->
+                <div>
+                    <h3 class="font-brand text-white font-bold mb-6 text-lg tracking-wider">CONTACTO</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-4 text-gray-400 hover:text-white transition-colors">
+                            <i data-lucide="map-pin"
+                                class="w-5 h-5 shrink-0 mt-1 text-[#39FF14] drop-shadow-[0_0_5px_rgba(57,255,20,0.5)]"></i>
+                            <span class="text-sm">Pasto, Nariño<br>Colombia</span>
+                        </li>
+                        <li class="flex items-center gap-4 text-gray-400 hover:text-white transition-colors">
+                            <i data-lucide="mail"
+                                class="w-5 h-5 shrink-0 text-[#39FF14] drop-shadow-[0_0_5px_rgba(57,255,20,0.5)]"></i>
+                            <span class="text-sm">mallkusentiresandinos@gmail.com</span>
+                        </li>
+                        <li class="flex items-center gap-4 text-gray-400 hover:text-white transition-colors">
+                            <i data-lucide="phone-call"
+                                class="w-5 h-5 shrink-0 text-[#39FF14] drop-shadow-[0_0_5px_rgba(57,255,20,0.5)]"></i>
+                            <span class="text-sm">+57 315 945 2314</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- ENLACES -->
+                <div>
+                    <h3 class="font-brand text-white font-bold mb-6 text-lg tracking-wider">EXPLORA</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#inicio" class="hover:text-[#A855F7] transition-colors flex items-center gap-2"><i
+                                    data-lucide="chevron-right" class="w-4 h-4 text-[#A855F7]"></i> Inicio</a></li>
+                        <li><a href="#esencia" class="hover:text-[#F59E0B] transition-colors flex items-center gap-2"><i
+                                    data-lucide="chevron-right" class="w-4 h-4 text-[#F59E0B]"></i> Nosotros</a></li>
+                        <li><a href="#catalogo"
+                                class="hover:text-[#D97706] transition-colors flex items-center gap-2"><i
+                                    data-lucide="chevron-right" class="w-4 h-4 text-[#D97706]"></i> Tienda</a></li>
+                        <li><a href="#contacto"
+                                class="hover:text-[#A855F7] transition-colors flex items-center gap-2"><i
+                                    data-lucide="chevron-right" class="w-4 h-4 text-[#A855F7]"></i> Asesoría</a></li>
+                    </ul>
+                </div>
+
+                <!-- NEWSLETTER -->
+                <div>
+                    <h3 class="font-brand text-white font-bold mb-6 text-lg tracking-wider">NOVEDADES</h3>
+                    <p class="text-gray-400 text-sm mb-4">Suscríbete para recibir consejos de bienestar y ofertas.</p>
+                    <div class="relative">
+                        <input type="email" placeholder="Tu correo electrónico"
+                            class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:border-[#39FF14] focus:outline-none transition-colors">
+                        <button
+                            class="absolute right-2 top-2 bg-[#39FF14] text-black p-1.5 rounded-md hover:scale-105 transition-transform">
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- BOTTOM BAR -->
+            <div
+                class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500 font-mono">
+                <p>&copy; 2026 Mallku Sentires Andinos. Todos los derechos reservados.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-white transition-colors">Privacidad</a>
+                    <a href="#" class="hover:text-white transition-colors">Términos</a>
+                    <span class="text-gray-400 font-light hover:text-[#A7F3D0] transition-colors text-xs">Hecho con amor
+                        🌿</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Hidden Netlify Form for Orders -->
+    <form name="orders" method="POST" data-netlify="true" hidden>
+        <input type="hidden" name="form-name" value="orders" />
+        <input type="text" name="name" />
+        <input type="text" name="phone" />
+        <input type="email" name="email" />
+        <textarea name="details"></textarea>
+        <input type="text" name="total" />
+        <input type="text" name="payment_method" />
+        <input type="text" name="delivery_type" />
+    </form>
+
+    <!-- Hidden Netlify Form for Contact -->
+    <form name="contact" method="POST" data-netlify="true" hidden>
+        <input type="hidden" name="form-name" value="contact" />
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="text" name="phone" />
+        <textarea name="message"></textarea>
+    </form>
+
+    <script>
+        // DATA DE PRODUCTOS
+        const products = [
+            // ACEITES
+            { id: 1, name: "Aceite Cannabis (CBD)", cat: "aceites", price: 40000, size: "15 ML", desc: "Antiinflamatorio, Analgésico, Neuroprotector, Relajante Calmante. (2 a 5 gotas).", img: "20220528_175921.jpg" },
+            { id: 2, name: "Aceite Tomillo", cat: "aceites", price: 30000, size: "15 ML", desc: "Antiinflamatorio, Analgésico, Antifúngico, Calmante, Antiséptico. (5 a 7 gotas).", img: "20220528_214515.jpg" },
+            { id: 3, name: "Aceite Full Spectrum", cat: "aceites", price: 70000, size: "15 ML", desc: "CBD+THC. Antiinflamatorio, Analgésico, Neuroprotector, Relajante Calmante, Sedante. (2 a 3 gotas).", img: "20221019_154710.jpg" },
+            { id: 4, name: "Aceite Orégano", cat: "aceites", price: 30000, size: "15 ML", desc: "Antiinflamatorio, Analgésico, Antioxidante, Neuroprotector, Relajante, mejora el ánimo. (5 a 7 gotas).", img: "20221019_154716.jpg" },
+            { id: 5, name: "Aceite Caléndula", cat: "aceites", price: 30000, size: "15 ML", desc: "Analgésico, Antiinflamatorio, Cicatrizante, Neuroprotector, Relajante Calmante, Antioxidante. (5 a 7 gotas).", img: "20221019_154802.jpg" },
+            { id: 6, name: "Aceite Manzanilla", cat: "aceites", price: 30000, size: "15 ML", desc: "Antiinflamatorio, Analgésico, Antioxidante, Calmante. (5 a 7 gotas).", img: "20221019_154811.jpg" },
+
+            // HIDROLATOS
+            { id: 7, name: "Hidrolato Lavanda", cat: "hidrolatos", price: 35000, size: "50 ML", desc: "Relajante, Antiinflamatorio, Cicatrizante, Analgésico, Antiespasmódico. Uso tópico/facial o aromaterapia.", img: "20221019_154904.jpg" },
+            { id: 8, name: "Hidrolato Romero", cat: "hidrolatos", price: 35000, size: "50 ML", desc: "Crecimiento capilar, Antiinflamatorio, Antibacterial, Analgésico. Uso tópico/facial o aromaterapia.", img: "20221019_154915.jpg" },
+            { id: 9, name: "Hidrolato Cítrico", cat: "hidrolatos", price: 35000, size: "50 ML", desc: "Hidratante, Antiinflamatorio, Calmante, Antioxidante. Uso tópico/facial o aromaterapia.", img: "20221019_154924.jpg" },
+
+            // CUIDADO
+            { id: 10, name: "Tintura de Plantas", cat: "cuidado", price: 15000, size: "120 ML", desc: "Relajante, Antiinflamatorio, Analgésico. Uso tópico (masajes circulares).", img: "20230125_161658.jpg" },
+            { id: 11, name: "Ungüento Recuperador", cat: "cuidado", price: 10000, size: "22 G", desc: "Ayuda en dolores musculares, inflamaciones, espasmos, artritis, tendinitis. Uso tópico.", img: "20230125_161802.jpg" },
+
+            // AROMATICAS 25G
+            { id: 12, name: "Aromática Manzanilla", cat: "aromaticas", price: 8000, size: "25 G", desc: "Selección de flores. Antiinflamatorio, Analgésico, Antioxidante, Calmante.", img: "20230914_105916.jpg" },
+            { id: 13, name: "Aromática Stevia", cat: "aromaticas", price: 8000, size: "25 G", desc: "Selección de hojas. Analgésico, Antiinflamatorio, Antioxidante, Relajante.", img: "20230914_105933.jpg" },
+            { id: 14, name: "Aromática Caléndula", cat: "aromaticas", price: 8000, size: "25 G", desc: "Selección de flores. Analgésico, Antiinflamatorio, Cicatrizante, Relajante.", img: "20230914_105934.jpg" },
+            { id: 15, name: "Aromática Cannabis", cat: "aromaticas", price: 8000, size: "25 G", desc: "Selección de hojas (CBD). Antiinflamatorio, Antioxidante, Relajante, Antidepresivo.", img: "20230916_113544.jpg" },
+            { id: 16, name: "Aromática Mix", cat: "aromaticas", price: 8000, size: "25 G", desc: "Mezcla de Stevia, Cannabis, Manzanilla y Caléndula. Analgésico, Antiinflamatorio.", img: "IMG-20211202-WA0110.jpg" },
+
+            // AROMATICAS FRASCO 50G
+            { id: 17, name: "Aromática Frasco Manzanilla", cat: "aromaticas", price: 17000, size: "50 G", desc: "Selección de flores. Antiinflamatorio, Analgésico, Antioxidante, Calmante.", img: "IMG-20211202-WA0111.jpg" },
+            { id: 18, name: "Aromática Frasco Caléndula", cat: "aromaticas", price: 17000, size: "50 G", desc: "Selección de flores. Analgésico, Antiflamatorio, Cicatrizante.", img: "IMG-20211202-WA0118.jpg" },
+            { id: 19, name: "Aromática Frasco Stevia", cat: "aromaticas", price: 17000, size: "50 G", desc: "Selección de hojas. Analgésico, Antioxidante, Relajante.", img: "IMG-20220528-WA0048.jpeg" },
+            { id: 20, name: "Aromática Frasco Cannabis", cat: "aromaticas", price: 17000, size: "50 G", desc: "Selección de hojas. Antiflamatorio, Relajante, Antidepresivo.", img: "IMG-20220730-WA0021.jpeg" },
+            { id: 21, name: "Aromática Mix Frasco", cat: "aromaticas", price: 17000, size: "50 G", desc: "Mix plantas. Analgésico, Antiflamatorio, Antioxidante, Relajante.", img: "IMG-20220803-WA0052.jpg" }
+        ];
+
+        // INIT
+        gsap.registerPlugin(ScrollTrigger);
+        lucide.createIcons();
+        renderProducts();
+
+        let cart = [];
+        let selectedPayment = 'Nequi';
+
+        // ANIMACIONES
+        gsap.from(".hero-text span", { y: 100, opacity: 0, duration: 1, stagger: 0.2, ease: "power4.out", delay: 0.5 });
+        gsap.from(".logo-anim", { scale: 0, opacity: 0, duration: 1.5, ease: "elastic.out(1, 0.5)" });
+        document.querySelectorAll(".reveal-text").forEach(el => {
+            gsap.from(el, { scrollTrigger: { trigger: el, start: "top 80%" }, y: 50, opacity: 0, duration: 1, ease: "power3.out" });
+        });
+
+
+        // FUNCTIONS
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+            const filtered = filter === 'all' ? products : products.filter(p => p.cat === filter);
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card flex flex-col group cursor-pointer';
+                card.onclick = () => openProductModal(product.id);
+                card.innerHTML = `
+                    <div class="aspect-square bg-[#111] relative overflow-hidden">
+                        <img src="${product.img}" alt="${product.name}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
+                        <div class="absolute top-3 right-3 bg-black/60 backdrop-blur text-white text-[10px] font-bold px-2 py-1 rounded border border-white/10 uppercase">${product.size}</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1 justify-between">
+                        <div><h3 class="font-brand text-lg text-white font-bold leading-tight mb-2 group-hover:text-[#F59E0B] transition-colors">${product.name}</h3><p class="text-xs text-gray-500 line-clamp-1 mb-3">${product.desc}</p></div>
+                        <div class="flex items-center justify-between border-t border-white/5 pt-3 mt-2"><span class="text-[#F59E0B] font-brand font-bold text-xl">$${product.price.toLocaleString()}</span><button onclick="event.stopPropagation(); addToCart(${product.id})" class="w-10 h-10 rounded-full bg-white/5 hover:bg-[#A855F7] hover:text-white text-white flex items-center justify-center transition-all group-hover:scale-110"><i data-lucide="plus" class="w-5 h-5"></i></button></div>
+                    </div>`;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        function filterProducts(category) {
+            document.querySelectorAll('.cat-pill').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderProducts(category);
+        }
+
+        // CONTACT FORM LOGIC
+        // CONTACT FORM LOGIC (UPDATED)
+        function sendContactData() {
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const phone = document.getElementById('contact-phone').value;
+
+            // Validation: Requires Name AND (Email OR Phone)
+            if (!name || (!email && !phone)) return Swal.fire({ title: 'Faltan datos', text: 'Por favor ingresa tu nombre y al menos un medio de contacto (Correo o WhatsApp).', icon: 'warning', background: '#111', color: '#fff', confirmButtonColor: '#39FF14' });
+
+            const subject = "Solicitud de Asesoría - Web Mallku";
+            const body = `Hola MALLKU,\n\nSoy ${name}, solicito asesoría sobre sus productos.\n\nMis datos de contacto:\nCorreo: ${email || 'No especificado'}\nWhatsApp: ${phone || 'No especificado'}`;
+
+            // Netlify Payload
+            const formObj = {
+                "form-name": "contact",
+                "name": name,
+                "email": email,
+                "phone": phone,
+                "message": body
+            };
+
+            let formBody = [];
+            for (let property in formObj) {
+                const encodedKey = encodeURIComponent(property);
+                const encodedValue = encodeURIComponent(formObj[property]);
+                formBody.push(encodedKey + "=" + encodedValue);
+            }
+            formBody = formBody.join("&");
+
+            // 1. Submit to Netlify (Silent)
+            fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: formBody
+            }).catch(e => console.error("Netlify Error:", e));
+
+            // 2. Open WhatsApp (Primary for quick response)
+            const waLink = `https://wa.me/573159452314?text=${encodeURIComponent(body)}`;
+
+            // 3. Open Email (Secondary)
+            const mailLink = `mailto:mallkusentiresandinos@gmail.com?bcc=valerialarcon119@gmail.com&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+            // Execute Actions
+            window.location.href = mailLink;
+            setTimeout(() => {
+                window.open(waLink, '_blank');
+            }, 1000);
+
+            // 4. Success Message
+            setTimeout(() => {
+                Swal.fire({
+                    title: '¡Mensaje Enviado!',
+                    text: 'Gracias por contactarnos. Te responderemos a la brevedad.',
+                    icon: 'success',
+                    background: '#111',
+                    color: '#fff',
+                    confirmButtonColor: '#39FF14'
+                });
+            }, 2000);
+        }
+        /* OLD LOGIC OVERWRITTEN
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const phone = document.getElementById('contact-phone').value;
+
+            if (!name || !email || !phone) return Swal.fire({ title: 'Faltan datos', text: 'Por favor completa todos los campos.', icon: 'error', background: '#111', color: '#fff', confirmButtonColor: '#39FF14' });
+
+            const subject = "Nuevo Contacto desde Web Mallku";
+            const body = `Nombre: ${name}%0D%0ACorreo: ${email}%0D%0AWhatsApp: ${phone}%0D%0A%0D%0ASolicito asesoría sobre sus productos.`;
+
+            // Send to public email, BCC to private email
+            window.location.href = `mailto:mallkusentiresandinos@gmail.com?bcc=valerialarcon119@gmail.com&subject=${subject}&body=${body}`;
+        }
+
+        */
+        // CART LOGIC
+        function toggleAddress() {
+            const isPickup = document.getElementById('pickup-store').checked;
+            const addressInput = document.getElementById('cust-address');
+            if (isPickup) { addressInput.value = "Retiro en Tienda - Bomboná"; addressInput.disabled = true; addressInput.classList.add('opacity-50'); }
+            else { addressInput.value = ""; addressInput.disabled = false; addressInput.classList.remove('opacity-50'); }
+        }
+
+        function selectPayment(method, btn) {
+            selectedPayment = method;
+            document.querySelectorAll('.payment-option').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const infoBox = document.getElementById('payment-info');
+            infoBox.innerHTML = (method === 'Nequi' || method === 'Daviplata') ?
+                `<i data-lucide="smartphone" class="w-4 h-4 text-[#39FF14]"></i><p>Deberás enviar el comprobante de pago por WhatsApp.</p>` :
+                `<i data-lucide="banknote" class="w-4 h-4 text-[#39FF14]"></i><p>Pago en efectivo disponible en tienda o contra entrega.</p>`;
+            lucide.createIcons();
+        }
+
+        function openProductModal(id) {
+            const product = products.find(p => p.id === id);
+            document.getElementById('modal-img').src = product.img;
+            document.getElementById('modal-img-mobile').src = product.img;
+            document.getElementById('modal-title').innerText = product.name;
+            document.getElementById('modal-price-float').innerText = `$${product.price.toLocaleString()}`;
+            document.getElementById('modal-price-mobile').innerText = `$${product.price.toLocaleString()}`;
+            document.getElementById('modal-size').innerText = product.size;
+            document.getElementById('modal-desc').innerText = product.desc;
+            document.getElementById('modal-cat').innerText = product.cat;
+            document.getElementById('modal-add-btn').onclick = () => { addToCart(product.id); closeProductModal(); };
+            document.getElementById('product-modal').style.display = 'flex';
+        }
+
+        function closeProductModal() { document.getElementById('product-modal').style.display = 'none'; }
+        function openCart() { document.getElementById('cart-modal').style.display = 'flex'; }
+        function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
+        window.onclick = function (e) { if (e.target.classList.contains('modal-overlay')) e.target.style.display = 'none'; }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            if (existing) existing.qty++; else cart.push({ ...product, qty: 1 });
+            updateCartUI();
+
+            // Animate Cart
+            const btn = document.getElementById('floating-cart-btn');
+            if (btn) {
+                btn.classList.add('cart-shake');
+                setTimeout(() => btn.classList.remove('cart-shake'), 500);
+            }
+
+            const Toast = Swal.mixin({ toast: true, position: 'top', showConfirmButton: false, timer: 3000, background: 'rgba(20,20,20,0.95)', color: '#fff', iconColor: '#F59E0B', customClass: { popup: 'border border-white/10 rounded-full px-6 py-2 shadow-2xl backdrop-blur-md' } });
+            Toast.fire({ icon: 'success', title: `${product.name} agregado` });
+        }
+
+        function updateCartUI() {
+            const count = cart.reduce((acc, item) => acc + item.qty, 0);
+            document.getElementById('cart-count').innerText = count;
+            document.getElementById('mobile-cart-count').innerText = count;
+            const list = document.getElementById('cart-items');
+            const form = document.getElementById('checkout-form');
+            if (cart.length === 0) {
+                list.innerHTML = `<div class="flex flex-col items-center justify-center py-10 opacity-40"><i data-lucide="shopping-bag" class="w-12 h-12 mb-2 stroke-1"></i><p class="font-brand">CARRITO VACÍO</p></div>`;
+                form.classList.add('hidden');
+                document.getElementById('cart-total').innerText = '$0';
+            } else {
+                form.classList.remove('hidden');
+                let total = 0;
+                list.innerHTML = cart.map((item, index) => {
+                    total += item.price * item.qty;
+                    return `<div class="flex items-center gap-4 bg-white/5 p-3 rounded-xl border border-white/5 hover:bg-white/10 transition-colors group">
+                        <div class="w-12 h-12 bg-black rounded-lg overflow-hidden flex-shrink-0"><img src="${item.img}" class="w-full h-full object-cover"></div>
+                        <div class="flex-1"><h4 class="text-white font-bold text-sm leading-tight">${item.name}</h4><p class="text-gray-500 text-xs mt-1">$${item.price.toLocaleString()} x ${item.qty}</p></div>
+                        <div class="text-right"><p class="text-[#39FF14] font-bold text-sm">$${(item.price * item.qty).toLocaleString()}</p><button onclick="removeFromCart(${index})" class="text-gray-500 hover:text-red-500 transition-colors mt-1 opacity-0 group-hover:opacity-100"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div>
+                    </div>`;
+                }).join('');
+                document.getElementById('cart-total').innerText = `$${total.toLocaleString()}`;
+            }
+            lucide.createIcons();
+        }
+
+        function removeFromCart(index) { cart.splice(index, 1); updateCartUI(); }
+
+        function checkout() {
+            if (cart.length === 0) return Swal.fire({ title: '¡Ups!', text: 'Agrega productos primero.', icon: 'warning', background: '#111', color: '#fff', confirmButtonColor: '#39FF14' });
+
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const email = document.getElementById('cust-email').value;
+            const city = document.getElementById('cust-city').value;
+            const address = document.getElementById('cust-address').value;
+            const isPickup = document.getElementById('pickup-store').checked;
+
+            // Validation: Name AND (Phone OR Email) AND Address (if delivery)
+            if (!name || (!phone && !email) || (!isPickup && !address)) {
+                return Swal.fire({
+                    title: 'Faltan datos',
+                    text: 'Por favor completa tu nombre, dirección (si aplica) y al menos un medio de contacto (WhatsApp o Correo).',
+                    icon: 'warning',
+                    confirmButtonColor: '#39FF14',
+                    background: '#111',
+                    color: '#fff'
+                });
+            }
+
+            // Construct Message
+            let message = `Hola *MALLKU* 🌿\nSoy *${name}*, quiero realizar el siguiente pedido:\n\n`;
+            let emailBody = `Hola MALLKU,\n\nSoy ${name}, quiero realizar el siguiente pedido:\n\n`;
+
+            let total = 0;
+            // Build string for WhatsApp and plain text email
+            let orderDetails = "";
+            cart.forEach(item => {
+                const line = `▪ ${item.name} (${item.size}) x${item.qty} - $${(item.price * item.qty).toLocaleString()}\n`;
+                message += line;
+                emailBody += line;
+                orderDetails += line;
+                total += item.price * item.qty;
+            });
+
+            const totalLine = `\n💰 TOTAL: $${total.toLocaleString()}\n`;
+            message += totalLine + `----------------------------------\n👤 *DATOS CLIENTE:*\n📱 ${phone || 'No especificado'}\n📧 ${email || 'No especificado'}\n`;
+            emailBody += totalLine + `\n----------------------------------\nDATOS CLIENTE:\nWhatsApp: ${phone || 'No especificado'}\nCorreo: ${email || 'No especificado'}\n`;
+
+            if (isPickup) {
+                message += `📦 *Entrega:* Retiro en Tienda (Bomboná)\n`;
+                emailBody += `Entrega: Retiro en Tienda (Bomboná)\n`;
+            } else {
+                message += `🚚 *Envío a:* ${address}, ${city}\n`;
+                emailBody += `Envío a: ${address}, ${city}\n`;
+            }
+
+            message += `💳 *Pago:* ${selectedPayment}\n`;
+            emailBody += `Pago: ${selectedPayment}\n`;
+
+            if (selectedPayment === 'Nequi' || selectedPayment === 'Daviplata') {
+                message += `📎 *Nota:* Enviaré comprobante en breve.\n`;
+                emailBody += `Nota: Enviaré comprobante en breve por WhatsApp.\n`;
+            }
+
+            // WhatsApp link (Primary)
+            const waLink = `https://wa.me/573159452314?text=${encodeURIComponent(message)}`;
+
+            // Email link (Secondary fallback)
+            const mailLink = `mailto:mallkusentiresandinos@gmail.com?bcc=valerialarcon119@gmail.com&subject=Nuevo Pedido - ${name}&body=${encodeURIComponent(emailBody)}`;
+
+            // Netlify Form Submission
+            const formObj = {
+                "form-name": "orders",
+                "name": name,
+                "phone": phone,
+                "email": email,
+                "details": orderDetails,
+                "total": total.toString(),
+                "payment_method": selectedPayment,
+                "delivery_type": isPickup ? "Retiro" : `Envío a ${city} - ${address}`
+            };
+
+            let formBody = [];
+            for (let property in formObj) {
+                const encodedKey = encodeURIComponent(property);
+                const encodedValue = encodeURIComponent(formObj[property]);
+                formBody.push(encodedKey + "=" + encodedValue);
+            }
+            formBody = formBody.join("&");
+
+            // Attempt to submit to Netlify (silently) then redirect
+            fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: formBody
+            }).finally(() => {
+                // NUEVO: Enviar venta real al backend Analytics
+                fetch('https://mallku-backend.onrender.com/api/sales', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        customerId: `cust_${Date.now()}`,
+                        customerName: name,
+                        amount: total,
+                        products: cart.map(item => item.name),
+                        channel: 'online',
+                        email: email,
+                        phone: phone,
+                        paymentMethod: selectedPayment,
+                        deliveryType: isPickup ? 'pickup' : 'delivery'
+                    })
+                }).catch(e => console.log('Analytics offline:', e));
+
+                // Ensure links open regardless of fetch success/fail
+                window.location.href = mailLink;
+                setTimeout(() => {
+                    window.open(waLink, '_blank');
+                }, 1000);
+
+                // Success Message
+                setTimeout(() => {
+                    Swal.fire({
+                        title: '¡Pedido Iniciado!',
+                        text: 'Gracias por tu compra. Nos estaremos contactando contigo para confirmar.',
+                        icon: 'success',
+                        background: '#111',
+                        color: '#fff',
+                        confirmButtonColor: '#39FF14'
+                    });
+                    closeCart();
+                    cart = [];
+                    updateCartUI();
+                }, 2000);
+            });
+        }
+        /* OLD LOGIC OVERWRITTEN
+            if (cart.length === 0) return Swal.fire({ title: '¡Ups!', text: 'Agrega productos primero.', icon: 'warning', background: '#111', color: '#fff', confirmButtonColor: '#39FF14' });
+
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const email = document.getElementById('cust-email').value;
+            const city = document.getElementById('cust-city').value;
+            const address = document.getElementById('cust-address').value;
+            const isPickup = document.getElementById('pickup-store').checked;
+
+            if (!name || !phone || !email || (!isPickup && !address)) return Swal.fire({ title: 'Faltan datos', text: 'Completa tu información.', icon: 'error', confirmButtonColor: '#39FF14', background: '#111', color: '#fff' });
+
+            // Construct Message
+            let message = `Hola *MALLKU* 🌿\nSoy *${name}*, quiero realizar el siguiente pedido:\n\n`;
+            let emailBody = `Hola MALLKU,\n\nSoy ${name}, quiero realizar el siguiente pedido:\n\n`;
+
+            let total = 0;
+            // Build string for WhatsApp and plain text email
+            let orderDetails = "";
+            cart.forEach(item => {
+                const line = `▪ ${item.name} (${item.size}) x${item.qty} - $${(item.price * item.qty).toLocaleString()}\n`;
+                message += line;
+                emailBody += line;
+                orderDetails += line;
+                total += item.price * item.qty;
+            });
+
+            const totalLine = `\n💰 TOTAL: $${total.toLocaleString()}\n`;
+            message += totalLine + `----------------------------------\n👤 *DATOS CLIENTE:*\n📱 ${phone}\n📧 ${email}\n`;
+            emailBody += totalLine + `\n----------------------------------\nDATOS CLIENTE:\nWhatsApp: ${phone}\nCorreo: ${email}\n`;
+
+            if (isPickup) {
+                message += `📦 *Entrega:* Retiro en Tienda (Bomboná)\n`;
+                emailBody += `Entrega: Retiro en Tienda (Bomboná)\n`;
+            } else {
+                message += `🚚 *Envío a:* ${address}, ${city}\n`;
+                emailBody += `Envío a: ${address}, ${city}\n`;
+            }
+
+            message += `💳 *Pago:* ${selectedPayment}\n`;
+            emailBody += `Pago: ${selectedPayment}\n`;
+
+            if (selectedPayment === 'Nequi' || selectedPayment === 'Daviplata') {
+                message += `📎 *Nota:* Enviaré comprobante en breve.\n`;
+                emailBody += `Nota: Enviaré comprobante en breve por WhatsApp.\n`;
+            }
+
+            // WhatsApp link (Primary)
+            const waLink = `https://wa.me/573159452314?text=${encodeURIComponent(message)}`;
+
+            // Email link (Secondary fallback)
+            const mailLink = `mailto:mallkusentiresandinos@gmail.com?bcc=valerialarcon119@gmail.com&subject=Nuevo Pedido - ${name}&body=${encodeURIComponent(emailBody)}`;
+
+            // Netlify Form Submission
+            const formObj = {
+                "form-name": "orders",
+                "name": name,
+                "phone": phone,
+                "email": email,
+                "details": orderDetails,
+                "total": total.toString(),
+                "payment_method": selectedPayment,
+                "delivery_type": isPickup ? "Retiro" : `Envío a ${city} - ${address}`
+            };
+
+            let formBody = [];
+            for (let property in formObj) {
+                const encodedKey = encodeURIComponent(property);
+                const encodedValue = encodeURIComponent(formObj[property]);
+                formBody.push(encodedKey + "=" + encodedValue);
+            }
+            formBody = formBody.join("&");
+
+            // Attempt to submit to Netlify (silently) then redirect
+            fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: formBody
+            }).then(() => {
+                // On success (or attempt), open WhatsApp
+                window.location.href = mailLink;
+                setTimeout(() => {
+                    window.open(waLink, '_blank');
+                }, 1000);
+            }).catch((error) => {
+                console.error("Form submission failed", error);
+                // Fallback if fetch fails (e.g. running locally without netlify dev)
+                window.location.href = mailLink;
+                setTimeout(() => {
+                    window.open(waLink, '_blank');
+                }, 1000);
+            });
+        }
+
+        */
+
+        // ============================================
+        // 📊 MALLKU ANALYTICS TRACKING
+        // ============================================
+        const API_BASE = 'https://mallku-backend.onrender.com/api';
+
+        // Track page visit on load
+        window.addEventListener('load', () => {
+            fetch(`${API_BASE}/visit`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ page: 'home' })
+            }).catch(e => console.log('Analytics offline:', e));
+        });
+
+        // Track WhatsApp clicks
+        function trackWhatsAppClick() {
+            fetch(`${API_BASE}/whatsapp-click`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ source: 'floating_button' })
+            }).catch(e => console.log('Analytics offline:', e));
+        }
+
+        // Track abandoned cart (when user closes cart modal without checkout)
+        let cartOpenTime = null;
+        const originalOpenCart = window.openCart;
+        window.openCart = function () {
+            cartOpenTime = Date.now();
+            if (originalOpenCart) originalOpenCart();
+        };
+
+        const originalCloseCart = window.closeCart;
+        window.closeCart = function () {
+            if (cart.length > 0 && cartOpenTime) {
+                const timeSpent = Date.now() - cartOpenTime;
+                if (timeSpent > 3000) { // User spent more than 3 seconds
+                    const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+                    fetch(`${API_BASE}/abandoned-cart`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            products: cart.map(item => item.name),
+                            totalAmount
+                        })
+                    }).catch(e => console.log('Analytics offline:', e));
+                }
+            }
+            cartOpenTime = null;
+            if (originalCloseCart) originalCloseCart();
+        };
+
+        // Particle Animation
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles = [];
+        function resize() { width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height; }
+        class Particle {
+            constructor() { this.reset(); }
+            reset() { this.x = Math.random() * width; this.y = height + Math.random() * 50; this.vx = (Math.random() - 0.5) * 0.3; this.vy = -Math.random() * 0.3 - 0.1; this.size = Math.random() * 2; this.color = Math.random() > 0.5 ? 'rgba(57, 255, 20,' : 'rgba(255, 255, 0,'; this.alpha = Math.random() * 0.2 + 0.05; }
+            update() { this.x += this.vx; this.y += this.vy; this.alpha -= 0.001; if (this.alpha <= 0) this.reset(); }
+            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = this.color + this.alpha + ')'; ctx.fill(); }
+        }
+        function init() { particles = []; for (let i = 0; i < 60; i++) particles.push(new Particle()); }
+        function animate() { ctx.clearRect(0, 0, width, height); particles.forEach(p => { p.update(); p.draw() }); requestAnimationFrame(animate); }
+        window.addEventListener('resize', () => { resize(); init() }); resize(); init(); animate();
+    </script>
+</body>
+
+</html>
