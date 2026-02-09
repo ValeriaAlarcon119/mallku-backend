@@ -1,8 +1,8 @@
 {
-  "name": "mallku",
+  "name": "mallku-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Backend API con IA para Mallku ecommerce analytics",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "server": "node server.js",
