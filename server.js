@@ -13,6 +13,9 @@ app.use(cors({
 }));
 app.use(bodyParser.json());
 
+// Servir archivos estáticos del root (Tienda Legacy - index.html)
+app.use(express.static('.'));
+
 // ============================================
 // 📊 IN-MEMORY DATABASE (Enhanced Real-time)
 // ============================================
@@ -297,12 +300,111 @@ app.post('/api/stock/update', (req, res) => {
     res.json({ success: true, product, newQuantity: quantity });
 });
 
+// 🔟 Customer Details with Emails (NEW - for modal)
+app.get('/api/customers/details', (req, res) => {
+    const customerDetails = Array.from(customers.values()).map(customer => {
+        const customerSales = salesData.filter(s => s.customerId === customer.id);
+        const totalSpent = customerSales.reduce((sum, s) => sum + s.amount, 0);
+        const lastPurchase = customerSales.length > 0
+            ? customerSales.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))[0].timestamp
+            : customer.firstPurchase;
+        return {
+            id: customer.id,
+            name: customer.name,
+            email: customer.email,
+            phone: customer.phone,
+            totalSpent,
+            orders: customerSales.length,
+            lastPurchase,
+            firstPurchase: customer.firstPurchase,
+            favoriteProduct: getMostBoughtProduct(customerSales)
+        };
+    }).sort((a, b) => b.totalSpent - a.totalSpent);
+    res.json(customerDetails);
+});
+
+function getMostBoughtProduct(sales) {
+    const counts = {};
+    sales.forEach(s => {
+        s.products.forEach(p => { counts[p] = (counts[p] || 0) + 1; });
+    });
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    return sorted[0] ? sorted[0][0] : 'N/A';
+}
+
+// 1️⃣1️⃣ Monthly Orders Detail (NEW - for modal)
+app.get('/api/orders/monthly', (req, res) => {
+    const now = new Date();
+    const monthlyOrders = salesData.filter(sale => {
+        const saleDate = new Date(sale.timestamp);
+        return saleDate.getMonth() === now.getMonth() && saleDate.getFullYear() === now.getFullYear();
+    }).map(sale => {
+        const customer = customers.get(sale.customerId);
+        return {
+            id: sale.id,
+            customerName: customer ? customer.name : 'Cliente Anónimo',
+            customerEmail: customer ? customer.email : 'N/A',
+            amount: sale.amount,
+            products: sale.products,
+            channel: sale.channel,
+            timestamp: sale.timestamp
+        };
+    }).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    const totalMonth = monthlyOrders.reduce((sum, o) => sum + o.amount, 0);
+    res.json({ orders: monthlyOrders, totalMonth, count: monthlyOrders.length });
+});
+
+// 1️⃣2️⃣ Sales Detail (NEW - for modal)
+app.get('/api/sales/details', (req, res) => {
+    const salesByCustomer = {};
+    salesData.forEach(sale => {
+        const customer = customers.get(sale.customerId);
+        const name = customer ? customer.name : 'Anónimo';
+        if (!salesByCustomer[name]) {
+            salesByCustomer[name] = {
+                name,
+                email: customer ? customer.email : 'N/A',
+                total: 0,
+                orders: 0,
+                products: []
+            };
+        }
+        salesByCustomer[name].total += sale.amount;
+        salesByCustomer[name].orders += 1;
+        sale.products.forEach(p => {
+            if (!salesByCustomer[name].products.includes(p)) salesByCustomer[name].products.push(p);
+        });
+    });
+
+    const summary = Object.values(salesByCustomer).sort((a, b) => b.total - a.total);
+    const grandTotal = salesData.reduce((sum, s) => sum + s.amount, 0);
+    res.json({ summary, grandTotal, totalOrders: salesData.length });
+});
+
 // ============================================
 // 🔄 SEED DATA (Enhanced)
 // ============================================
 function seedData() {
     const products = ['Aceite Cannabis', 'Hidrolato Lavanda', 'Aromática Mix', 'Ungüento Recuperador', 'Aceite Tomillo'];
-    const names = ['Ana Martínez', 'Carlos López', 'María García', 'Juan Pérez', 'Sofía Rodríguez'];
+
+    const customerData = [
+        { id: 'cust_0', name: 'Ana Martínez', email: 'ana.martinez@gmail.com', phone: '+57 312 456 7890' },
+        { id: 'cust_1', name: 'Carlos López', email: 'carlos.lopez@hotmail.com', phone: '+57 315 234 5678' },
+        { id: 'cust_2', name: 'María García', email: 'maria.garcia@outlook.com', phone: '+57 318 567 8901' },
+        { id: 'cust_3', name: 'Juan Pérez', email: 'juan.perez@yahoo.com', phone: '+57 320 890 1234' },
+        { id: 'cust_4', name: 'Sofía Rodríguez', email: 'sofia.rodriguez@gmail.com', phone: '+57 311 345 6789' },
+        { id: 'cust_5', name: 'Camila Torres', email: 'camila.torres@gmail.com', phone: '+57 314 678 9012' },
+        { id: 'cust_6', name: 'Andrés Morales', email: 'andres.morales@outlook.com', phone: '+57 316 012 3456' },
+        { id: 'cust_7', name: 'Laura Jiménez', email: 'laura.jimenez@hotmail.com', phone: '+57 319 234 5678' },
+        { id: 'cust_8', name: 'Diego Ramírez', email: 'diego.ramirez@gmail.com', phone: '+57 313 456 7890' },
+        { id: 'cust_9', name: 'Valentina Ospina', email: 'valentina.ospina@yahoo.com', phone: '+57 317 890 1234' }
+    ];
+
+    // Register all customers
+    customerData.forEach(c => {
+        customers.set(c.id, { ...c, firstPurchase: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString() });
+    });
 
     // Initialize stock
     products.forEach(p => stockLevels.set(p, Math.floor(Math.random() * 20) + 5));
@@ -325,22 +427,24 @@ function seedData() {
         whatsappClicks.push({ id: `wa_${i}`, timestamp: new Date(Date.now() - Math.random() * 15 * 24 * 60 * 60 * 1000).toISOString(), source: 'floating_button' });
     }
 
+    // Generate sales - ensure some are this month
     for (let i = 0; i < 50; i++) {
-        const customerId = `cust_${Math.floor(Math.random() * 5)}`;
-        const customerName = names[Math.floor(Math.random() * names.length)];
-        const timestamp = new Date(Date.now() - Math.random() * 180 * 24 * 60 * 60 * 1000);
+        const custIdx = Math.floor(Math.random() * customerData.length);
+        const cust = customerData[custIdx];
+        // Make ~20% of sales this month
+        const isThisMonth = i < 12;
+        const timestamp = isThisMonth
+            ? new Date(Date.now() - Math.random() * 20 * 24 * 60 * 60 * 1000)
+            : new Date(Date.now() - Math.random() * 180 * 24 * 60 * 60 * 1000);
         const sale = {
             id: `sale_${i}`,
-            customerId,
+            customerId: cust.id,
             amount: Math.floor(Math.random() * 50000) + 10000,
             products: [products[Math.floor(Math.random() * products.length)]],
             channel: Math.random() > 0.5 ? 'online' : 'fisica',
             timestamp: timestamp.toISOString()
         };
         salesData.push(sale);
-        if (!customers.has(customerId)) {
-            customers.set(customerId, { id: customerId, name: customerName, firstPurchase: timestamp.toISOString() });
-        }
     }
 
     for (let i = 0; i < 8; i++) {

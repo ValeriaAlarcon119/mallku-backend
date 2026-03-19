@@ -157,19 +157,109 @@
             transform: translateY(-5px);
         }
 
-        /* Product Card */
+        /* Product Card - Premium Glassmorphism */
         .product-card {
-            background: rgba(20, 20, 20, 0.6);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(30, 30, 30, 0.6) 100%);
+            border: 1px solid transparent;
+            border-radius: 24px;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Gradient Border Effect */
+        .product-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0.5;
+            transition: opacity 0.5s ease;
+        }
+
+        .product-card:hover::before {
+            background: linear-gradient(135deg, #39FF14 0%, #A855F7 50%, #F59E0B 100%);
+            opacity: 1;
+        }
+
+        /* Glow Effect on Hover */
+        .product-card::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #39FF14, #A855F7, #F59E0B);
+            opacity: 0;
+            z-index: -1;
+            filter: blur(20px);
+            transition: opacity 0.5s ease;
+        }
+
+        .product-card:hover::after {
+            opacity: 0.3;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--mallku-lime);
-            box-shadow: 0 10px 30px -10px rgba(57, 255, 20, 0.15);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow:
+                0 20px 40px -15px rgba(57, 255, 20, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        }
+
+        /* Product Image Container */
+        .product-img-container {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+
+        .product-img-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+        }
+
+        .product-card:hover .product-img-container::before {
+            opacity: 1;
+        }
+
+        /* Price Badge */
+        .price-badge {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 119, 6, 0.2) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .price-badge {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.3) 0%, rgba(217, 119, 6, 0.3) 100%);
+            border-color: rgba(245, 158, 11, 0.6);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+        }
+
+        /* Add to Cart Button */
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(147, 51, 234, 0.2) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background: linear-gradient(135deg, #A855F7 0%, #9333EA 100%);
+            border-color: #A855F7;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+            transform: scale(1.1) rotate(90deg);
         }
 
         /* Inputs */
@@ -331,6 +421,24 @@
 
         .cart-shake {
             animation: shake 0.5s ease-in-out;
+        }
+
+        /* Product Card Fade In Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
         }
     </style>
 </head>
@@ -1065,22 +1173,22 @@
     <script>
         // DATA DE PRODUCTOS
         const products = [
-            // ACEITES
-            { id: 1, name: "Aceite Cannabis (CBD)", cat: "aceites", price: 40000, size: "15 ML", desc: "Antiinflamatorio, Analgésico, Neuroprotector, Relajante Calmante. (2 a 5 gotas).", img: "20220528_175921.jpg" },
-            { id: 2, name: "Aceite Tomillo", cat: "aceites", price: 30000, size: "15 ML", desc: "Antiinflamatorio, Analgésico, Antifúngico, Calmante, Antiséptico. (5 a 7 gotas).", img: "20220528_214515.jpg" },
-            { id: 3, name: "Aceite Full Spectrum", cat: "aceites", price: 70000, size: "15 ML", desc: "CBD+THC. Antiinflamatorio, Analgésico, Neuroprotector, Relajante Calmante, Sedante. (2 a 3 gotas).", img: "20221019_154710.jpg" },
-            { id: 4, name: "Aceite Orégano", cat: "aceites", price: 30000, size: "15 ML", desc: "Antiinflamatorio, Analgésico, Antioxidante, Neuroprotector, Relajante, mejora el ánimo. (5 a 7 gotas).", img: "20221019_154716.jpg" },
-            { id: 5, name: "Aceite Caléndula", cat: "aceites", price: 30000, size: "15 ML", desc: "Analgésico, Antiinflamatorio, Cicatrizante, Neuroprotector, Relajante Calmante, Antioxidante. (5 a 7 gotas).", img: "20221019_154802.jpg" },
-            { id: 6, name: "Aceite Manzanilla", cat: "aceites", price: 30000, size: "15 ML", desc: "Antiinflamatorio, Analgésico, Antioxidante, Calmante. (5 a 7 gotas).", img: "20221019_154811.jpg" },
+            // ACEITES ESENCIALES
+            { id: 1, name: "Aceite Esencial Cannabis (CBD)", cat: "aceites", price: 40000, size: "15 ML", desc: "Antiinflamatorio, Analgésico, Neuroprotector, Relajante Calmante. (2 a 5 gotas).", img: "20220528_175921.jpg" },
+            { id: 2, name: "Aceite Esencial Cannabis Fullspectrum (CBD+THC)", cat: "aceites", price: 70000, size: "15 ML", desc: "Antiinflamatorio, Analgésico, Neuroprotector, Relajante Calmante, Sedante. (2 a 3 gotas).", img: "20221019_154710.jpg" },
+            { id: 3, name: "Aceite Esencial Tomillo", cat: "aceites", price: 30000, size: "15 ML", desc: "Antiinflamatorio, Analgésico, Antifúngico, Calmante, Antiséptico. (5 a 7 gotas).", img: "20220528_214515.jpg" },
+            { id: 4, name: "Aceite Esencial Orégano", cat: "aceites", price: 30000, size: "15 ML", desc: "Antiinflamatorio, Analgésico, Antioxidante, Neuroprotector, Relajante, mejora el ánimo. (5 a 7 gotas).", img: "20221019_154716.jpg" },
+            { id: 5, name: "Aceite Esencial Caléndula", cat: "aceites", price: 30000, size: "15 ML", desc: "Analgésico, Antiinflamatorio, Cicatrizante, Neuroprotector, Relajante Calmante, Antioxidante. (5 a 7 gotas).", img: "20221019_154802.jpg" },
+            { id: 6, name: "Aceite Esencial Manzanilla", cat: "aceites", price: 30000, size: "15 ML", desc: "Antiinflamatorio, Analgésico, Antioxidante, Calmante. (5 a 7 gotas).", img: "20221019_154811.jpg" },
 
             // HIDROLATOS
-            { id: 7, name: "Hidrolato Lavanda", cat: "hidrolatos", price: 35000, size: "50 ML", desc: "Relajante, Antiinflamatorio, Cicatrizante, Analgésico, Antiespasmódico. Uso tópico/facial o aromaterapia.", img: "20221019_154904.jpg" },
-            { id: 8, name: "Hidrolato Romero", cat: "hidrolatos", price: 35000, size: "50 ML", desc: "Crecimiento capilar, Antiinflamatorio, Antibacterial, Analgésico. Uso tópico/facial o aromaterapia.", img: "20221019_154915.jpg" },
-            { id: 9, name: "Hidrolato Cítrico", cat: "hidrolatos", price: 35000, size: "50 ML", desc: "Hidratante, Antiinflamatorio, Calmante, Antioxidante. Uso tópico/facial o aromaterapia.", img: "20221019_154924.jpg" },
+            { id: 7, name: "Hidrolato Lavanda", cat: "hidrolatos", price: 35000, size: "50 ML", desc: "Relajante, Antiinflamatorio, Cicatrizante, Analgésico, Antiespasmódico. (uso tópico, directo a la piel y rostro como desmaquillante, en aromaterapia 20 gotas en el difusor).", img: "20221019_154904.jpg" },
+            { id: 8, name: "Hidrolato Cítrico", cat: "hidrolatos", price: 35000, size: "50 ML", desc: "Hidratante, Antiinflamatorio, Calmante, Antioxidante. (uso tópico, directo a la piel y rostro como desmaquillante, en aromaterapia 20 gotas en el difusor).", img: "20221019_154924.jpg" },
+            { id: 9, name: "Hidrolato Romero", cat: "hidrolatos", price: 35000, size: "50 ML", desc: "Antiinflamatorio, crecimiento capilar, antibacterial, Analgésico. (uso tópico, directo a la piel y rostro como desmaquillante, en aromaterapia 20 gotas en el difusor).", img: "20221019_154915.jpg" },
 
-            // CUIDADO
-            { id: 10, name: "Tintura de Plantas", cat: "cuidado", price: 15000, size: "120 ML", desc: "Relajante, Antiinflamatorio, Analgésico. Uso tópico (masajes circulares).", img: "20230125_161658.jpg" },
-            { id: 11, name: "Ungüento Recuperador", cat: "cuidado", price: 10000, size: "22 G", desc: "Ayuda en dolores musculares, inflamaciones, espasmos, artritis, tendinitis. Uso tópico.", img: "20230125_161802.jpg" },
+            // TINTURA Y UNGÜENTO
+            { id: 10, name: "Tintura a Base de Plantas", cat: "cuidado", price: 15000, size: "120 ML", desc: "Relajante, Antiinflamatorio, Analgésico. (uso tópico, directo a la piel y hacer masajes circulares en la zona afectada).", img: "20230125_161658.jpg" },
+            { id: 11, name: "Ungüento Recuperador Muscular a Base de Plantas", cat: "cuidado", price: 10000, size: "22 G", desc: "Ayuda en dolores musculares, inflamaciones, espasmos, artritis, tendinitis, varices. (uso tópico, directo en la zona afectada con masajes circulares).", img: "20230125_161802.jpg" },
 
             // AROMATICAS 25G
             { id: 12, name: "Aromática Manzanilla", cat: "aromaticas", price: 8000, size: "25 G", desc: "Selección de flores. Antiinflamatorio, Analgésico, Antioxidante, Calmante.", img: "20230914_105916.jpg" },
@@ -1118,19 +1226,79 @@
             const grid = document.getElementById('product-grid');
             grid.innerHTML = '';
             const filtered = filter === 'all' ? products : products.filter(p => p.cat === filter);
-            filtered.forEach(product => {
+
+            // Category color mapping
+            const categoryColors = {
+                'aceites': { primary: '#39FF14', secondary: '#2DD10F', name: 'Aceite Esencial' },
+                'hidrolatos': { primary: '#A855F7', secondary: '#9333EA', name: 'Hidrolato' },
+                'cuidado': { primary: '#F59E0B', secondary: '#D97706', name: 'Cuidado' },
+                'aromaticas': { primary: '#10B981', secondary: '#059669', name: 'Aromática' }
+            };
+
+            filtered.forEach((product, index) => {
                 const card = document.createElement('div');
                 card.className = 'product-card flex flex-col group cursor-pointer';
+                card.style.animationDelay = `${index * 0.1}s`;
                 card.onclick = () => openProductModal(product.id);
+
+                const catColor = categoryColors[product.cat];
+
                 card.innerHTML = `
-                    <div class="aspect-square bg-[#111] relative overflow-hidden">
-                        <img src="${product.img}" alt="${product.name}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
-                        <div class="absolute top-3 right-3 bg-black/60 backdrop-blur text-white text-[10px] font-bold px-2 py-1 rounded border border-white/10 uppercase">${product.size}</div>
+                    <div class="product-img-container aspect-square relative">
+                        <img src="${product.img}" 
+                             alt="${product.name}" 
+                             class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 ease-out">
+                        
+                        <!-- Category Badge -->
+                        <div class="absolute top-3 left-3 px-3 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-wider backdrop-blur-md border"
+                             style="background: linear-gradient(135deg, ${catColor.primary}15, ${catColor.secondary}15); 
+                                    border-color: ${catColor.primary}40; 
+                                    color: ${catColor.primary};">
+                            ${catColor.name}
+                        </div>
+                        
+                        <!-- Size Badge -->
+                        <div class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 rounded-full border border-white/20 uppercase tracking-wide">
+                            ${product.size}
+                        </div>
+                        
+                        <!-- Quick Add Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-6">
+                            <button onclick="event.stopPropagation(); addToCart(${product.id})" 
+                                    class="add-to-cart-btn w-12 h-12 rounded-full flex items-center justify-center transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                                <i data-lucide="shopping-cart" class="w-5 h-5 text-white"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="p-5 flex flex-col flex-1 justify-between">
-                        <div><h3 class="font-brand text-lg text-white font-bold leading-tight mb-2 group-hover:text-[#F59E0B] transition-colors">${product.name}</h3><p class="text-xs text-gray-500 line-clamp-1 mb-3">${product.desc}</p></div>
-                        <div class="flex items-center justify-between border-t border-white/5 pt-3 mt-2"><span class="text-[#F59E0B] font-brand font-bold text-xl">$${product.price.toLocaleString()}</span><button onclick="event.stopPropagation(); addToCart(${product.id})" class="w-10 h-10 rounded-full bg-white/5 hover:bg-[#A855F7] hover:text-white text-white flex items-center justify-center transition-all group-hover:scale-110"><i data-lucide="plus" class="w-5 h-5"></i></button></div>
-                    </div>`;
+                    
+                    <div class="p-6 flex flex-col flex-1 justify-between relative z-10">
+                        <!-- Product Info -->
+                        <div class="mb-4">
+                            <h3 class="font-brand text-lg text-white font-bold leading-tight mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r transition-all duration-300"
+                                style="--tw-gradient-from: ${catColor.primary}; --tw-gradient-to: ${catColor.secondary};">
+                                ${product.name}
+                            </h3>
+                            <p class="text-xs text-gray-400 line-clamp-2 leading-relaxed">
+                                ${product.desc}
+                            </p>
+                        </div>
+                        
+                        <!-- Price & Action -->
+                        <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                            <div class="flex flex-col">
+                                <span class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Precio</span>
+                                <span class="price-badge text-[#F59E0B] font-brand font-bold text-2xl px-3 py-1 rounded-lg">
+                                    $${product.price.toLocaleString()}
+                                </span>
+                            </div>
+                            
+                            <button onclick="event.stopPropagation(); addToCart(${product.id})" 
+                                    class="hidden md:flex add-to-cart-btn w-11 h-11 rounded-full items-center justify-center">
+                                <i data-lucide="plus" class="w-5 h-5 text-white"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
                 grid.appendChild(card);
             });
             lucide.createIcons();
