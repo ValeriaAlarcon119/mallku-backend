@@ -1,11 +1,16 @@
 [build]
-  # Comando para instalar y compilar el dashboard de React
   command = "cd mallku-react && npm install && npm run build && cd .. && mkdir -p dashboard && cp -r mallku-react/dist/* dashboard/"
-  # El directorio que Netlify va a publicar (la raíz)
   publish = "."
 
+# Redirige la raíz automáticamente al dashboard
 [[redirects]]
-  # Esto asegura que el Dashboard de React funcione bien al refrescar la página
+  from = "/"
+  to = "/dashboard/"
+  status = 301
+  force = false
+
+# SPA fallback: el dashboard de React no da 404 al refrescar
+[[redirects]]
   from = "/dashboard/*"
   to = "/dashboard/index.html"
   status = 200

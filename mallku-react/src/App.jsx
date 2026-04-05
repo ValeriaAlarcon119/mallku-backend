@@ -49,7 +49,10 @@ const SidebarItem = ({ icon: Icon, label, active, onClick, badge }) => (
 
 function App() {
     const [activeTab, setActiveTab] = useState('dashboard');
-    const [sidebarOpen, setSidebarOpen] = useState(true);
+    // Sidebar cerrado por defecto en móvil, abierto solo en pantallas grandes
+    const [sidebarOpen, setSidebarOpen] = useState(
+        typeof window !== 'undefined' && window.innerWidth >= 1024
+    );
 
     const menuItems = [
         { id: 'dashboard', label: 'Centro de Comando', icon: LayoutDashboard, badge: 'Live IA' },
@@ -75,7 +78,7 @@ function App() {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-6">
                             <button
-                                onClick={() => window.open('http://localhost:3000', '_blank')}
+                                onClick={() => window.open('https://tienda-mallku.netlify.app', '_blank')}
                                 className="bg-[var(--mallku-green)] text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 hover:scale-105 active:scale-95 shadow-[0_20px_40px_-10px_rgba(6,78,59,0.3)] transition-all"
                             >
                                 <ExternalLink className="w-4 h-4" />
