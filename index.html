@@ -825,6 +825,9 @@
         </div>
     </a>
 
+    <!-- Global Overlay for Modals -->
+    <div id="global-overlay" class="modal-overlay hidden fixed inset-0 z-[1050] bg-black/40 backdrop-blur-sm"></div>
+
     <!-- MODAL CARRITO LIGHT -->
     <div id="cart-modal" class="modal-overlay hidden fixed inset-0 z-[1100]">
         <div class="flex justify-end w-full h-full">
@@ -1158,25 +1161,220 @@
         }
 
 
+        async function checkout() {
+            if (cart.length === 0) return;
+            closeCart();
+
+            // ── PASO 1: TELÉFONO ──────────────────────────────────────────────
+            const { value: phone, isConfirmed: phoneOk } = await Swal.fire({
+                title: '🌿 Identificación',
+                html: `
+                    <div class="text-left space-y-4 p-2">
+                        <p class="text-xs text-gray-500 leading-relaxed">Ingresa tu número de WhatsApp para continuar con tu pedido.</p>
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-[4px] text-[var(--mallku-emerald)] mb-2 block">Número WhatsApp</label>
+                            <input id="swal-phone" type="tel" inputmode="numeric"
+                                class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-5 py-4 text-base focus:border-[var(--mallku-emerald)] focus:outline-none transition-all"
+                                placeholder="Ej: 3170762467">
+                        </div>
+                    </div>
+                `,
+                confirmButtonText: 'Siguiente →',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar',
+                background: '#fff',
+                color: 'var(--mallku-emerald)',
+                confirmButtonColor: 'var(--mallku-emerald)',
+                customClass: { popup: 'rounded-[2.5rem] p-8 shadow-2xl', container: 'swal-z-top' },
+                didOpen: () => { document.getElementById('swal-phone').focus(); },
+                preConfirm: () => {
+                    const val = document.getElementById('swal-phone').value.trim().replace(/\s+/g, '');
+                    if (!val || val.length < 7) {
+                        Swal.showValidationMessage('Número inválido. Mínimo 7 dígitos.');
+                        return false;
+                    }
+                    return val;
+                }
+            });
+
+            if (!phoneOk) { openCart(); return; }
+
+            // ── PASO 2: NOMBRE + TIPO DE ENTREGA ──────────────────────────────
+            const step2 = await Swal.fire({
+                title: '📦 Datos del Pedido',
+                html: `
+                    <div class="text-left space-y-5 p-2">
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-[4px] text-[var(--mallku-emerald)] mb-2 block">Nombre Completo</label>
+                            <input id="swal-name" type="text"
+                                class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-5 py-4 text-base focus:border-[var(--mallku-emerald)] focus:outline-none transition-all"
+                                placeholder="Tu nombre completo">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-[4px] text-[var(--mallku-emerald)] mb-3 block">¿Cómo quieres recibir tu pedido?</label>
+                            <div class="grid grid-cols-1 gap-3">
+                                <button type="button" id="opt-bombona" onclick="selectDelivery('bombona')"
+                                    class="delivery-opt p-4 border-2 rounded-2xl text-sm font-bold text-left transition-all border-[var(--mallku-emerald)] bg-[var(--mallku-bone)]">
+                                    🏪 <span class="font-black">Recoger en Tienda</span><br>
+                                    <span class="text-xs font-normal text-gray-500 mt-1 block">Barrio Bombona, Pasto — Agendamos una cita por WhatsApp</span>
+                                </button>
+                                <button type="button" id="opt-domicilio" onclick="selectDelivery('domicilio')"
+                                    class="delivery-opt p-4 border-2 rounded-2xl text-sm font-bold text-left transition-all border-[var(--mallku-emerald)]/10">
+                                    🚚 <span class="font-black">Domicilio</span><br>
+                                    <span class="text-xs font-normal text-gray-500 mt-1 block">Te lo llevamos a tu puerta</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="address-block" class="hidden">
+                            <label class="text-[10px] font-black uppercase tracking-[4px] text-[var(--mallku-emerald)] mb-2 block">Dirección de Entrega</label>
+                            <input id="swal-address" type="text"
+                                class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-5 py-4 text-base focus:border-[var(--mallku-emerald)] focus:outline-none transition-all"
+                                placeholder="Barrio, Calle, Referencia">
+                        </div>
+                    </div>
+                `,
+                confirmButtonText: 'Siguiente: Pago →',
+                showCancelButton: true,
+                cancelButtonText: '← Atrás',
+                background: '#fff',
+                color: 'var(--mallku-emerald)',
+                confirmButtonColor: 'var(--mallku-emerald)',
+                customClass: { popup: 'rounded-[2.5rem] p-8 shadow-2xl', container: 'swal-z-top' },
+                didOpen: () => {
+                    window._deliveryMode = 'bombona';
+                    document.getElementById('swal-name').focus();
+                },
+                preConfirm: () => {
+                    const name = document.getElementById('swal-name').value.trim();
+                    if (!name) { Swal.showValidationMessage('Por favor ingresa tu nombre.'); return false; }
+                    const mode = window._deliveryMode || 'bombona';
+                    let address = '';
+                    if (mode === 'domicilio') {
+                        address = document.getElementById('swal-address').value.trim();
+                        if (!address) { Swal.showValidationMessage('Ingresa tu dirección de entrega.'); return false; }
+                    }
+                    return { name, mode, address };
+                }
+            });
+
+            if (!step2.isConfirmed) { openCart(); return; }
+            const { name, mode, address } = step2.value;
+
+            // ── PASO 3: MEDIO DE PAGO ─────────────────────────────────────────
+            const step3 = await Swal.fire({
+                title: '💳 Medio de Pago',
+                html: `
+                    <div class="text-left space-y-4 p-2">
+                        <p class="text-xs text-gray-500 leading-relaxed">${mode === 'bombona'
+                            ? '📍 Te contactaremos por WhatsApp para agendar tu cita en <b>Barrio Bombona, Pasto</b>.'
+                            : `🚚 Domicilio a: <b>${address}</b>`
+                        }</p>
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-[4px] text-[var(--mallku-emerald)] mb-2 block">Método de Pago</label>
+                            <select id="swal-payment" class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-5 py-4 text-base focus:border-[var(--mallku-emerald)] focus:outline-none">
+                                <option value="Nequi">Nequi</option>
+                                <option value="Bancolombia">Bancolombia</option>
+                                <option value="Daviplata">Daviplata</option>
+                                <option value="Efectivo">Efectivo (Solo en local)</option>
+                            </select>
+                        </div>
+                    </div>
+                `,
+                confirmButtonText: '✅ Confirmar Pedido',
+                showCancelButton: true,
+                cancelButtonText: '← Atrás',
+                background: '#fff',
+                color: 'var(--mallku-emerald)',
+                confirmButtonColor: 'var(--mallku-emerald)',
+                customClass: { popup: 'rounded-[2.5rem] p-8 shadow-2xl', container: 'swal-z-top' },
+            });
+
+            if (!step3.isConfirmed) { openCart(); return; }
+            const payment = document.getElementById('swal-payment').value;
+
+            // ── ARMAR MENSAJE WHATSAPP ─────────────────────────────────────────
+            let total = 0;
+            let msg = `*🌿 MALLKU — NUEVO PEDIDO*\n\n`;
+            msg += `👤 *Cliente:* ${name}\n`;
+            msg += `📞 *WhatsApp:* ${phone}\n`;
+            if (mode === 'bombona') {
+                msg += `🏪 *Entrega:* Recogida en Tienda — Barrio Bombona, Pasto\n`;
+                msg += `📅 _(Te contactamos para agendar la cita)_\n`;
+            } else {
+                msg += `🚚 *Entrega:* Domicilio\n`;
+                msg += `📍 *Dirección:* ${address}\n`;
+            }
+            msg += `💳 *Pago:* ${payment}\n\n`;
+            msg += `🛒 *PRODUCTOS:*\n`;
+            cart.forEach(i => {
+                msg += `• ${i.name} x${i.qty} — $${(i.price * i.qty).toLocaleString()}\n`;
+                total += i.price * i.qty;
+            });
+            msg += `\n💰 *TOTAL:* $${total.toLocaleString()}\n\n`;
+            msg += `_¡Vuelve a tu esencia! ✨_`;
+
+            window.open(`https://wa.me/573170762467?text=${encodeURIComponent(msg)}`, '_blank');
+
+            // Track silencioso
+            fetch('/api/sales', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ customerName: name, phone, amount: total, products: cart.map(i => i.name) })
+            }).catch(() => {});
+
+            cart = []; updateCartUI();
+            Swal.fire({
+                icon: 'success',
+                title: '¡Pedido Enviado! 🌿',
+                text: mode === 'bombona' ? 'Te contactaremos para agendar tu cita en Bombona.' : '¡Pronto llegará tu pedido a domicilio!',
+                timer: 4000,
+                showConfirmButton: false,
+                background: '#fff',
+                color: 'var(--mallku-emerald)',
+                customClass: { popup: 'rounded-[2.5rem]' }
+            });
+        }
+
+        function selectDelivery(mode) {
+            window._deliveryMode = mode;
+            document.querySelectorAll('.delivery-opt').forEach(b => {
+                b.classList.remove('border-[var(--mallku-emerald)]', 'bg-[var(--mallku-bone)]');
+                b.classList.add('border-[var(--mallku-emerald)]/10');
+            });
+            const btn = document.getElementById(mode === 'bombona' ? 'opt-bombona' : 'opt-domicilio');
+            btn.classList.add('border-[var(--mallku-emerald)]', 'bg-[var(--mallku-bone)]');
+            btn.classList.remove('border-[var(--mallku-emerald)]/10');
+            const addrBlock = document.getElementById('address-block');
+            if (mode === 'domicilio') {
+                addrBlock.classList.remove('hidden');
+                document.getElementById('swal-address').focus();
+            } else {
+                addrBlock.classList.add('hidden');
+            }
+        }
+
         function openCart() { 
             const cart = document.getElementById('cart-modal');
             const overlay = document.getElementById('global-overlay');
+            if (!cart) return;
             cart.classList.remove('hidden'); 
             cart.classList.add('flex');
             setTimeout(() => {
                 cart.classList.add('active');
-                overlay.classList.add('active');
+                if (overlay) overlay.classList.remove('hidden'), overlay.classList.add('active');
             }, 10);
         }
 
         function closeCart() { 
             const cart = document.getElementById('cart-modal');
             const overlay = document.getElementById('global-overlay');
+            if (!cart) return;
             cart.classList.remove('active');
-            overlay.classList.remove('active');
+            if (overlay) overlay.classList.remove('active');
             setTimeout(() => {
                 cart.classList.add('hidden'); 
                 cart.classList.remove('flex');
+                if (overlay) overlay.classList.add('hidden');
             }, 600);
         }
 
