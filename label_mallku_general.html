@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Label Publicitario General - Mallku Sentires Andinos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --mallku-green: #1A4331;
+            /* Verde exacto de la referencia del usuario */
+            --gold-mallku: #D4AF37;
+            --neon-green-mallku: rgba(0, 255, 150, 1);
+            --crema-claro: #efeade;
+            --white-soft: #f5f5f0;
+            --light-green: #a8e063;
+            /* Un verdecito para el título superior */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--white-soft);
+        }
+
+        .label-outer {
+            padding: 0;
+            background: transparent;
+        }
+
+        .border-wrapper {
+            width: 840px;
+            /* Reducido espacio en blanco del centro */
+            height: 380px;
+            /* Aumentado bordecito arriba y abajo */
+            padding: 3px;
+            background: #e811ff;
+            /* Fucsia exacto de la imagen */
+            border-radius: 0;
+            /* Filos rectos */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                0 0 6px rgba(232, 17, 255, 0.8),
+                0 0 18px rgba(232, 17, 255, 0.5),
+                0 15px 40px rgba(0, 0, 0, 0.8);
+            /* Glow de la tarjeta reducido */
+        }
+
+        .label-container {
+            width: 834px;
+            /* Reducido espacio en blanco del centro */
+            height: 374px;
+            /* Aumentado bordecito arriba y abajo */
+            background-color: var(--mallku-green);
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+            /* Filos rectos */
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .texture-overlay {
+            display: none;
+            /* Cero efectos, verde totalmente limpio y parejo */
+            position: absolute;
+            inset: 0;
+            background: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* COLUMNA IZQUIERDA: BRANDING */
+        .branding-left {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            /* Alineado desde arriba */
+            padding: 16px 2px 10px 10px;
+            /* Reducido para subir Mallku */
+            z-index: 15;
+            gap: 9px;
+            /* Juntamos elementos para que suban */
+        }
+
+        .branding-title-main {
+            font-size: 44px;
+            font-weight: 700;
+            letter-spacing: 7px;
+            /* Más delgado */
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: -5px;
+            /* Efecto glow morado intenso */
+            text-shadow:
+                0 1px 0 #e811ff, 0 -1px 0 #e811ff, 1px 0 0 #e811ff, -1px 0 0 #e811ff,
+                1px 1px 0 #e811ff, 1px -1px 0 #e811ff, -1px 1px 0 #e811ff, -1px -1px 0 #e811ff,
+                0 0 15px #e811ff, 0 0 30px #e811ff, 0 0 45px rgba(232, 17, 255, 0.8);
+        }
+
+        .branding-title-sub {
+            font-size: 19px;
+            font-weight: 600;
+            /* Más delgado */
+            letter-spacing: 6px;
+            /* Más separado */
+            text-transform: uppercase;
+            color: #ffffff;
+            /* Se evita -webkit-text-stroke para que no salgan lineas raras en PDF */
+            text-shadow: 
+                0.5px 0.5px 0 #f7e296, -0.5px -0.5px 0 #f7e296, 
+                0.5px -0.5px 0 #f7e296, -0.5px 0.5px 0 #f7e296,
+                0 0.5px 0 #f7e296, 0 -0.5px 0 #f7e296,
+                0.5px 0 0 #f7e296, -0.5px 0 0 #f7e296;
+            margin-bottom: 5px;
+        }
+
+        .branding-logo-circle {
+            width: 175px;
+            /* Un poquito más grande */
+            height: 175px;
+            border-radius: 50%;
+            padding: 4px;
+            background: #ffffff;
+            /* Borde interior blanco */
+            box-shadow: 0 0 8px #ffffff, 0 0 18px rgba(255, 255, 255, 0.6);
+            /* Resplandor blanco neón */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .branding-logo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background: #000;
+        }
+
+        .branding-phrase {
+            font-size: 19.5px;
+            /* Un punto más grandecito general */
+            font-weight: 600;
+            letter-spacing: 2px;
+            /* Ajuste para mantener los 2 renglones con fuente mayor */
+            text-transform: uppercase;
+            color: #ffffff;
+            line-height: 1.3;
+            text-align: center;
+            margin-top: 15px;
+            white-space: nowrap;
+            /* Se evita -webkit-text-stroke para que no salgan lineas raras en PDF */
+            text-shadow: 
+                0.5px 0.5px 0 #e811ff, -0.5px -0.5px 0 #e811ff, 
+                0.5px -0.5px 0 #e811ff, -0.5px 0.5px 0 #e811ff,
+                0 0.5px 0 #e811ff, 0 -0.5px 0 #e811ff,
+                0.5px 0 0 #e811ff, -0.5px 0 0 #e811ff;
+        }
+
+        /* COLUMNA DERECHA: PRODUCTOS Y CONTACTO */
+        .right-panel {
+            flex: 1;
+            height: 100%;
+            z-index: 15;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            /* Alineado desde arriba */
+            padding: 16px 10px 10px 2px;
+            /* Margen superior igual a Mallku */
+            gap: 12px;
+        }
+
+        .separator {
+            width: 360px;
+            height: 0px;
+            border-top: 2px solid rgba(255, 255, 255, 0.7); /* Renderizado como línea vectorial, a prueba de PDFs */
+            margin: 4px 0; /* Espacio para que respire la línea elegante */
+        }
+
+        .origin-title-green {
+            font-size: 23px;
+            /* Subido un poco */
+            font-weight: 600;
+            /* Más delgado */
+            letter-spacing: 6px;
+            /* Más separado */
+            text-transform: uppercase;
+            color: #ffffff;
+            /* Se evita -webkit-text-stroke para que no salgan lineas raras en PDF */
+            text-shadow: 
+                0.5px 0.5px 0 #f7e296, -0.5px -0.5px 0 #f7e296, 
+                0.5px -0.5px 0 #f7e296, -0.5px 0.5px 0 #f7e296,
+                0 0.5px 0 #f7e296, 0 -0.5px 0 #f7e296,
+                0.5px 0 0 #f7e296, -0.5px 0 0 #f7e296;
+        }
+
+        .section-title {
+            font-size: 23px;
+            /* Subido un poco */
+            font-weight: 600;
+            /* Más delgado */
+            letter-spacing: 6px;
+            /* Más separado */
+            text-transform: uppercase;
+            color: #ffffff;
+            /* Se evita -webkit-text-stroke para que no salgan lineas raras en PDF */
+            text-shadow: 
+                0.5px 0.5px 0 #f7e296, -0.5px -0.5px 0 #f7e296, 
+                0.5px -0.5px 0 #f7e296, -0.5px 0.5px 0 #f7e296,
+                0 0.5px 0 #f7e296, 0 -0.5px 0 #f7e296,
+                0.5px 0 0 #f7e296, -0.5px 0 0 #f7e296;
+        }
+
+        .products-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 9px 15px; /* Reducido un poquito para evitar amontonamiento con letras más grandes */
+            width: 98%; /* Más espacio horizontal */
+            margin: 3px 0;
+        }
+
+        .product-item {
+            font-size: 16px;
+            /* Aumentado tamaño de productos */
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            color: #ffffff;
+            text-transform: uppercase;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+        }
+
+        .contact-vertical-list {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 7px;
+            width: 320px;
+            /* Expandido para texto más grande */
+            margin-top: 6px;
+            /* Subido para que no se peque abajo */
+            transform: translateX(-35px);
+            /* Más a la izquierda para darle espacio al correo larguísimo en la derecha */
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .contact-item img,
+        .contact-item svg {
+            width: 25px;
+            height: 25px;
+            border-radius: 4px;
+        }
+
+        /* Colores originales sin neón ni efectos */
+        .color-wpp {
+            color: #25D366;
+        }
+
+        .color-ig {
+            color: #E1306C;
+        }
+
+        .color-fb {
+            color: #1877F2;
+        }
+
+        .contact-text {
+            font-size: 15.5px;
+            /* Bajado un tris */
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        .btn-print {
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: var(--gold-mallku);
+            color: #000;
+            border: none;
+            border-radius: 40px;
+            font-weight: 800;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            transition: 0.3s;
+        }
+
+        .btn-print:hover {
+            background: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--gold-mallku);
+        }
+
+        @media print {
+            @page {
+                margin: 10mm;
+                /* Márgenes iguales alrededor */
+            }
+
+            .label-outer {
+                zoom: 0.85; /* Usa zoom en vez de transform para evitar que el navegador deforme los bordes en PDF */
+                padding: 20px !important; 
+            }
+
+            .label-container {
+                width: 100% !important;
+                height: 100% !important;
+            }
+
+            body {
+                background: white !important;
+                justify-content: flex-start !important;
+                /* Lo pega a la parte superior de la hoja */
+                align-items: center !important;
+                /* Centrado horizontal */
+                min-height: auto !important;
+                padding: 0 !important;
+            }
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                /* Fuerza la mejor calidad y colores exactos */
+                print-color-adjust: exact !important;
+            }
+
+            .btn-print {
+                display: none !important;
+            }
+
+            .border-wrapper {
+                /* Forzamos un borde vectorial real más grueso para PDF */
+                box-shadow: none !important;
+                background-color: transparent !important;
+                padding: 0 !important;
+                border: 5px solid #e811ff !important; /* Borde más grueso y notable */
+            }
+
+            .separator {
+                /* Forzamos que los separadores se dibujen en PDF obligatoriamente sin importar configuración de tinta */
+                border-top: 2px solid rgba(255, 255, 255, 0.8) !important;
+                background-color: transparent !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="label-outer">
+        <div class="border-wrapper">
+            <div class="label-container">
+                <div class="texture-overlay"></div>
+
+                <!-- SECCIÓN IZQUIERDA: BRANDING COMPLETO -->
+                <div class="branding-left">
+                    <div class="branding-title-main">MALLKU</div>
+                    <div class="branding-title-sub">SENTIRES ANDINOS</div>
+
+                    <div class="branding-logo-circle">
+                        <img src="./WhatsApp Image 2026-02-04 at 11.03.07 PM.jpeg" alt="Logo Mallku">
+                    </div>
+
+                    <div class="branding-phrase">¡Dejamos que la naturaleza<br>haga lo suyo!</div>
+                </div>
+
+                <!-- SECCIÓN DERECHA: INFO -->
+                <div class="right-panel">
+                    <div class="origin-title-green">100% NARIÑENSE</div>
+                    <div class="separator"></div>
+
+                    <div class="section-title">PRODUCTOS</div>
+
+                    <div class="products-grid">
+                        <span class="product-item">Oleatos</span>
+                        <span class="product-item">Tinturas</span>
+                        <span class="product-item">Ungüentos</span>
+                        <span class="product-item">Hidrolatos</span>
+                        <span class="product-item">Mermeladas</span>
+                        <span class="product-item">Aromáticas</span>
+                        <span class="product-item">Sales Herbales</span>
+                    </div>
+
+                    <div class="separator"></div>
+
+                    <div class="contact-vertical-list">
+                        <!-- WPP Original -->
+                        <div class="contact-item">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="#25d366"
+                                    d="M20.52 3.449C18.24 1.171 15.201 0 12.001 0 5.38 0 0 5.38 0 11.996c0 2.115.551 4.185 1.597 6.002L.013 24l6.147-1.611c1.782.964 3.785 1.474 5.84 1.474s.005 0 .005 0c6.621 0 12.002-5.38 12.002-11.998 0-3.21-1.248-6.223-3.487-8.416z" />
+                                <path fill="#fff"
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.878-.788-1.471-1.761-1.643-2.06-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.8 5.8 0 00-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.086 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                            </svg>
+                            <span class="contact-text">3170762467 - 3159452314</span>
+                        </div>
+                        <!-- IG Original -->
+                        <div class="contact-item">
+                            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="ig" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#f09433" />
+                                        <stop offset="25%" stop-color="#e6683c" />
+                                        <stop offset="50%" stop-color="#dc2743" />
+                                        <stop offset="75%" stop-color="#cc2366" />
+                                        <stop offset="100%" stop-color="#bc1888" />
+                                    </linearGradient>
+                                </defs>
+                                <rect width="32" height="32" rx="8" fill="url(#ig)" />
+                                <path
+                                    d="M16 11c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0 8.2c-1.8 0-3.2-1.4-3.2-3.2s1.4-3.2 3.2-3.2 3.2 1.4 3.2 3.2-1.4 3.2-3.2 3.2zm5.3-7.5c0 .6-.5 1.2-1.2 1.2-.6 0-1.2-.5-1.2-1.2s.5-1.2 1.2-1.2c.7 0 1.2.5 1.2 1.2z"
+                                    fill="#fff" />
+                                <path
+                                    d="M20.9 7H11.1C8.8 7 7 8.8 7 11.1v9.8C7 23.2 8.8 25 11.1 25h9.8c2.3 0 4.1-1.8 4.1-4.1v-9.8C25 8.8 23.2 7 20.9 7zm2.3 13.9c0 1.3-1 2.3-2.3 2.3H11.1c-1.3 0-2.3-1-2.3-2.3v-9.8C8.8 9.8 9.8 8.8 11.1 8.8h9.8c1.3 0 2.3 1 2.3 2.3v9.8z"
+                                    fill="#fff" />
+                            </svg>
+                            <span class="contact-text">@mallku_sentiresandinos</span>
+                        </div>
+                        <!-- FB Original -->
+                        <div class="contact-item">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="12" fill="#1877F2" />
+                                <path
+                                    d="M15.3 8.3h-1.8c-.8 0-1.4.3-1.4 1v1.6h3.1l-.5 3h-2.6v7.3H9v-7.3H6.8V11H9V8.6C9 6.2 10.4 5 12.5 5c1 0 2 .2 2.8.4v2.9z"
+                                    fill="white" />
+                            </svg>
+                            <span class="contact-text">Mallku Pasto</span>
+                        </div>
+                        <!-- Email -->
+                        <div class="contact-item">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="24" height="24" rx="12" fill="#D44638" />
+                                <path d="M5 8l7 4.5L19 8v8H5V8zm0-2h14v1l-7 4.5L5 7V6z" fill="#ffffff" />
+                            </svg>
+                            <span class="contact-text">mallkusentiresandinos@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <button class="btn-print" onclick="window.print()">Descargar para Publicidad</button>
+
+</body>
+
+</html>

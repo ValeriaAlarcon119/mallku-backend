@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etiqueta Oficial Tomillo - Mallku</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mallku-green: #304426; 
+            --neon-green-mallku: rgba(0, 255, 150, 1);
+            --neon-lime-sentires: #Aee373;
+            --label-accent-gradient: linear-gradient(135deg, #AEE373, #DDA0DD); 
+            --crema-claro: #efeade;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #000; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            color: #f5f5f0;
+        }
+
+        .label-outer { padding: 0; background: transparent; }
+
+        /* BORDE NEÓN DE TARJETA EQUILIBRADO */
+        .border-wrapper {
+            width: 1006px;
+            height: 341px;
+            padding: 3px;
+            background: var(--label-accent-gradient);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(174, 227, 115, 0.6), 0 0 30px rgba(221, 160, 221, 0.4);
+        }
+
+        .label-container {
+            width: 1000px;
+            height: 335px; 
+            background-color: var(--mallku-green);
+            background-image: 
+                url('./assets/label_background.png'),
+                radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden; 
+        }
+
+        .texture-overlay {
+            position: absolute; inset: 0;
+            background: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+            opacity: 0.15; pointer-events: none; z-index: 10;
+        }
+
+        /* SELLOS CON BORDE DEGRADADO Y CENTRO SÓLIDO */
+        .gold-seal {
+            position: absolute; top: 15px; left: 15px; 
+            width: 55px; height: 55px; 
+            border-radius: 50%; z-index: 15;
+            padding: 2px; /* Grosor del aro neón */
+            background: var(--label-accent-gradient);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 12px rgba(174, 227, 115, 0.5);
+        }
+        .gold-seal .inner-circle {
+            width: 100%; height: 100%;
+            background: #000;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .gold-seal img { width: 100%; height: 100%; object-fit: contain; }
+
+        /* 15ML DEFINITIVO: BLOQUE CREMA SÓLIDO POR DENTRO, ARO DEGRADADO POR FUERA */
+        .volume-badge {
+            position: absolute; 
+            bottom: 15px; 
+            left: 15px; 
+            width: 55px; 
+            height: 55px; 
+            border-radius: 50%;
+            z-index: 15;
+            padding: 2px; /* ESTO DEFINE EL GROSOR DEL ARO DEGRADADO */
+            background: var(--label-accent-gradient); /* EL BORDE EN DEGRADADO */
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            box-shadow: 0 0 12px rgba(221, 160, 221, 0.5);
+        }
+        .volume-badge .inner-crema {
+            width: 100%; 
+            height: 100%;
+            background: var(--crema-claro); /* INTERIOR CLARITO SÓLIDO */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #111;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .arched-header {
+            position: absolute;
+            top: 20px; left: 30px;
+            width: 500px; height: 180px; 
+            z-index: 11; pointer-events: none;
+        }
+        .svg-text {
+            fill: #f5f5f0;
+            font-size: 18px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-shadow: 0 0 4px rgba(255, 255, 255, 0.8); 
+        }
+
+        .illustration-box {
+            position: absolute;
+            top: 72px; left: 170px;
+            width: 220px; height: 180px;
+            z-index: 12; display: flex; align-items: center; justify-content: center;
+        }
+        .illustration-box img {
+            max-width: 100%; max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 10px rgba(174, 227, 115, 0.4));
+        }
+
+        .bottom-left-text {
+            position: absolute; bottom: 20px; left: 80px; width: 400px;
+            text-align: center; z-index: 15; white-space: nowrap;
+        }
+        .bottom-left-text .type {
+            font-size: 22px; font-weight: 700; letter-spacing: 5px;
+            text-transform: uppercase; color: #ffffff;
+            text-shadow: 0 0 3px #fff, 0 0 8px var(--neon-green-mallku), 0 0 15px var(--neon-green-mallku); 
+        }
+        .bottom-left-text .name {
+            font-size: 13px; font-weight: 500; letter-spacing: 3.5px;
+            text-transform: uppercase; margin-top: 8px; color: #ffffff;
+            text-shadow: 0 0 2px #fff, 0 0 6px var(--neon-lime-sentires), 0 0 12px var(--neon-lime-sentires); 
+        }
+
+        .right-panel {
+            position: absolute;
+            top: 25px; left: 540px; 
+            width: 410px; height: 285px; 
+            z-index: 15; display: flex; flex-direction: column; align-items: center;
+            justify-content: space-between; 
+        }
+
+        .separator { width: 410px; height: 1px; background: #e6e6dc; opacity: 0.8; }
+
+        .origin-title {
+            font-size: 16px; font-weight: 600; letter-spacing: 2.5px;
+            text-transform: uppercase; color: #ffffff;
+            text-shadow: 0 0 3px #fff, 0 0 8px var(--neon-lime-sentires), 0 0 15px var(--neon-lime-sentires); 
+        }
+
+        .benefits-list {
+            list-style: none; text-align: center; 
+            display: flex; flex-direction: column; gap: 0; width: 100%;
+        }
+
+        .benefits-list li { font-size: 15px; font-weight: 700; letter-spacing: 1px; line-height: 21px; }
+
+        .uso-box { text-align: center; width: 100%; }
+        .uso-box .resp { font-size: 13px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; }
+        .uso-box .gotas { font-size: 15px; font-weight: 600; letter-spacing: 2px; margin-top: 3px; text-transform: uppercase; }
+
+        .btn-print {
+            margin-top: 30px; padding: 15px 40px; background: #fff; color: #111;
+            border: none; border-radius: 40px; font-weight: 700; font-size: 14px;
+            text-transform: uppercase; letter-spacing: 2px; cursor: pointer;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+        }
+        
+        @media print {
+            body { background: white !important; }
+            .btn-print { display: none !important; }
+            .border-wrapper {
+                box-shadow: none !important;
+                border: 2px solid #AEE373 !important;
+                transform: scale(0.34015, 0.38359) !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="label-outer">
+        <div class="border-wrapper">
+            <div class="label-container">
+                <div class="texture-overlay"></div>
+
+                <!-- Sellos -->
+                <div class="gold-seal">
+                   <div class="inner-circle">
+                        <img src="./WhatsApp Image 2026-02-04 at 11.03.07 PM.jpeg" alt="Logo Mallku Oficial">
+                   </div>
+                </div>
+                <!-- 15ml bloque crema macizo, aro degradado -->
+                <div class="volume-badge">
+                   <div class="inner-crema">15ml</div>
+                </div>
+
+                <svg class="arched-header" viewBox="0 0 500 180">
+                    <path id="headerCurve" d="M 60,150 A 190,130 0 0,1 440,150" fill="transparent" />
+                    <text class="svg-text">
+                        <textPath xlink:href="#headerCurve" startOffset="50%" text-anchor="middle">
+                            ACEITE ESENCIAL DE TOMILLO
+                        </textPath>
+                    </text>
+                </svg>
+
+                <div class="illustration-box">
+                    <img src="./assets/tomillo.png" alt="Tomillo">
+                </div>
+
+                <div class="bottom-left-text">
+                    <div class="type">MALLKU</div>
+                    <div class="name">SENTIRES ANDINOS</div>
+                </div>
+
+                <div class="right-panel">
+                    <div class="separator"></div>
+                    <div class="origin-title">PRODUCTO 100% NARIÑENSE</div>
+                    <div class="separator"></div>
+                    <ul class="benefits-list">
+                        <li>Antiinflamatorio</li>
+                        <li>Analgésico</li>
+                        <li>Antioxidante</li>
+                        <li>Relajante</li>
+                        <li>Calmante</li>
+                        <li>Anticáncer</li>
+                        <li>Mejora el Ánimo</li>
+                    </ul>
+                    <div class="separator"></div>
+                    <div class="uso-box">
+                        <div class="resp">Uso con responsabilidad</div>
+                        <div class="gotas">5 a 7 Gotas</div>
+                    </div>
+                    <div class="separator"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn-print" onclick="window.print()">Descargar / Imprimir Etiquetas</button>
+
+</body>
+</html>

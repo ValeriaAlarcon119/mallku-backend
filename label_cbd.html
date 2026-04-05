@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etiqueta Oficial CBD - Mallku</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --mallku-green: #1a2e1a;
+            /* Verde más oscuro y lujoso */
+            --cbd-beige: #f9f6f0;
+            /* Beige Pastel Muy Clarito */
+            --cannabis-gold: #D4AF37;
+            --cannabis-light-green: #Aee373;
+            --cbd-gradient: linear-gradient(135deg, #2D5A27, #1a2e1a);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            color: #f5f5f0;
+        }
+
+        .label-outer {
+            padding: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        /* WRAPPER PARA EL BORDE BEIGE PASTEL */
+        .border-wrapper {
+            width: 1006px;
+            height: 341px;
+            padding: 3px;
+            background: var(--cbd-beige);
+            /* Beige Pastel */
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .label-container {
+            width: 1000px;
+            height: 335px;
+            background-color: var(--mallku-green);
+            background-image:
+                url('./assets/label_background.png'),
+                radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            display: block;
+        }
+
+        /* TEXTURE OVERLAY */
+        .texture-overlay {
+            position: absolute;
+            inset: 0;
+            background: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* LEFT SIDE - Badges */
+        .gold-seal {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            overflow: hidden;
+            z-index: 15;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(249, 246, 240, 0.8);
+            box-shadow: 0 0 5px 1px rgba(249, 246, 240, 0.9), 0 0 10px 2px rgba(249, 246, 240, 0.6);
+        }
+
+        .gold-seal img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .volume-badge {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #e4decb;
+            color: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            z-index: 15;
+            border: 1px solid rgba(249, 246, 240, 0.8);
+            box-shadow: 0 0 5px 1px rgba(249, 246, 240, 0.9), 0 0 10px 2px rgba(249, 246, 240, 0.6);
+        }
+
+        /* ARCHED TEXT */
+        .arched-header {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            width: 500px;
+            height: 180px;
+            z-index: 11;
+            pointer-events: none;
+        }
+
+        .svg-text {
+            fill: #f5f5f0;
+            font-size: 18px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            letter-spacing: 3px;
+        }
+
+        /* CENTRAL ILLUSTRATION */
+        .illustration-box {
+            position: absolute;
+            top: 75px;
+            /* Bajamos un poco más el conjunto */
+            left: 150px;
+            width: 260px;
+            height: 200px;
+            z-index: 12;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drop-icon {
+            width: 140px;
+            /* Más grande como solicitado */
+            height: auto;
+            fill: none;
+            stroke: var(--cbd-beige);
+            stroke-width: 5.0;
+            /* Más grueso para impacto */
+            /* Efecto Neón Beige Potente */
+            filter: drop-shadow(0 0 8px rgba(249, 246, 240, 0.8)) drop-shadow(0 0 20px rgba(249, 246, 240, 0.4));
+            margin-bottom: 12px;
+        }
+
+        .no-psycho {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            /* Efecto Neón y Glow Verde */
+            text-shadow: 0 0 5px #fff, 0 0 10px var(--cannabis-light-green), 0 0 20px var(--cannabis-light-green);
+            margin-top: 25px;
+        }
+
+        /* BOTTOM LEFT TITLES */
+        .bottom-left-text {
+            position: absolute;
+            bottom: 15px;
+            /* Más abajo */
+            left: 80px;
+            width: 400px;
+            text-align: center;
+            z-index: 15;
+        }
+
+        .bottom-left-text .type {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-shadow: 0 0 3px #fff, 0 0 8px rgba(0, 255, 150, 1), 0 0 15px rgba(0, 255, 150, 0.8);
+        }
+
+        /* RIGHT PANEL */
+        .right-panel {
+            position: absolute;
+            top: 25px;
+            left: 540px;
+            width: 410px;
+            height: 285px;
+            z-index: 15;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .separator {
+            width: 410px;
+            height: 1px;
+            background: #e6e6dc;
+            opacity: 0.6;
+            margin: 0;
+        }
+
+        .origin-title {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-shadow: 0 0 3px #fff, 0 0 8px rgba(0, 255, 150, 1), 0 0 15px rgba(0, 255, 150, 0.8);
+        }
+
+        .benefits-list {
+            list-style: none;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            width: 100%;
+        }
+
+        .benefits-list li {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            line-height: 22px;
+            color: #ffffff;
+        }
+
+        .uso-box {
+            text-align: center;
+            width: 100%;
+        }
+
+        .uso-box .resp {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .uso-box .gotas {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-top: 3px;
+            text-transform: uppercase;
+        }
+
+        .btn-print {
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: #fff;
+            color: #111;
+            border: none;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn-print:hover {
+            background: var(--cannabis-gold);
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        @media print {
+            body {
+                background: white !important;
+                margin: 0;
+            }
+
+            .btn-print {
+                display: none !important;
+            }
+
+            .label-outer {
+                box-shadow: none !important;
+                width: 9cm !important;
+                height: 3.4cm !important;
+            }
+
+            .border-wrapper {
+                padding: 0 !important;
+                background: transparent !important;
+            }
+
+            .label-container {
+                border: 3px solid var(--cannabis-gold) !important;
+                transform-origin: top left !important;
+                transform: scale(0.34015, 0.38359) !important;
+            }
+
+            @page {
+                size: a4;
+                margin: 0.5cm;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="label-outer">
+        <div class="border-wrapper">
+            <div class="label-container">
+                <div class="texture-overlay"></div>
+
+                <!-- LEFT SIDE -->
+                <div class="gold-seal">
+                    <img src="WhatsApp%20Image%202026-02-04%20at%2011.03.07%20PM.jpeg" alt="Logo Mallku">
+                </div>
+
+                <div class="volume-badge">15ml</div>
+
+                <svg class="arched-header" viewBox="0 0 500 180">
+                    <path id="headerCurve" d="M 60,150 A 190,130 0 0,1 440,150" fill="transparent" />
+                    <text class="svg-text">
+                        <textPath xlink:href="#headerCurve" startOffset="50%" text-anchor="middle">
+                            ACEITE ESENCIAL DE CANNABIS
+                        </textPath>
+                    </text>
+                </svg>
+
+                <!-- Central Illustration: HIGH FIDELITY DROPLET (ENHANCED SIZE) WITH NEON PERSPECTIVE RIPPLES -->
+                <div class="illustration-box">
+                    <svg class="drop-icon" viewBox="0 0 100 165" xmlns="http://www.w3.org/2000/svg">
+                        <!-- ENHANCED Droplet Shape (Larger) -->
+                        <path d="M50 2 C50 2 12 45 12 78 A38 38 0 1 0 88 78 C88 45 50 2 50 2 Z" stroke-width="5.0"
+                            stroke="var(--cbd-beige)" />
+                        <!-- Highligt line on the right -->
+                        <path d="M75 75 A25 25 0 0 1 75 95" stroke-width="4.0" stroke-linecap="round"
+                            stroke="var(--cbd-beige)" />
+
+                        <!-- Inner Ripple (Slightly Smaller/Narrower) -->
+                        <path d="M35 120 A28 10 0 1 0 65 120" stroke-width="4.5" stroke-linecap="round"
+                            stroke="var(--cbd-beige)" fill="none" />
+                        <!-- Outer Ripple (Kept Wide) -->
+                        <path d="M15 135 A48 16 0 1 0 85 135" stroke-width="4.5" stroke-linecap="round"
+                            stroke="var(--cbd-beige)" fill="none" />
+                    </svg>
+                    <div class="no-psycho">No Psicoactivo</div>
+                </div>
+
+                <div class="bottom-left-text">
+                    <div class="type">MALLKU</div>
+                </div>
+
+                <!-- RIGHT PANEL -->
+                <div class="right-panel">
+                    <div class="separator"></div>
+                    <div class="origin-title">PRODUCTO 100% NARIÑENSE</div>
+                    <div class="separator"></div>
+
+                    <ul class="benefits-list">
+                        <li>Antinflamatorio</li>
+                        <li>Analgésico</li>
+                        <li>Neuroprotector</li>
+                        <li>Anticonvulsivo</li>
+                        <li>Antioxidante</li>
+                        <li>Relajante</li>
+                        <li>Calmante</li>
+                    </ul>
+
+                    <div class="separator"></div>
+
+                    <div class="uso-box">
+                        <div class="resp">Uso con responsabilidad</div>
+                        <div class="gotas">Según peso o 5 a 7 Gotas</div>
+                    </div>
+
+                    <div class="separator"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn-print" onclick="window.print()">Descargar / Imprimir Etiquetas</button>
+
+</body>
+
+</html>

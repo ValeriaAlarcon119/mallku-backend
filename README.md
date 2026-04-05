@@ -57,6 +57,8 @@ Transformamos plantas aromáticas de la región andina (Manzanilla, Caléndula, 
 ## 🎨 Actualizaciones de Diseño (Última Versión)
 
 *   ✅ **Navegación Lateral (Sidebar):** El Dashboard cuenta con un nuevo panel a la izquierda estilo SaaS profesional.
+*   ✅ **Estética Botanical Luxury:** Rediseño total de la tienda legacy (`index.html`) con tipografía `Playfair Display`, paleta de colores `Obsidian & Gold`, y layout editorial.
+*   ✅ **Etiquetado Premium:** Nuevas etiquetas para productos (e.g., Caléndula) con diseño minimalista de lujo, ilustraciones botánicas en oro y tipografía curada.
 *   ✅ **Panel de Temas:** Nueva sección con iconos actualizados (`lucide-react`) y micro-animaciones (`framer-motion`).
 *   ✅ **Fusión de Ecosistema:** Ahora todo está conectado. Puedes ver la tienda, los datos y la información desde un solo lugar.
 

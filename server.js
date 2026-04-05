@@ -1,8 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
+const fs = require('fs');
 
 const app = express();
+const DATA_FILE = path.join(__dirname, 'data.json');
 const PORT = process.env.PORT || 3000;
 
 // Middleware
@@ -13,11 +16,20 @@ app.use(cors({
 }));
 app.use(bodyParser.json());
 
-// Servir archivos estáticos del root (Tienda Legacy - index.html)
+// 1. Servir archivos estáticos del root (Tienda Legacy - index.html)
 app.use(express.static('.'));
 
+// 2. Servir el Dashboard (React) compilado en la ruta /dashboard
+// Asumimos que el build está en mallku-react/dist
+app.use('/dashboard', express.static(path.join(__dirname, 'mallku-react/dist')));
+
+// 3. Fallback para SPA (Single Page Application) del Dashboard
+app.get(/\/dashboard(\/.*)?/, (req, res) => {
+    res.sendFile(path.join(__dirname, 'mallku-react/dist/index.html'));
+});
+
 // ============================================
-// 📊 IN-MEMORY DATABASE (Enhanced Real-time)
+// 📊 PERSISTENCE LAYER
 // ============================================
 let salesData = [];
 let cartActivity = [];
@@ -26,6 +38,49 @@ let whatsappClicks = [];
 let abandonedCarts = [];
 let pageVisits = [];
 let stockLevels = new Map();
+
+function loadData() {
+    if (fs.existsSync(DATA_FILE)) {
+        try {
+            const raw = fs.readFileSync(DATA_FILE, 'utf8');
+            const data = JSON.parse(raw);
+            salesData = data.salesData || [];
+            cartActivity = data.cartActivity || [];
+            whatsappClicks = data.whatsappClicks || [];
+            abandonedCarts = data.abandonedCarts || [];
+            pageVisits = data.pageVisits || [];
+            
+            if (data.customers) {
+                customers = new Map(Object.entries(data.customers));
+            }
+            if (data.stockLevels) {
+                stockLevels = new Map(Object.entries(data.stockLevels));
+            }
+            console.log(`✅ Data loaded from ${DATA_FILE}`);
+            return true;
+        } catch (e) {
+            console.error("❌ Error loading data:", e);
+        }
+    }
+    return false;
+}
+
+function saveData() {
+    try {
+        const data = {
+            salesData,
+            cartActivity,
+            customers: Object.fromEntries(customers),
+            whatsappClicks,
+            abandonedCarts,
+            pageVisits,
+            stockLevels: Object.fromEntries(stockLevels)
+        };
+        fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+    } catch (e) {
+        console.error("❌ Error saving data:", e);
+    }
+}
 
 // ============================================
 // 🎯 AI CONSULTANT LOGIC
@@ -180,18 +235,15 @@ app.get('/api/abandoned-carts', (req, res) => {
     res.json(abandonedCarts.slice(-10).reverse());
 });
 
-// Original endpoints
-app.get('/api/sales/timeline', (req, res) => {
-    const monthlyData = {};
-    salesData.forEach(sale => {
-        const date = new Date(sale.timestamp);
-        const monthKey = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
-        if (!monthlyData[monthKey]) monthlyData[monthKey] = { online: 0, fisica: 0 };
-        if (sale.channel === 'online') monthlyData[monthKey].online += sale.amount;
-        else monthlyData[monthKey].fisica += sale.amount;
-    });
-    const timeline = Object.entries(monthlyData).map(([month, data]) => ({ month, ...data }));
-    res.json(timeline);
+app.get('/api/customers/lookup/:phone', (req, res) => {
+    const phone = req.params.phone;
+    // Buscamos en el Map de clientes
+    const customer = Array.from(customers.values()).find(c => c.phone === phone);
+    if (customer) {
+        res.json({ found: true, customer });
+    } else {
+        res.json({ found: false });
+    }
 });
 
 app.get('/api/activity', (req, res) => {
@@ -231,16 +283,17 @@ app.post('/api/sales', (req, res) => {
     const { customerId, customerName, amount, products, channel } = req.body;
     const sale = {
         id: Date.now().toString(),
-        customerId,
+        customerId: customerId || `cust_${Date.now()}`,
         amount,
         products,
         channel: channel || 'online',
         timestamp: new Date().toISOString()
     };
     salesData.push(sale);
-    if (!customers.has(customerId)) {
-        customers.set(customerId, { id: customerId, name: customerName, firstPurchase: new Date().toISOString() });
+    if (!customers.has(sale.customerId)) {
+        customers.set(sale.customerId, { id: sale.customerId, name: customerName, firstPurchase: new Date().toISOString() });
     }
+    saveData();
     res.json({ success: true, saleId: sale.id });
 });
 
@@ -254,6 +307,7 @@ app.post('/api/activity', (req, res) => {
     };
     cartActivity.push(activity);
     if (cartActivity.length > 100) cartActivity = cartActivity.slice(-100);
+    saveData();
     res.json({ success: true, activityId: activity.id });
 });
 
@@ -266,6 +320,7 @@ app.post('/api/visit', (req, res) => {
     };
     pageVisits.push(visit);
     if (pageVisits.length > 200) pageVisits = pageVisits.slice(-200);
+    saveData();
     res.json({ success: true, visitId: visit.id });
 });
 
@@ -277,6 +332,7 @@ app.post('/api/whatsapp-click', (req, res) => {
         source: req.body.source || 'floating_button'
     };
     whatsappClicks.push(click);
+    saveData();
     res.json({ success: true, clickId: click.id });
 });
 
@@ -290,6 +346,7 @@ app.post('/api/abandoned-cart', (req, res) => {
         timestamp: timestamp || new Date().toISOString()
     };
     abandonedCarts.push(abandoned);
+    saveData();
     res.json({ success: true, cartId: abandoned.id });
 });
 
@@ -386,7 +443,29 @@ app.get('/api/sales/details', (req, res) => {
 // 🔄 SEED DATA (Enhanced)
 // ============================================
 function seedData() {
-    const products = ['Aceite Cannabis', 'Hidrolato Lavanda', 'Aromática Mix', 'Ungüento Recuperador', 'Aceite Tomillo'];
+    const products = [
+        'Aceite Esencial Cannabis (CBD)',
+        'Aceite Esencial Cannabis Fullspectrum (CBD+THC)',
+        'Aceite Esencial Tomillo',
+        'Aceite Esencial Orégano',
+        'Aceite Esencial Caléndula',
+        'Aceite Esencial Manzanilla',
+        'Hidrolato Lavanda',
+        'Hidrolato Cítrico',
+        'Hidrolato Romero',
+        'Tintura a Base de Plantas',
+        'Ungüento Recuperador Muscular a Base de Plantas',
+        'Aromática Manzanilla',
+        'Aromática Stevia',
+        'Aromática Caléndula',
+        'Aromática Cannabis',
+        'Aromática Mix',
+        'Aromática Frasco Manzanilla',
+        'Aromática Frasco Caléndula',
+        'Aromática Frasco Stevia',
+        'Aromática Frasco Cannabis',
+        'Aromática Mix Frasco'
+    ];
 
     const customerData = [
         { id: 'cust_0', name: 'Ana Martínez', email: 'ana.martinez@gmail.com', phone: '+57 312 456 7890' },
@@ -470,15 +549,11 @@ function seedData() {
 // ============================================
 app.listen(PORT, () => {
     console.log(`\n🌿 Mallku Growth Analytics API running on http://localhost:${PORT}`);
-    console.log(`\n📊 Enhanced Endpoints:`);
-    console.log(`   GET  /api/stats                  - Dashboard metrics + funnel`);
-    console.log(`   GET  /api/ai/recommendation      - AI sales consultant`);
-    console.log(`   GET  /api/stock                  - Stock levels & alerts`);
-    console.log(`   GET  /api/funnel                 - Conversion funnel`);
-    console.log(`   GET  /api/abandoned-carts        - Recovery opportunities`);
-    console.log(`   POST /api/visit                  - Track page visit`);
-    console.log(`   POST /api/whatsapp-click         - Track WhatsApp engagement`);
-    console.log(`   POST /api/abandoned-cart         - Log abandoned cart`);
-    console.log(`   POST /api/stock/update           - Update inventory\n`);
-    seedData();
+    
+    const hasData = loadData();
+    if (!hasData) {
+        console.log("🌱 No existing data found. Seeding initial data...");
+        seedData();
+        saveData();
+    }
 });

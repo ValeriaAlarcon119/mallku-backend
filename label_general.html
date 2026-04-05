@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Label Publicitario General - Mallku</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mallku-green: #304426; 
+            --gold-mallku: #D4AF37;
+            --neon-green-mallku: rgba(0, 255, 150, 1);
+            --crema-claro: #efeade;
+            --white-soft: #f5f5f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #000; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--white-soft);
+        }
+
+        .label-outer { padding: 0; background: transparent; }
+
+        .border-wrapper {
+            width: 1006px;
+            height: 341px;
+            padding: 3px;
+            /* Borde blanco con neon verde igual que MALLKU */
+            background: #ffffff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                0 0 6px rgba(255,255,255,0.6),
+                0 0 18px rgba(0, 255, 150, 0.4),
+                0 15px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .label-container {
+            width: 1000px;
+            height: 335px; 
+            background-color: var(--mallku-green);
+            background-image: 
+                url('./assets/label_background.png'),
+                radial-gradient(circle at center, rgba(48, 68, 38, 0.4) 0%, rgba(0, 0, 0, 0.8) 100%);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden; 
+            border-radius: 9px;
+        }
+
+        .texture-overlay {
+            position: absolute; inset: 0;
+            background: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+            opacity: 0.12; pointer-events: none; z-index: 10;
+        }
+
+        /* SELLO SUPERIOR: 15ml — borde blanco neon verde fino */
+        .gold-seal {
+            position: absolute; top: 18px; left: 18px; 
+            width: 65px; height: 65px; 
+            border-radius: 50%; z-index: 15;
+            padding: 2px;
+            background: #ffffff;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 5px rgba(255,255,255,0.8), 0 0 12px rgba(0,255,150,0.4);
+        }
+        .gold-seal .inner-circle {
+            width: 100%; height: 100%;
+            background: var(--crema-claro);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #111;
+            font-weight: 800;
+            font-size: 15px;
+            letter-spacing: 0;
+        }
+
+        /* BADGE INFERIOR — borde blanco neon verde fino */
+        .badge-premium {
+            position: absolute; 
+            bottom: 18px; 
+            left: 18px; 
+            width: 65px; 
+            height: 65px; 
+            border-radius: 50%;
+            z-index: 15;
+            padding: 2px;
+            background: #ffffff;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            box-shadow: 0 0 5px rgba(255,255,255,0.8), 0 0 12px rgba(0,255,150,0.4);
+        }
+        .badge-premium .inner-badge {
+            width: 100%; 
+            height: 100%;
+            background: var(--crema-claro);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #111;
+            font-weight: 800;
+            font-size: 10px;
+            text-align: center;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* TÍTULO RECTO SUPERIOR */
+        .header-title {
+            position: absolute;
+            top: 18px;
+            left: 290px;
+            transform: translateX(-50%);
+            z-index: 13;
+            font-size: 21px;
+            font-weight: 600; /* Un poco más grueso */
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: #ffffff;
+            white-space: nowrap;
+            text-shadow:
+                0 0 6px #fff,
+                0 0 14px rgba(255,255,255,0.7),
+                0 0 28px rgba(255,255,255,0.4);
+        }
+
+        /* LOGO GRANDE CENTRAL - alineado con MALLKU abajo */
+        .center-logo {
+            position: absolute;
+            top: 43%; left: 290px;
+            transform: translate(-50%, -50%);
+            width: 150px; height: 150px;
+            border-radius: 50%;
+            z-index: 14;
+            display: flex; align-items: center; justify-content: center;
+            padding: 4px;
+            background: #ffffff;
+            /* Glow estático, sin animación */
+            box-shadow: 0 0 8px rgba(255,255,255,0.9), 0 0 18px rgba(255,255,255,0.25);
+        }
+        .center-logo .logo-inner {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #000;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .center-logo img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+         /* BRANDING INFERIOR IZQUIERDO */
+        .bottom-left-text {
+            position: absolute; bottom: 20px; left: 100px; width: 380px;
+            text-align: center; z-index: 15;
+        }
+        .bottom-left-text .type {
+            font-size: 34px; font-weight: 900; letter-spacing: 8px;
+            text-transform: uppercase; 
+            color: #ffffff;
+            -webkit-text-stroke: 1.2px var(--neon-green-mallku);
+            text-shadow: 0 0 10px var(--neon-green-mallku), 0 0 25px rgba(0, 255, 150, 0.6); 
+        }
+        .bottom-left-text .name {
+            font-size: 15px; font-weight: 700; letter-spacing: 5px;
+            text-transform: uppercase; margin-top: 4px; 
+            color: #ffffff;
+            text-shadow: 0 0 5px #fff, 0 0 15px var(--neon-green-mallku), 0 0 30px var(--neon-green-mallku);
+        }
+
+        /* PANEL DERECHO: INFO GENERAL */
+        .right-panel {
+            position: absolute;
+            top: 0; left: 530px;
+            width: 440px; height: 335px;
+            z-index: 15; display: flex; flex-direction: column; align-items: center;
+            justify-content: flex-start; /* Empieza desde arriba de verdad */
+            gap: 12px;
+            background: transparent; 
+            padding: 30px 0 10px 0;
+
+            border: none;
+        }
+
+        .separator { width: 350px; height: 1px; background: rgba(255,255,255,0.3); opacity: 1; }
+
+        .origin-title {
+            font-size: 18px; /* Un poco más grande */
+            font-weight: 600; letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #ffffff;
+            -webkit-text-stroke: 0.4px rgba(255,255,180,0.6);
+            text-shadow: 0 0 8px rgba(255,255,255,0.6);
+        }
+
+
+        .benefits-title {
+            font-size: 24px; font-weight: 900; letter-spacing: 5px;
+            text-transform: uppercase; 
+            color: #ffffff;
+            -webkit-text-stroke: 0.5px rgba(255,255,150,0.7); /* Toque neon amarillo sutil */
+            text-shadow: 0 0 8px rgba(255,255,255,0.8), 0 0 18px rgba(255,255,150,0.3);
+        }
+
+        .benefits-summary {
+            list-style: none; text-align: center; 
+            display: flex; flex-direction: column; 
+            gap: 6px; 
+            width: 95%;
+            margin-top: 10px; /* Baja la lista sin mover el título BENEFICIOS */
+        }
+
+        .benefits-summary li { 
+            font-size: 14px; 
+            font-weight: 700; 
+            letter-spacing: 1.5px; 
+            color: #ffffff;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        }
+
+        .med-conditions {
+            text-align: center;
+            font-size: 14px; 
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            text-transform: uppercase;
+            width: 95%;
+            line-height: 1.6;
+            margin-top: 4px; /* Sube un poco */
+            text-shadow: 0 0 6px rgba(255,255,255,0.5), 0 0 12px rgba(255,255,150,0.2);
+        }
+
+        .whatsapp-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1px;
+        }
+        .whatsapp-row svg {
+            width: 22px; height: 22px;
+            filter: drop-shadow(0 0 4px rgba(37,211,102,0.8));
+            flex-shrink: 0;
+        }
+        .whatsapp-number {
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 0 0 6px rgba(37,211,102,0.6);
+        }
+
+        .btn-print {
+            margin-top: 30px; padding: 15px 40px; background: var(--gold-mallku); color: #000;
+            border: none; border-radius: 40px; font-weight: 800; font-size: 14px;
+            text-transform: uppercase; letter-spacing: 2px; cursor: pointer;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            transition: 0.3s;
+        }
+        .btn-print:hover {
+            background: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--gold-mallku);
+        }
+        
+        @media print {
+            body { background: white !important; }
+            .btn-print { display: none !important; }
+            .border-wrapper {
+                box-shadow: none !important;
+                border: 2px solid var(--gold-mallku) !important;
+                transform: scale(0.34015, 0.38359) !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="label-outer">
+        <div class="border-wrapper">
+            <div class="label-container">
+                <div class="texture-overlay"></div>
+
+                <!-- SELLO SUPERIOR: 15ml -->
+                <div class="gold-seal">
+                    <div class="inner-circle">15ml</div>
+                </div>
+
+                <!-- TÍTULO RECTO -->
+                <div class="header-title">ACEITES ESENCIALES</div>
+
+                <!-- BADGE INFERIOR: Pura Esencia -->
+                <div class="badge-premium">
+                    <div class="inner-badge">Pura<br>Esencia</div>
+                </div>
+
+                <!-- LOGO GRANDE CENTRAL -->
+                <div class="center-logo">
+                    <div class="logo-inner">
+                        <img src="./WhatsApp Image 2026-02-04 at 11.03.07 PM.jpeg" alt="Logo Mallku Grande">
+                    </div>
+                </div>
+
+                <!-- BRANDING -->
+                <div class="bottom-left-text">
+                    <div class="type">MALLKU</div>
+                    <div class="name">SENTIRES ANDINOS</div>
+                </div>
+
+                <!-- PANEL DERECHO: INFO GENERAL -->
+                <div class="right-panel">
+                    <div class="origin-title">100% NATURAL - NARIÑO</div>
+                    <div class="separator"></div>
+
+                    <div class="benefits-title">Beneficios</div>
+                    
+                    <ul class="benefits-summary">
+                        <li>Antiinflamatorio - Analgésico</li>
+                        <li>Equilibrio & Armonía</li>
+                        <li>Salud Ancestral Holística</li>
+                        <li>Ansiedad - Estrés - Insomnio</li>
+                    </ul>
+
+                    <div class="separator"></div>
+
+                    <div class="med-conditions">
+                        Cáncer • Epilepsia • Dolores Crónicos • Diabetes • Artritis • Glaucoma
+                    </div>
+
+                    <div class="whatsapp-row">
+                        <!-- Logo WhatsApp SVG -->
+                        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="16" cy="16" r="16" fill="#25D366"/>
+                            <path d="M23.5 19.9c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.5 8.5 0 0 1-4.3-3.7c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5s-.7-1.7-1-2.3c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.7 3.7 0 0 0-1.2 2.8 6.4 6.4 0 0 0 1.4 3.4c.2.2 2.6 4 6.3 5.6 2.3 1 3.2 1.1 4.4.9a3.4 3.4 0 0 0 2.2-1.6 2.7 2.7 0 0 0 .2-1.6c-.1-.2-.4-.3-.6-.4z" fill="#fff"/>
+                        </svg>
+                        <span class="whatsapp-number">315 9452314</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn-print" onclick="window.print()">Descargar para Publicidad</button>
+
+</body>
+</html>

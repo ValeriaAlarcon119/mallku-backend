@@ -1,0 +1,1736 @@
+{
+  "salesData": [
+    {
+      "id": "sale_0",
+      "customerId": "cust_9",
+      "amount": 42098,
+      "products": [
+        "Aromática Mix"
+      ],
+      "channel": "online",
+      "timestamp": "2026-03-01T08:26:19.550Z"
+    },
+    {
+      "id": "sale_1",
+      "customerId": "cust_1",
+      "amount": 33847,
+      "products": [
+        "Ungüento Recuperador"
+      ],
+      "channel": "fisica",
+      "timestamp": "2026-03-14T01:40:19.228Z"
+    },
+    {
+      "id": "sale_2",
+      "customerId": "cust_9",
+      "amount": 39721,
+      "products": [
+        "Aceite Tomillo"
+      ],
+      "channel": "fisica",
+      "timestamp": "2026-03-05T22:17:25.506Z"
+    },
+    {
+      "id": "sale_3",
+      "customerId": "cust_3",
+      "amount": 57146,
+      "products": [
+        "Aceite Cannabis"
+      ],
+      "channel": "online",
+      "timestamp": "2026-03-01T10:29:28.016Z"
+    },
+    {
+      "id": "sale_4",
+      "customerId": "cust_5",
+      "amount": 56922,
+      "products": [
+        "Aromática Mix"
+      ],
+      "channel": "fisica",
+      "timestamp": "2026-03-14T12:14:41.765Z"
+    },
+    {
+      "id": "sale_5",
+      "customerId": "cust_5",
+      "amount": 44176,
+      "products": [
+        "Aromática Mix"
+      ],
+      "channel": "online",
+      "timestamp": "2026-03-02T03:54:02.080Z"
+    },
+    {
+      "id": "sale_6",
+      "customerId": "cust_7",
+      "amount": 40477,
+      "products": [
+        "Aceite Tomillo"
+      ],
+      "channel": "online",
+      "timestamp": "2026-03-19T02:03:45.394Z"
+    },
+    {
+      "id": "sale_7",
+      "customerId": "cust_9",
+      "amount": 37918,
+      "products": [
+        "Hidrolato Lavanda"
+      ],
+      "channel": "online",
+      "timestamp": "2026-03-08T10:21:21.088Z"
+    },
+    {
+      "id": "sale_8",
+      "customerId": "cust_6",
+      "amount": 25290,
+      "products": [
+        "Ungüento Recuperador"
+      ],
+      "channel": "online",
+      "timestamp": "2026-03-13T11:54:41.955Z"
+    },
+    {
+      "id": "sale_9",
+      "customerId": "cust_5",
+      "amount": 41801,
+      "products": [
+        "Ungüento Recuperador"
+      ],
+      "channel": "fisica",
+      "timestamp": "2026-03-10T23:32:57.791Z"
+    },
+    {
+      "id": "sale_10",
+      "customerId": "cust_3",
+      "amount": 41542,
+      "products": [
+        "Aromática Mix"
+      ],
+      "channel": "online",
+      "timestamp": "2026-03-13T06:51:37.888Z"
+    },
+    {
+      "id": "sale_11",
+      "customerId": "cust_2",
+      "amount": 13598,
+      "products": [
+        "Hidrolato Lavanda"
+      ],
+      "channel": "fisica",
+      "timestamp": "2026-03-08T01:12:48.910Z"
+    },
+    {
+      "id": "sale_12",
+      "customerId": "cust_6",
+      "amount": 45274,
+      "products": [
+        "Aceite Tomillo"
+      ],
+      "channel": "fisica",
+      "timestamp": "2025-12-19T02:35:47.770Z"
+    },
+    {
+      "id": "sale_13",
+      "customerId": "cust_3",
+      "amount": 34037,
+      "products": [
+        "Aromática Mix"
+      ],
+      "channel": "online",
+      "timestamp": "2026-01-02T12:24:17.153Z"
+    },
+    {
+      "id": "sale_14",
+      "customerId": "cust_7",
+      "amount": 22563,
+      "products": [
+        "Hidrolato Lavanda"
+      ],
+      "channel": "online",
+      "timestamp": "2025-12-10T17:46:34.041Z"
+    },
+    {
+      "id": "sale_15",
+      "customerId": "cust_5",
+      "amount": 41126,
+      "products": [
+        "Aromática Mix"
+      ],
+      "channel": "online",
+      "timestamp": "2025-10-02T03:13:51.897Z"
+    },
+    {
+      "id": "sale_16",
+      "customerId": "cust_4",
+      "amount": 29493,
+      "products": [
+        "Aceite Tomillo"
+      ],
+      "channel": "online",
+      "timestamp": "2026-03-14T13:10:26.685Z"
+    },
+    {
+      "id": "sale_17",
+      "customerId": "cust_7",
+      "amount": 46619,
+      "products": [
+        "Ungüento Recuperador"
+      ],
+      "channel": "online",
+      "timestamp": "2025-11-02T04:36:37.007Z"
+    },
+    {
+      "id": "sale_18",
+      "customerId": "cust_6",
+      "amount": 12494,
+      "products": [
+        "Aceite Cannabis"
+      ],
+      "channel": "online",
+      "timestamp": "2026-03-09T17:14:38.986Z"
+    },
+    {
+      "id": "sale_19",
+      "customerId": "cust_8",
+      "amount": 20039,
+      "products": [
+        "Ungüento Recuperador"
+      ],
+      "channel": "online",
+      "timestamp": "2026-03-05T15:49:37.563Z"
+    },
+    {
+      "id": "sale_20",
+      "customerId": "cust_9",
+      "amount": 43152,
+      "products": [
+        "Ungüento Recuperador"
+      ],
+      "channel": "fisica",
+      "timestamp": "2026-03-03T22:30:02.810Z"
+    },
+    {
+      "id": "sale_21",
+      "customerId": "cust_4",
+      "amount": 29952,
+      "products": [
+        "Aromática Mix"
+      ],
+      "channel": "fisica",
+      "timestamp": "2025-09-29T13:52:20.228Z"
+    },
+    {
+      "id": "sale_22",
+      "customerId": "cust_7",
+      "amount": 22247,
+      "products": [
+        "Ungüento Recuperador"
+      ],
+      "channel": "online",
+      "timestamp": "2026-01-17T05:36:13.529Z"
+    },
+    {
+      "id": "sale_23",
+      "customerId": "cust_5",
+      "amount": 58959,
+      "products": [
+        "Aceite Cannabis"
+      ],
+      "channel": "fisica",
+      "timestamp": "2026-02-01T03:04:59.957Z"
+    },
+    {
+      "id": "sale_24",
+      "customerId": "cust_5",
+      "amount": 41257,
+      "products": [
+        "Hidrolato Lavanda"
+      ],
+      "channel": "fisica",
+      "timestamp": "2026-02-17T20:49:05.282Z"
+    },
+    {
+      "id": "sale_25",
+      "customerId": "cust_8",
+      "amount": 41364,
+      "products": [
+        "Aceite Cannabis"
+      ],
+      "channel": "online",
+      "timestamp": "2026-02-27T15:41:29.841Z"
+    },
+    {
+      "id": "sale_26",
+      "customerId": "cust_6",
+      "amount": 24534,
+      "products": [
+        "Aceite Tomillo"
+      ],
+      "channel": "fisica",
+      "timestamp": "2025-11-19T23:38:40.131Z"
+    },
+    {
+      "id": "sale_27",
+      "customerId": "cust_3",
+      "amount": 35610,
+      "products": [
+        "Aceite Cannabis"
+      ],
+      "channel": "online",
+      "timestamp": "2026-02-08T20:03:13.626Z"
+    },
+    {
+      "id": "sale_28",
+      "customerId": "cust_1",
+      "amount": 20939,
+      "products": [
+        "Aceite Cannabis"
+      ],
+      "channel": "fisica",
+      "timestamp": "2025-10-25T07:38:08.248Z"
+    },
+    {
+      "id": "sale_29",
+      "customerId": "cust_9",
+      "amount": 40380,
+      "products": [
+        "Ungüento Recuperador"
+      ],
+      "channel": "online",
+      "timestamp": "2026-01-27T14:42:05.722Z"
+    },
+    {
+      "id": "sale_30",
+      "customerId": "cust_8",
+      "amount": 20420,
+      "products": [
+        "Aceite Cannabis"
+      ],
+      "channel": "online",
+      "timestamp": "2026-02-22T18:19:25.888Z"
+    },
+    {
+      "id": "sale_31",
+      "customerId": "cust_6",
+      "amount": 52656,
+      "products": [
+        "Aromática Mix"
+      ],
+      "channel": "online",
+      "timestamp": "2025-11-17T22:18:17.625Z"
+    },
+    {
+      "id": "sale_32",
+      "customerId": "cust_8",
+      "amount": 51154,
+      "products": [
+        "Aromática Mix"
+      ],
+      "channel": "fisica",
+      "timestamp": "2025-11-02T20:52:45.362Z"
+    },
+    {
+      "id": "sale_33",
+      "customerId": "cust_4",
+      "amount": 43771,
+      "products": [
+        "Hidrolato Lavanda"
+      ],
+      "channel": "fisica",
+      "timestamp": "2025-09-23T22:28:04.910Z"
+    },
+    {
+      "id": "sale_34",
+      "customerId": "cust_0",
+      "amount": 47825,
+      "products": [
+        "Aromática Mix"
+      ],
+      "channel": "fisica",
+      "timestamp": "2025-10-24T19:08:21.430Z"
+    },
+    {
+      "id": "sale_35",
+      "customerId": "cust_6",
+      "amount": 59847,
+      "products": [
+        "Ungüento Recuperador"
+      ],
+      "channel": "fisica",
+      "timestamp": "2025-12-21T07:06:29.401Z"
+    },
+    {
+      "id": "sale_36",
+      "customerId": "cust_6",
+      "amount": 17303,
+      "products": [
+        "Aceite Cannabis"
+      ],
+      "channel": "online",
+      "timestamp": "2026-02-27T02:08:45.541Z"
+    },
+    {
+      "id": "sale_37",
+      "customerId": "cust_6",
+      "amount": 20474,
+      "products": [
+        "Aceite Cannabis"
+      ],
+      "channel": "online",
+      "timestamp": "2026-01-13T07:38:13.750Z"
+    },
+    {
+      "id": "sale_38",
+      "customerId": "cust_4",
+      "amount": 49290,
+      "products": [
+        "Aceite Tomillo"
+      ],
+      "channel": "fisica",
+      "timestamp": "2025-11-04T17:12:14.892Z"
+    },
+    {
+      "id": "sale_39",
+      "customerId": "cust_0",
+      "amount": 33276,
+      "products": [
+        "Aceite Tomillo"
+      ],
+      "channel": "fisica",
+      "timestamp": "2025-11-09T20:18:57.921Z"
+    },
+    {
+      "id": "sale_40",
+      "customerId": "cust_5",
+      "amount": 25551,
+      "products": [
+        "Hidrolato Lavanda"
+      ],
+      "channel": "online",
+      "timestamp": "2025-12-17T13:19:21.005Z"
+    },
+    {
+      "id": "sale_41",
+      "customerId": "cust_7",
+      "amount": 12559,
+      "products": [
+        "Ungüento Recuperador"
+      ],
+      "channel": "online",
+      "timestamp": "2026-01-05T19:24:43.541Z"
+    },
+    {
+      "id": "sale_42",
+      "customerId": "cust_0",
+      "amount": 46835,
+      "products": [
+        "Aceite Cannabis"
+      ],
+      "channel": "online",
+      "timestamp": "2025-10-23T07:21:59.937Z"
+    },
+    {
+      "id": "sale_43",
+      "customerId": "cust_9",
+      "amount": 12660,
+      "products": [
+        "Aceite Cannabis"
+      ],
+      "channel": "online",
+      "timestamp": "2025-09-26T04:09:16.261Z"
+    },
+    {
+      "id": "sale_44",
+      "customerId": "cust_2",
+      "amount": 27817,
+      "products": [
+        "Hidrolato Lavanda"
+      ],
+      "channel": "fisica",
+      "timestamp": "2025-12-30T19:57:13.908Z"
+    },
+    {
+      "id": "sale_45",
+      "customerId": "cust_7",
+      "amount": 33786,
+      "products": [
+        "Hidrolato Lavanda"
+      ],
+      "channel": "fisica",
+      "timestamp": "2025-11-20T13:14:47.312Z"
+    },
+    {
+      "id": "sale_46",
+      "customerId": "cust_6",
+      "amount": 44922,
+      "products": [
+        "Hidrolato Lavanda"
+      ],
+      "channel": "online",
+      "timestamp": "2026-01-16T16:08:16.749Z"
+    },
+    {
+      "id": "sale_47",
+      "customerId": "cust_4",
+      "amount": 52102,
+      "products": [
+        "Aceite Cannabis"
+      ],
+      "channel": "fisica",
+      "timestamp": "2026-01-31T07:35:03.203Z"
+    },
+    {
+      "id": "sale_48",
+      "customerId": "cust_7",
+      "amount": 11877,
+      "products": [
+        "Aromática Mix"
+      ],
+      "channel": "online",
+      "timestamp": "2025-11-14T02:41:31.121Z"
+    },
+    {
+      "id": "sale_49",
+      "customerId": "cust_3",
+      "amount": 16132,
+      "products": [
+        "Aromática Mix"
+      ],
+      "channel": "fisica",
+      "timestamp": "2026-03-19T22:57:53.978Z"
+    },
+    {
+      "id": "1774052181217",
+      "customerId": "cust_1774052181217",
+      "amount": 34000,
+      "products": [
+        "Aromática Mix Frasco",
+        "Aromática Frasco Cannabis"
+      ],
+      "channel": "online",
+      "timestamp": "2026-03-21T00:16:21.217Z"
+    }
+  ],
+  "cartActivity": [
+    {
+      "id": "cart_0",
+      "product": "Hidrolato Lavanda",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-17T21:14:04.930Z"
+    },
+    {
+      "id": "cart_1",
+      "product": "Aromática Mix",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-06T10:30:33.846Z"
+    },
+    {
+      "id": "cart_2",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-10T22:10:08.460Z"
+    },
+    {
+      "id": "cart_3",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-04T10:51:35.596Z"
+    },
+    {
+      "id": "cart_4",
+      "product": "Hidrolato Lavanda",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-07T22:26:19.701Z"
+    },
+    {
+      "id": "cart_5",
+      "product": "Hidrolato Lavanda",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-06T02:02:17.061Z"
+    },
+    {
+      "id": "cart_6",
+      "product": "Hidrolato Lavanda",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-15T20:23:18.960Z"
+    },
+    {
+      "id": "cart_7",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-02T13:53:38.206Z"
+    },
+    {
+      "id": "cart_8",
+      "product": "Ungüento Recuperador",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-01T18:46:46.386Z"
+    },
+    {
+      "id": "cart_9",
+      "product": "Aromática Mix",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-02T04:22:43.720Z"
+    },
+    {
+      "id": "cart_10",
+      "product": "Hidrolato Lavanda",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-15T00:59:10.656Z"
+    },
+    {
+      "id": "cart_11",
+      "product": "Aceite Cannabis",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-15T14:07:44.684Z"
+    },
+    {
+      "id": "cart_12",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-12T22:47:11.406Z"
+    },
+    {
+      "id": "cart_13",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-03T04:14:11.141Z"
+    },
+    {
+      "id": "cart_14",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-20T08:42:04.702Z"
+    },
+    {
+      "id": "cart_15",
+      "product": "Aceite Cannabis",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-10T07:00:19.580Z"
+    },
+    {
+      "id": "cart_16",
+      "product": "Aromática Mix",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-09T14:10:13.624Z"
+    },
+    {
+      "id": "cart_17",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-04T17:27:32.256Z"
+    },
+    {
+      "id": "cart_18",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-12T19:02:14.170Z"
+    },
+    {
+      "id": "cart_19",
+      "product": "Aromática Mix",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-02T17:37:40.426Z"
+    },
+    {
+      "id": "cart_20",
+      "product": "Ungüento Recuperador",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-17T19:35:23.425Z"
+    },
+    {
+      "id": "cart_21",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-12T19:34:38.065Z"
+    },
+    {
+      "id": "cart_22",
+      "product": "Aceite Cannabis",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-01T16:31:53.104Z"
+    },
+    {
+      "id": "cart_23",
+      "product": "Ungüento Recuperador",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-19T10:57:29.566Z"
+    },
+    {
+      "id": "cart_24",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-11T15:32:38.304Z"
+    },
+    {
+      "id": "cart_25",
+      "product": "Aromática Mix",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-08T16:34:43.957Z"
+    },
+    {
+      "id": "cart_26",
+      "product": "Ungüento Recuperador",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-20T01:24:46.653Z"
+    },
+    {
+      "id": "cart_27",
+      "product": "Ungüento Recuperador",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-06T01:00:25.499Z"
+    },
+    {
+      "id": "cart_28",
+      "product": "Hidrolato Lavanda",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-02T06:27:19.327Z"
+    },
+    {
+      "id": "cart_29",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-02T01:10:49.437Z"
+    },
+    {
+      "id": "cart_30",
+      "product": "Ungüento Recuperador",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-19T21:35:07.760Z"
+    },
+    {
+      "id": "cart_31",
+      "product": "Hidrolato Lavanda",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-04T02:44:37.198Z"
+    },
+    {
+      "id": "cart_32",
+      "product": "Ungüento Recuperador",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-08T22:59:51.608Z"
+    },
+    {
+      "id": "cart_33",
+      "product": "Ungüento Recuperador",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-15T09:38:36.764Z"
+    },
+    {
+      "id": "cart_34",
+      "product": "Ungüento Recuperador",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-06T01:49:55.880Z"
+    },
+    {
+      "id": "cart_35",
+      "product": "Aceite Cannabis",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-20T00:30:04.915Z"
+    },
+    {
+      "id": "cart_36",
+      "product": "Hidrolato Lavanda",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-09T22:43:17.219Z"
+    },
+    {
+      "id": "cart_37",
+      "product": "Ungüento Recuperador",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-06T13:45:37.483Z"
+    },
+    {
+      "id": "cart_38",
+      "product": "Aromática Mix",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-12T19:44:28.114Z"
+    },
+    {
+      "id": "cart_39",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-04T14:42:57.147Z"
+    },
+    {
+      "id": "cart_40",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-04T15:23:11.702Z"
+    },
+    {
+      "id": "cart_41",
+      "product": "Aceite Cannabis",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-15T16:20:02.500Z"
+    },
+    {
+      "id": "cart_42",
+      "product": "Hidrolato Lavanda",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-17T21:39:26.659Z"
+    },
+    {
+      "id": "cart_43",
+      "product": "Hidrolato Lavanda",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-12T10:51:36.486Z"
+    },
+    {
+      "id": "cart_44",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-12T21:52:15.891Z"
+    },
+    {
+      "id": "cart_45",
+      "product": "Aceite Cannabis",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-03T09:18:24.199Z"
+    },
+    {
+      "id": "cart_46",
+      "product": "Aceite Cannabis",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-15T05:22:24.664Z"
+    },
+    {
+      "id": "cart_47",
+      "product": "Aromática Mix",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-06T13:46:57.228Z"
+    },
+    {
+      "id": "cart_48",
+      "product": "Aceite Cannabis",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-11T05:31:25.869Z"
+    },
+    {
+      "id": "cart_49",
+      "product": "Aceite Cannabis",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-14T00:25:03.531Z"
+    },
+    {
+      "id": "cart_50",
+      "product": "Hidrolato Lavanda",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-07T02:35:49.247Z"
+    },
+    {
+      "id": "cart_51",
+      "product": "Aromática Mix",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-09T13:41:50.404Z"
+    },
+    {
+      "id": "cart_52",
+      "product": "Hidrolato Lavanda",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-01T08:09:29.344Z"
+    },
+    {
+      "id": "cart_53",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-13T16:48:13.539Z"
+    },
+    {
+      "id": "cart_54",
+      "product": "Aromática Mix",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-11T07:37:27.797Z"
+    },
+    {
+      "id": "cart_55",
+      "product": "Aceite Cannabis",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-09T10:14:49.774Z"
+    },
+    {
+      "id": "cart_56",
+      "product": "Aceite Cannabis",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-15T05:24:19.108Z"
+    },
+    {
+      "id": "cart_57",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-20T12:26:50.796Z"
+    },
+    {
+      "id": "cart_58",
+      "product": "Ungüento Recuperador",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-15T08:35:22.237Z"
+    },
+    {
+      "id": "cart_59",
+      "product": "Aceite Tomillo",
+      "action": "added_to_cart",
+      "timestamp": "2026-03-06T02:17:38.725Z"
+    }
+  ],
+  "customers": {
+    "cust_0": {
+      "id": "cust_0",
+      "name": "Ana Martínez",
+      "email": "ana.martinez@gmail.com",
+      "phone": "+57 312 456 7890",
+      "firstPurchase": "2026-01-18T23:58:04.509Z"
+    },
+    "cust_1": {
+      "id": "cust_1",
+      "name": "Carlos López",
+      "email": "carlos.lopez@hotmail.com",
+      "phone": "+57 315 234 5678",
+      "firstPurchase": "2025-04-15T09:46:41.099Z"
+    },
+    "cust_2": {
+      "id": "cust_2",
+      "name": "María García",
+      "email": "maria.garcia@outlook.com",
+      "phone": "+57 318 567 8901",
+      "firstPurchase": "2025-12-17T22:51:05.160Z"
+    },
+    "cust_3": {
+      "id": "cust_3",
+      "name": "Juan Pérez",
+      "email": "juan.perez@yahoo.com",
+      "phone": "+57 320 890 1234",
+      "firstPurchase": "2025-07-12T04:02:06.512Z"
+    },
+    "cust_4": {
+      "id": "cust_4",
+      "name": "Sofía Rodríguez",
+      "email": "sofia.rodriguez@gmail.com",
+      "phone": "+57 311 345 6789",
+      "firstPurchase": "2025-05-16T14:14:41.097Z"
+    },
+    "cust_5": {
+      "id": "cust_5",
+      "name": "Camila Torres",
+      "email": "camila.torres@gmail.com",
+      "phone": "+57 314 678 9012",
+      "firstPurchase": "2025-07-27T08:13:32.945Z"
+    },
+    "cust_6": {
+      "id": "cust_6",
+      "name": "Andrés Morales",
+      "email": "andres.morales@outlook.com",
+      "phone": "+57 316 012 3456",
+      "firstPurchase": "2025-06-09T15:22:35.254Z"
+    },
+    "cust_7": {
+      "id": "cust_7",
+      "name": "Laura Jiménez",
+      "email": "laura.jimenez@hotmail.com",
+      "phone": "+57 319 234 5678",
+      "firstPurchase": "2025-05-15T12:37:33.746Z"
+    },
+    "cust_8": {
+      "id": "cust_8",
+      "name": "Diego Ramírez",
+      "email": "diego.ramirez@gmail.com",
+      "phone": "+57 313 456 7890",
+      "firstPurchase": "2025-12-03T17:50:01.380Z"
+    },
+    "cust_9": {
+      "id": "cust_9",
+      "name": "Valentina Ospina",
+      "email": "valentina.ospina@yahoo.com",
+      "phone": "+57 317 890 1234",
+      "firstPurchase": "2026-03-14T18:56:39.451Z"
+    },
+    "cust_1774052181217": {
+      "id": "cust_1774052181217",
+      "name": "ersds",
+      "firstPurchase": "2026-03-21T00:16:21.217Z"
+    }
+  },
+  "whatsappClicks": [
+    {
+      "id": "wa_0",
+      "timestamp": "2026-03-16T02:31:55.442Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_1",
+      "timestamp": "2026-03-12T17:02:21.300Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_2",
+      "timestamp": "2026-03-15T00:29:44.167Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_3",
+      "timestamp": "2026-03-12T18:30:29.981Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_4",
+      "timestamp": "2026-03-15T23:56:45.773Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_5",
+      "timestamp": "2026-03-10T17:27:33.965Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_6",
+      "timestamp": "2026-03-14T18:57:52.227Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_7",
+      "timestamp": "2026-03-08T16:56:26.956Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_8",
+      "timestamp": "2026-03-14T13:42:35.790Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_9",
+      "timestamp": "2026-03-09T18:33:49.741Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_10",
+      "timestamp": "2026-03-13T14:11:54.823Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_11",
+      "timestamp": "2026-03-20T19:46:59.009Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_12",
+      "timestamp": "2026-03-20T06:15:00.526Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_13",
+      "timestamp": "2026-03-20T11:02:41.732Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_14",
+      "timestamp": "2026-03-18T12:33:11.144Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_15",
+      "timestamp": "2026-03-10T17:07:02.775Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_16",
+      "timestamp": "2026-03-18T16:24:14.239Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_17",
+      "timestamp": "2026-03-20T09:44:44.467Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_18",
+      "timestamp": "2026-03-20T16:49:28.043Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_19",
+      "timestamp": "2026-03-16T07:21:33.351Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_20",
+      "timestamp": "2026-03-06T06:13:11.022Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_21",
+      "timestamp": "2026-03-07T20:25:29.465Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_22",
+      "timestamp": "2026-03-13T17:38:29.498Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_23",
+      "timestamp": "2026-03-18T23:33:54.877Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_24",
+      "timestamp": "2026-03-15T05:24:31.632Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_25",
+      "timestamp": "2026-03-17T02:43:50.690Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_26",
+      "timestamp": "2026-03-11T06:32:06.490Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_27",
+      "timestamp": "2026-03-15T02:51:12.476Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_28",
+      "timestamp": "2026-03-14T21:28:59.853Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_29",
+      "timestamp": "2026-03-10T12:21:16.252Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_30",
+      "timestamp": "2026-03-06T04:26:07.348Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_31",
+      "timestamp": "2026-03-18T15:26:39.448Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_32",
+      "timestamp": "2026-03-11T14:56:20.097Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_33",
+      "timestamp": "2026-03-12T18:44:39.580Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_34",
+      "timestamp": "2026-03-11T02:08:03.285Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_35",
+      "timestamp": "2026-03-08T06:13:59.178Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_36",
+      "timestamp": "2026-03-07T21:58:09.470Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_37",
+      "timestamp": "2026-03-18T13:09:48.064Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_38",
+      "timestamp": "2026-03-10T11:02:49.159Z",
+      "source": "floating_button"
+    },
+    {
+      "id": "wa_39",
+      "timestamp": "2026-03-19T20:17:49.053Z",
+      "source": "floating_button"
+    }
+  ],
+  "abandonedCarts": [
+    {
+      "id": "abandoned_0",
+      "products": [
+        "Aromática Mix"
+      ],
+      "totalAmount": 28544,
+      "timestamp": "2026-03-19T23:49:42.545Z"
+    },
+    {
+      "id": "abandoned_1",
+      "products": [
+        "Aceite Cannabis"
+      ],
+      "totalAmount": 24628,
+      "timestamp": "2026-03-14T09:27:47.309Z"
+    },
+    {
+      "id": "abandoned_2",
+      "products": [
+        "Hidrolato Lavanda"
+      ],
+      "totalAmount": 31307,
+      "timestamp": "2026-03-16T05:24:04.346Z"
+    },
+    {
+      "id": "abandoned_3",
+      "products": [
+        "Aromática Mix"
+      ],
+      "totalAmount": 53314,
+      "timestamp": "2026-03-14T02:14:18.066Z"
+    },
+    {
+      "id": "abandoned_4",
+      "products": [
+        "Aromática Mix"
+      ],
+      "totalAmount": 17785,
+      "timestamp": "2026-03-14T19:52:57.874Z"
+    },
+    {
+      "id": "abandoned_5",
+      "products": [
+        "Aceite Tomillo"
+      ],
+      "totalAmount": 32607,
+      "timestamp": "2026-03-20T01:25:35.833Z"
+    },
+    {
+      "id": "abandoned_6",
+      "products": [
+        "Aromática Mix"
+      ],
+      "totalAmount": 43414,
+      "timestamp": "2026-03-17T17:34:01.879Z"
+    },
+    {
+      "id": "abandoned_7",
+      "products": [
+        "Ungüento Recuperador"
+      ],
+      "totalAmount": 26344,
+      "timestamp": "2026-03-19T09:26:49.790Z"
+    }
+  ],
+  "pageVisits": [
+    {
+      "id": "visit_0",
+      "timestamp": "2026-02-24T18:06:14.226Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_1",
+      "timestamp": "2026-03-18T23:47:19.267Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_2",
+      "timestamp": "2026-03-16T22:30:55.554Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_3",
+      "timestamp": "2026-03-05T12:40:10.399Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_4",
+      "timestamp": "2026-03-08T06:54:59.727Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_5",
+      "timestamp": "2026-03-10T03:57:20.345Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_6",
+      "timestamp": "2026-03-14T20:22:49.881Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_7",
+      "timestamp": "2026-03-08T17:37:02.123Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_8",
+      "timestamp": "2026-03-09T02:10:52.499Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_9",
+      "timestamp": "2026-02-26T13:55:22.853Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_10",
+      "timestamp": "2026-03-20T11:11:32.627Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_11",
+      "timestamp": "2026-03-09T11:10:37.910Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_12",
+      "timestamp": "2026-02-26T18:01:52.629Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_13",
+      "timestamp": "2026-03-09T20:29:12.362Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_14",
+      "timestamp": "2026-02-24T23:38:51.180Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_15",
+      "timestamp": "2026-03-10T15:31:01.341Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_16",
+      "timestamp": "2026-03-19T02:58:38.076Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_17",
+      "timestamp": "2026-03-15T07:25:36.508Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_18",
+      "timestamp": "2026-03-06T23:07:41.225Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_19",
+      "timestamp": "2026-03-14T08:56:32.445Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_20",
+      "timestamp": "2026-03-04T05:33:35.221Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_21",
+      "timestamp": "2026-02-22T01:28:59.444Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_22",
+      "timestamp": "2026-03-16T15:21:54.385Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_23",
+      "timestamp": "2026-03-10T01:35:31.083Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_24",
+      "timestamp": "2026-03-04T08:41:55.883Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_25",
+      "timestamp": "2026-03-05T22:09:26.941Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_26",
+      "timestamp": "2026-03-02T07:57:50.898Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_27",
+      "timestamp": "2026-02-20T21:42:28.091Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_28",
+      "timestamp": "2026-02-25T11:22:22.821Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_29",
+      "timestamp": "2026-03-01T15:34:12.191Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_30",
+      "timestamp": "2026-03-01T16:17:32.262Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_31",
+      "timestamp": "2026-03-03T12:41:47.005Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_32",
+      "timestamp": "2026-02-25T11:27:30.499Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_33",
+      "timestamp": "2026-03-04T16:11:30.480Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_34",
+      "timestamp": "2026-03-15T18:34:01.628Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_35",
+      "timestamp": "2026-03-02T07:38:00.468Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_36",
+      "timestamp": "2026-02-25T07:17:07.533Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_37",
+      "timestamp": "2026-03-19T00:55:07.651Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_38",
+      "timestamp": "2026-03-07T22:05:08.029Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_39",
+      "timestamp": "2026-02-21T18:42:34.770Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_40",
+      "timestamp": "2026-03-19T21:54:08.648Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_41",
+      "timestamp": "2026-03-06T05:01:29.809Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_42",
+      "timestamp": "2026-03-09T17:25:17.491Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_43",
+      "timestamp": "2026-02-23T21:34:15.306Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_44",
+      "timestamp": "2026-02-21T05:13:10.796Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_45",
+      "timestamp": "2026-03-16T18:13:55.658Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_46",
+      "timestamp": "2026-02-24T17:13:13.411Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_47",
+      "timestamp": "2026-02-21T18:54:58.990Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_48",
+      "timestamp": "2026-02-21T18:10:46.070Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_49",
+      "timestamp": "2026-03-04T20:12:06.361Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_50",
+      "timestamp": "2026-03-03T19:52:23.905Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_51",
+      "timestamp": "2026-03-11T23:35:57.174Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_52",
+      "timestamp": "2026-03-15T02:16:38.791Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_53",
+      "timestamp": "2026-03-18T02:47:22.453Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_54",
+      "timestamp": "2026-03-10T14:42:15.302Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_55",
+      "timestamp": "2026-02-23T15:45:35.530Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_56",
+      "timestamp": "2026-03-15T22:50:17.856Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_57",
+      "timestamp": "2026-03-08T03:02:41.854Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_58",
+      "timestamp": "2026-03-05T19:26:42.700Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_59",
+      "timestamp": "2026-03-13T22:21:24.832Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_60",
+      "timestamp": "2026-03-18T08:04:04.973Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_61",
+      "timestamp": "2026-02-19T11:52:07.700Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_62",
+      "timestamp": "2026-02-19T01:59:29.311Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_63",
+      "timestamp": "2026-02-28T12:01:11.143Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_64",
+      "timestamp": "2026-02-27T05:32:57.594Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_65",
+      "timestamp": "2026-03-12T01:58:10.245Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_66",
+      "timestamp": "2026-02-22T14:07:12.201Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_67",
+      "timestamp": "2026-03-01T13:50:16.596Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_68",
+      "timestamp": "2026-03-03T13:50:45.858Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_69",
+      "timestamp": "2026-02-26T16:16:32.947Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_70",
+      "timestamp": "2026-03-10T00:52:54.544Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_71",
+      "timestamp": "2026-03-17T13:40:24.508Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_72",
+      "timestamp": "2026-02-26T09:44:26.427Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_73",
+      "timestamp": "2026-03-16T04:17:18.038Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_74",
+      "timestamp": "2026-03-19T21:25:13.241Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_75",
+      "timestamp": "2026-03-06T09:14:33.666Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_76",
+      "timestamp": "2026-02-24T23:39:47.560Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_77",
+      "timestamp": "2026-03-16T15:25:23.487Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_78",
+      "timestamp": "2026-03-19T18:45:58.327Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_79",
+      "timestamp": "2026-03-08T15:33:12.363Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_80",
+      "timestamp": "2026-03-08T23:11:03.855Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_81",
+      "timestamp": "2026-03-02T22:38:24.249Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_82",
+      "timestamp": "2026-02-21T22:32:41.235Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_83",
+      "timestamp": "2026-03-01T14:19:55.825Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_84",
+      "timestamp": "2026-03-08T02:39:38.620Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_85",
+      "timestamp": "2026-03-13T13:42:11.756Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_86",
+      "timestamp": "2026-03-18T11:07:06.000Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_87",
+      "timestamp": "2026-03-03T12:54:03.586Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_88",
+      "timestamp": "2026-03-01T05:01:21.078Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_89",
+      "timestamp": "2026-03-18T18:53:09.667Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_90",
+      "timestamp": "2026-02-24T03:36:16.581Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_91",
+      "timestamp": "2026-02-19T18:26:50.156Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_92",
+      "timestamp": "2026-03-14T12:15:48.930Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_93",
+      "timestamp": "2026-03-14T11:15:50.471Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_94",
+      "timestamp": "2026-03-02T17:12:09.389Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_95",
+      "timestamp": "2026-03-07T18:44:55.979Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_96",
+      "timestamp": "2026-03-09T14:40:56.251Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_97",
+      "timestamp": "2026-03-08T21:23:43.432Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_98",
+      "timestamp": "2026-02-25T08:45:11.787Z",
+      "page": "home"
+    },
+    {
+      "id": "visit_99",
+      "timestamp": "2026-03-20T18:03:20.792Z",
+      "page": "home"
+    },
+    {
+      "id": "1774045679719",
+      "timestamp": "2026-03-20T22:27:59.719Z",
+      "page": "home"
+    }
+  ],
+  "stockLevels": {
+    "Aceite Cannabis": 21,
+    "Hidrolato Lavanda": 8,
+    "Aromática Mix": 23,
+    "Ungüento Recuperador": 7,
+    "Aceite Tomillo": 8
+  }
+}

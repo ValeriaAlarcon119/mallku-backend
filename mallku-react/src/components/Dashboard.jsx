@@ -3,756 +3,253 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     TrendingUp, DollarSign, Users, Package, Store, Activity, ShoppingCart, Zap,
     BarChart3, AlertTriangle, ExternalLink, Bell, Target, TrendingDown, Eye,
-    MessageCircle, ShoppingBag, X, Mail, Phone, Calendar, CreditCard
+    MessageCircle, ShoppingBag, X, Mail, Phone, Calendar, CreditCard, ChevronRight,
+    Search, Filter, Play, ArrowUpRight, ArrowDownRight
 } from 'lucide-react';
+
+const MetricCard = ({ title, value, subtext, icon: Icon, trend, color, onClick }) => (
+    <motion.div
+        whileHover={{ y: -5, scale: 1.01 }}
+        onClick={onClick}
+        className="glass-card p-8 rounded-[2.5rem] cursor-pointer relative overflow-hidden group border border-[var(--mallku-green)]/5"
+    >
+        <div className={`absolute top-0 right-0 w-40 h-40 blur-[80px] opacity-10 transition-opacity group-hover:opacity-20`} style={{ background: color }} />
+
+        <div className="flex justify-between items-start mb-8">
+            <div className={`p-5 rounded-2xl bg-[var(--mallku-bone)] border border-[var(--mallku-green)]/5`}>
+                <Icon className="w-7 h-7" style={{ color: color }} />
+            </div>
+            {trend && (
+                <div className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider ${trend > 0 ? 'bg-emerald-500/10 text-emerald-600' : 'bg-rose-500/10 text-rose-600'}`}>
+                    {trend > 0 ? <ArrowUpRight className="w-3.5 h-3.5" /> : <ArrowDownRight className="w-3.5 h-3.5" />}
+                    {Math.abs(trend)}%
+                </div>
+            )}
+        </div>
+
+        <h3 className="text-[var(--mallku-text-muted)] text-[10px] font-black uppercase tracking-[3px] mb-3">{title}</h3>
+        <div className="flex items-baseline gap-3">
+            <span className="text-4xl font-black text-[var(--mallku-emerald)] tracking-tighter">{value}</span>
+            <span className="text-gray-400 text-[10px] font-black uppercase">{subtext}</span>
+        </div>
+    </motion.div>
+);
 
 const Dashboard = () => {
     const [stats, setStats] = useState(null);
     const [activity, setActivity] = useState([]);
     const [heatmap, setHeatmap] = useState([]);
-    const [ltv, setLtv] = useState([]);
-    const [funnel, setFunnel] = useState([]);
-    const [aiRecommendation, setAiRecommendation] = useState(null);
     const [stock, setStock] = useState([]);
-    const [abandonedCarts, setAbandonedCarts] = useState([]);
+    const [aiRecommendation, setAiRecommendation] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [notification, setNotification] = useState(null);
-    const [lastVisitCount, setLastVisitCount] = useState(0);
-
-    // Modal state
-    const [activeModal, setActiveModal] = useState(null);
-    const [modalData, setModalData] = useState(null);
-    const [modalLoading, setModalLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [statsRes, activityRes, heatmapRes, ltvRes, funnelRes, aiRes, stockRes, abandonedRes] = await Promise.all([
-                    fetch('http://localhost:3000/api/stats'),
-                    fetch('http://localhost:3000/api/activity'),
-                    fetch('http://localhost:3000/api/products/heatmap'),
-                    fetch('http://localhost:3000/api/customers/ltv'),
-                    fetch('http://localhost:3000/api/funnel'),
-                    fetch('http://localhost:3000/api/ai/recommendation'),
-                    fetch('http://localhost:3000/api/stock'),
-                    fetch('http://localhost:3000/api/abandoned-carts')
+                const [statsRes, activityRes, heatmapRes, aiRes, stockRes] = await Promise.all([
+                    fetch('/api/stats'),
+                    fetch('/api/activity'),
+                    fetch('/api/products/heatmap'),
+                    fetch('/api/ai/recommendation'),
+                    fetch('/api/stock')
                 ]);
 
-                const statsData = await statsRes.json();
-                setStats(statsData);
+                setStats(await statsRes.json());
                 setActivity(await activityRes.json());
                 setHeatmap(await heatmapRes.json());
-                setLtv(await ltvRes.json());
-                setFunnel(await funnelRes.json());
                 setAiRecommendation(await aiRes.json());
                 setStock(await stockRes.json());
-                setAbandonedCarts(await abandonedRes.json());
                 setLoading(false);
-
-                if (lastVisitCount > 0 && statsData.totalVisits > lastVisitCount) {
-                    showNotification('👁️ Nueva visita a la tienda!', 'success');
-                }
-                setLastVisitCount(statsData.totalVisits);
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.error('Error:', error);
                 setLoading(false);
             }
         };
 
         fetchData();
-        const interval = setInterval(fetchData, 5000);
+        const interval = setInterval(fetchData, 10000);
         return () => clearInterval(interval);
-    }, [lastVisitCount]);
+    }, []);
 
-    const showNotification = (message, type = 'info') => {
-        setNotification({ message, type });
-        setTimeout(() => setNotification(null), 3000);
-    };
-
-    const openStore = () => {
-        window.open('https://tienda-mallku.netlify.app', '_blank');
-    };
-
-    // Modal handlers
-    const openModal = async (type) => {
-        setActiveModal(type);
-        setModalLoading(true);
-        try {
-            let res;
-            switch (type) {
-                case 'revenue':
-                    res = await fetch('http://localhost:3000/api/sales/details');
-                    break;
-                case 'customers':
-                    res = await fetch('http://localhost:3000/api/customers/details');
-                    break;
-                case 'orders':
-                    res = await fetch('http://localhost:3000/api/orders/monthly');
-                    break;
-                case 'conversion':
-                    res = await fetch('http://localhost:3000/api/funnel');
-                    break;
-                default:
-                    return;
-            }
-            const data = await res.json();
-            setModalData(data);
-        } catch (error) {
-            console.error('Error fetching modal data:', error);
-        }
-        setModalLoading(false);
-    };
-
-    const closeModal = () => {
-        setActiveModal(null);
-        setModalData(null);
-    };
-
-    // Modal content renderers
-    const renderRevenueModal = () => {
-        if (!modalData) return null;
-        return (
-            <>
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-[#39FF14]/20 flex items-center justify-center">
-                        <DollarSign className="w-6 h-6 text-[#39FF14]" />
-                    </div>
-                    <div>
-                        <h3 className="text-2xl font-bold text-white">Resumen de Ingresos</h3>
-                        <p className="text-gray-400">Desglose completo de ventas por cliente</p>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-                        <p className="text-gray-400 text-sm">Total General</p>
-                        <p className="text-2xl font-bold text-[#39FF14]">${modalData.grandTotal?.toLocaleString()}</p>
-                    </div>
-                    <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-                        <p className="text-gray-400 text-sm">Total Pedidos</p>
-                        <p className="text-2xl font-bold text-white">{modalData.totalOrders}</p>
-                    </div>
-                </div>
-
-                <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-                    {modalData.summary?.map((client, idx) => (
-                        <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: idx * 0.05 }}
-                            className="bg-white/5 rounded-xl p-4 border border-white/10 hover:border-[#39FF14]/30 transition-all"
-                        >
-                            <div className="flex items-start justify-between mb-2">
-                                <div>
-                                    <h4 className="font-semibold text-white text-lg">{client.name}</h4>
-                                    <div className="flex items-center gap-2 text-gray-400 text-sm">
-                                        <Mail className="w-3 h-3" />
-                                        <span>{client.email}</span>
-                                    </div>
-                                </div>
-                                <div className="text-right">
-                                    <p className="text-[#39FF14] font-bold text-lg">${client.total?.toLocaleString()}</p>
-                                    <p className="text-gray-500 text-xs">{client.orders} pedidos</p>
-                                </div>
-                            </div>
-                            <div className="flex flex-wrap gap-1 mt-2">
-                                {client.products?.map((prod, pIdx) => (
-                                    <span key={pIdx} className="text-xs px-2 py-1 bg-white/10 rounded-full text-gray-300">
-                                        {prod}
-                                    </span>
-                                ))}
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </>
-        );
-    };
-
-    const renderCustomersModal = () => {
-        if (!modalData) return null;
-        return (
-            <>
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center">
-                        <Users className="w-6 h-6 text-blue-400" />
-                    </div>
-                    <div>
-                        <h3 className="text-2xl font-bold text-white">Clientes Activos</h3>
-                        <p className="text-gray-400">{modalData.length} clientes registrados con sus datos de contacto</p>
-                    </div>
-                </div>
-
-                <div className="space-y-3 max-h-[450px] overflow-y-auto pr-2 custom-scrollbar">
-                    {modalData.map((client, idx) => (
-                        <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: idx * 0.05 }}
-                            className="bg-white/5 rounded-xl p-4 border border-white/10 hover:border-blue-500/30 transition-all"
-                        >
-                            <div className="flex items-start justify-between">
-                                <div className="flex-1">
-                                    <h4 className="font-semibold text-white text-lg mb-1">{client.name}</h4>
-                                    <div className="space-y-1">
-                                        <div className="flex items-center gap-2 text-gray-300 text-sm">
-                                            <Mail className="w-3.5 h-3.5 text-blue-400" />
-                                            <span>{client.email}</span>
-                                        </div>
-                                        <div className="flex items-center gap-2 text-gray-300 text-sm">
-                                            <Phone className="w-3.5 h-3.5 text-green-400" />
-                                            <span>{client.phone}</span>
-                                        </div>
-                                        <div className="flex items-center gap-2 text-gray-400 text-xs mt-1">
-                                            <Calendar className="w-3 h-3" />
-                                            <span>Última compra: {new Date(client.lastPurchase).toLocaleDateString('es-CO')}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="text-right">
-                                    <p className="text-blue-400 font-bold text-lg">${client.totalSpent?.toLocaleString()}</p>
-                                    <p className="text-gray-500 text-xs">{client.orders} pedidos</p>
-                                    <span className="text-xs px-2 py-0.5 bg-blue-500/20 rounded-full text-blue-300 mt-1 inline-block">
-                                        ❤️ {client.favoriteProduct}
-                                    </span>
-                                </div>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </>
-        );
-    };
-
-    const renderOrdersModal = () => {
-        if (!modalData) return null;
-        return (
-            <>
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
-                        <Package className="w-6 h-6 text-purple-400" />
-                    </div>
-                    <div>
-                        <h3 className="text-2xl font-bold text-white">Pedidos del Mes</h3>
-                        <p className="text-gray-400">Febrero 2026 — Detalle de cada pedido</p>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="bg-white/5 rounded-xl p-4 border border-purple-500/20">
-                        <p className="text-gray-400 text-sm">Total del Mes</p>
-                        <p className="text-2xl font-bold text-purple-400">${modalData.totalMonth?.toLocaleString()}</p>
-                    </div>
-                    <div className="bg-white/5 rounded-xl p-4 border border-purple-500/20">
-                        <p className="text-gray-400 text-sm">Cantidad de Pedidos</p>
-                        <p className="text-2xl font-bold text-white">{modalData.count}</p>
-                    </div>
-                </div>
-
-                <div className="space-y-3 max-h-[380px] overflow-y-auto pr-2 custom-scrollbar">
-                    {modalData.orders?.map((order, idx) => (
-                        <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: idx * 0.05 }}
-                            className="bg-white/5 rounded-xl p-4 border border-white/10 hover:border-purple-500/30 transition-all"
-                        >
-                            <div className="flex items-start justify-between mb-2">
-                                <div>
-                                    <h4 className="font-semibold text-white">{order.customerName}</h4>
-                                    <div className="flex items-center gap-2 text-gray-400 text-sm">
-                                        <Mail className="w-3 h-3" />
-                                        <span>{order.customerEmail}</span>
-                                    </div>
-                                </div>
-                                <div className="text-right">
-                                    <p className="text-purple-400 font-bold text-lg">${order.amount?.toLocaleString()}</p>
-                                    <span className={`text-xs px-2 py-0.5 rounded-full ${order.channel === 'online' ? 'bg-green-500/20 text-green-300' : 'bg-orange-500/20 text-orange-300'}`}>
-                                        {order.channel === 'online' ? '🌐 Online' : '🏪 Física'}
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="flex items-center justify-between mt-2">
-                                <div className="flex flex-wrap gap-1">
-                                    {order.products?.map((prod, pIdx) => (
-                                        <span key={pIdx} className="text-xs px-2 py-1 bg-purple-500/10 rounded-full text-purple-200">
-                                            {prod}
-                                        </span>
-                                    ))}
-                                </div>
-                                <span className="text-xs text-gray-500">
-                                    {new Date(order.timestamp).toLocaleDateString('es-CO', { day: '2-digit', month: 'short' })}
-                                </span>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </>
-        );
-    };
-
-    const renderConversionModal = () => {
-        if (!modalData) return null;
-        return (
-            <>
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-orange-500/20 flex items-center justify-center">
-                        <Target className="w-6 h-6 text-orange-400" />
-                    </div>
-                    <div>
-                        <h3 className="text-2xl font-bold text-white">Embudo de Conversión</h3>
-                        <p className="text-gray-400">Análisis detallado de cada etapa</p>
-                    </div>
-                </div>
-
-                <div className="space-y-4">
-                    {modalData.map((stage, idx) => {
-                        const colors = ['from-blue-500 to-cyan-400', 'from-yellow-500 to-orange-400', 'from-green-500 to-emerald-400', 'from-purple-500 to-pink-400'];
-                        const bgColors = ['bg-blue-500/10 border-blue-500/30', 'bg-yellow-500/10 border-yellow-500/30', 'bg-green-500/10 border-green-500/30', 'bg-purple-500/10 border-purple-500/30'];
-                        const textColors = ['text-blue-400', 'text-yellow-400', 'text-green-400', 'text-purple-400'];
-                        const icons = ['👁️', '🛒', '📱', '💰'];
-                        const descriptions = [
-                            'Personas que visitaron tu tienda online',
-                            'Visitantes que agregaron productos al carrito',
-                            'Clientes que hicieron clic en WhatsApp para contactarte',
-                            'Personas que completaron una compra'
-                        ];
-
-                        return (
-                            <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                                className={`rounded-xl p-5 border ${bgColors[idx]}`}
-                            >
-                                <div className="flex items-center justify-between mb-3">
-                                    <div className="flex items-center gap-3">
-                                        <span className="text-2xl">{icons[idx]}</span>
-                                        <div>
-                                            <h4 className="font-semibold text-white text-lg">{stage.stage}</h4>
-                                            <p className="text-gray-400 text-xs">{descriptions[idx]}</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className={`text-3xl font-bold ${textColors[idx]}`}>{stage.count}</p>
-                                        <p className="text-gray-500 text-xs">{stage.rate}% del anterior</p>
-                                    </div>
-                                </div>
-                                <div className="h-3 bg-white/5 rounded-full overflow-hidden">
-                                    <motion.div
-                                        initial={{ width: 0 }}
-                                        animate={{ width: `${stage.rate}%` }}
-                                        transition={{ duration: 1, delay: 0.3 + idx * 0.15 }}
-                                        className={`h-full bg-gradient-to-r ${colors[idx]} rounded-full`}
-                                    />
-                                </div>
-                                {idx < modalData.length - 1 && (
-                                    <div className="flex items-center justify-center mt-3 text-gray-500">
-                                        <TrendingDown className="w-4 h-4 mr-1" />
-                                        <span className="text-xs">
-                                            Pierdes {stage.count - (modalData[idx + 1]?.count || 0)} ({(100 - parseFloat(modalData[idx + 1]?.rate || 0)).toFixed(1)}%)
-                                        </span>
-                                    </div>
-                                )}
-                            </motion.div>
-                        );
-                    })}
-                </div>
-            </>
-        );
-    };
-
-    if (loading) {
-        return (
-            <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-                <div className="text-[#39FF14] flex items-center gap-3">
-                    <Activity className="w-6 h-6 animate-pulse" />
-                    <span className="text-xl">Cargando Central de Inteligencia...</span>
-                </div>
+    if (loading) return (
+        <div className="flex items-center justify-center h-[70vh]">
+            <div className="relative">
+                <div className="w-20 h-20 border-8 border-[var(--mallku-green)]/5 rounded-full animate-pulse" />
+                <div className="w-20 h-20 border-t-8 border-[var(--mallku-green)] rounded-full animate-spin absolute top-0 left-0" />
             </div>
-        );
-    }
-
-    const metrics = [
-        { label: 'Ingresos Totales', value: `$${(stats?.totalRevenue || 0).toLocaleString()}`, trend: '+12.5%', icon: DollarSign, color: 'text-[#39FF14]', modalType: 'revenue' },
-        { label: 'Clientes Activos', value: stats?.activeCustomers || 0, trend: '+8.2%', icon: Users, color: 'text-blue-400', modalType: 'customers' },
-        { label: 'Pedidos del Mes', value: stats?.monthlyOrders || 0, trend: '+18.7%', icon: Package, color: 'text-purple-400', modalType: 'orders' },
-        { label: 'Conversión', value: `${stats?.conversionRate || 0}%`, trend: stats?.conversionRate > 20 ? '+0.5%' : '-2.3%', icon: Store, color: stats?.conversionRate > 20 ? 'text-orange-400' : 'text-red-400', modalType: 'conversion' }
-    ];
-
-    const getAlertColor = (type) => {
-        switch (type) {
-            case 'urgente': return 'border-red-500 bg-red-500/10';
-            case 'alerta': return 'border-orange-500 bg-orange-500/10';
-            case 'oportunidad': return 'border-yellow-500 bg-yellow-500/10';
-            case 'recuperación': return 'border-purple-500 bg-purple-500/10';
-            default: return 'border-green-500 bg-green-500/10';
-        }
-    };
+        </div>
+    );
 
     return (
-        <div className="min-h-screen bg-[#0a0a0a] text-white p-6 md:p-8 relative">
-            {/* Toast Notifications */}
-            <AnimatePresence>
-                {notification && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -50 }}
-                        className="fixed top-4 right-4 z-50 bg-[#39FF14] text-black px-6 py-3 rounded-full shadow-2xl flex items-center gap-2"
-                    >
-                        <Bell className="w-4 h-4" />
-                        <span className="font-medium">{notification.message}</span>
-                        <button onClick={() => setNotification(null)}>
-                            <X className="w-4 h-4" />
-                        </button>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-
-            {/* Detail Modal */}
-            <AnimatePresence>
-                {activeModal && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center p-4"
-                        onClick={closeModal}
-                    >
-                        {/* Backdrop */}
-                        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
-
-                        {/* Modal Content */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                            className="relative w-full max-w-2xl bg-[#111111] rounded-2xl border border-white/10 p-6 shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            {/* Close Button */}
-                            <button
-                                onClick={closeModal}
-                                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-                            >
-                                <X className="w-4 h-4 text-gray-400" />
-                            </button>
-
-                            {/* Modal Body */}
-                            {modalLoading ? (
-                                <div className="flex items-center justify-center py-20">
-                                    <Activity className="w-6 h-6 text-[#39FF14] animate-pulse" />
-                                    <span className="ml-3 text-gray-400">Cargando datos...</span>
-                                </div>
-                            ) : (
-                                <>
-                                    {activeModal === 'revenue' && renderRevenueModal()}
-                                    {activeModal === 'customers' && renderCustomersModal()}
-                                    {activeModal === 'orders' && renderOrdersModal()}
-                                    {activeModal === 'conversion' && renderConversionModal()}
-                                </>
-                            )}
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-
-            {/* Floating "Ver Tienda" Button */}
-            <motion.button
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                onClick={openStore}
-                className="fixed bottom-8 right-8 z-40 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 px-6 py-3 rounded-full shadow-2xl flex items-center gap-2 font-semibold transition-all hover:scale-105"
-            >
-                <ExternalLink className="w-5 h-5" />
-                Ver Tienda en Vivo
-            </motion.button>
-
+        <div className="space-y-12 pb-24">
             {/* Header */}
-            <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="max-w-7xl mx-auto mb-8">
-                <div className="flex items-center justify-between mb-2">
-                    <div>
-                        <h1 className="text-4xl font-bold mb-2">
-                            Central de Inteligencia <span className="text-[#39FF14]">Mallku</span>
-                        </h1>
-                        <p className="text-gray-400">Growth Analytics + IA Consultant</p>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-16">
+                <div>
+                    <h1 className="text-5xl md:text-6xl font-black text-[var(--mallku-emerald)] tracking-tighter mb-4 uppercase">Inteligencia <br /><span className="font-light lowercase opacity-30">de productos naturales</span></h1>
+                    <div className="flex items-center gap-4">
+                        <span className="flex h-2.5 w-2.5 rounded-full bg-[var(--mallku-green)] animate-ping" />
+                        <p className="text-gray-400 font-black text-[10px] uppercase tracking-[4px]">Sincronización Activa</p>
                     </div>
-                    <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10">
-                        <Activity className="w-4 h-4 text-[#39FF14] animate-pulse" />
-                        <span className="text-sm text-gray-300">En vivo</span>
+                </div>
+
+                <div className="flex items-center gap-6">
+                    <button className="p-5 bg-white shadow-xl rounded-2xl hover:bg-gray-50 transition-all border border-black/5 relative">
+                        <Bell className="w-5 h-5 text-gray-400" />
+                        <span className="absolute top-4 right-4 w-2.5 h-2.5 bg-rose-500 rounded-full border-4 border-white" />
+                    </button>
+                    <div className="h-12 w-[1px] bg-black/5 mx-2" />
+                    <div className="flex items-center gap-5 bg-white px-5 py-3 rounded-2xl shadow-xl border border-black/5">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--mallku-green)] to-[var(--mallku-gold)] p-[2px] shadow-lg overflow-hidden">
+                            <img src="/dashboard/logo-mallku.jpg" alt="Logo" className="w-full h-full object-cover rounded-xl" />
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-sm font-black text-[var(--mallku-emerald)] leading-none italic uppercase">Admin</span>
+                            <span className="text-[9px] text-gray-400 font-black uppercase tracking-[3px] mt-1">Mallku Inteligencia</span>
+                        </div>
                     </div>
+                </div>
+            </div>
+
+            {/* AI Insight (Light Version) */}
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-[1px] rounded-[3rem] bg-gradient-to-r from-[var(--mallku-green)]/20 via-[var(--mallku-gold)]/20 to-[var(--mallku-green)]/20 shadow-2xl"
+            >
+                <div className="bg-white/90 backdrop-blur-xl p-8 md:p-12 rounded-[2.9rem] flex flex-col lg:flex-row items-center gap-8 border-0">
+                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-[2rem] bg-[var(--mallku-green)]/5 flex items-center justify-center relative flex-shrink-0 shadow-inner">
+                        <Zap className="w-8 h-8 md:w-10 md:h-10 text-[var(--mallku-green)]" />
+                        <div className="absolute inset-0 bg-[var(--mallku-green)]/10 blur-2xl rounded-full" />
+                    </div>
+                    <div className="flex-1 text-center lg:text-left">
+                        <h4 className="text-[var(--mallku-gold)] text-[10px] font-black uppercase tracking-[5px] mb-2">Consultor de Origen Mallku</h4>
+                        <p className="text-[var(--mallku-emerald)] text-xl md:text-2xl font-black tracking-tight leading-relaxed max-w-3xl">
+                            "{aiRecommendation?.message || "Interpretando el alma de tus ventas para guiar tus próximos pasos..."}"
+                        </p>
+                    </div>
+                    <button className="px-8 py-4 bg-[var(--mallku-gold)] text-white rounded-full font-black text-[10px] uppercase tracking-[4px] hover:scale-105 transition-all flex items-center gap-3 group shadow-[0_20px_40px_-10px_rgba(180,83,9,0.3)] flex-shrink-0">
+                        {aiRecommendation?.action || "Optimizar Flujo"}
+                        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </button>
                 </div>
             </motion.div>
 
-            {/* AI Recommendation Alert */}
-            {aiRecommendation && (
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className={`max-w-7xl mx-auto mb-8 p-6 rounded-2xl border-2 ${getAlertColor(aiRecommendation.type)} backdrop-blur-lg`}
-                >
-                    <div className="flex items-start gap-4">
-                        <Zap className="w-8 h-8 text-yellow-400 flex-shrink-0 animate-pulse" />
-                        <div className="flex-1">
-                            <h3 className="text-xl font-bold mb-1">IA Sales Consultant</h3>
-                            <p className="text-gray-200 mb-3">{aiRecommendation.message}</p>
-                            <button className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-medium transition-colors">
-                                {aiRecommendation.action}
-                            </button>
-                        </div>
-                    </div>
-                </motion.div>
-            )}
-
-            {/* Metrics Grid - CLICKABLE */}
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                {metrics.map((metric, idx) => {
-                    const Icon = metric.icon;
-                    const isNegative = metric.trend.startsWith('-');
-                    return (
-                        <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: idx * 0.1 }}
-                            onClick={() => openModal(metric.modalType)}
-                            className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10 hover:border-[#39FF14]/30 transition-all cursor-pointer group hover:scale-[1.02] active:scale-[0.98]"
-                        >
-                            <div className="flex items-start justify-between">
-                                <div className="flex-1">
-                                    <p className="text-gray-400 text-sm mb-1">{metric.label}</p>
-                                    <h3 className="text-3xl font-bold text-white mb-2">{metric.value}</h3>
-                                    <div className="flex items-center gap-1">
-                                        {isNegative ? <TrendingDown className="w-4 h-4 text-red-400" /> : <TrendingUp className={`w-4 h-4 ${metric.color}`} />}
-                                        <span className={`text-sm font-medium ${isNegative ? 'text-red-400' : metric.color}`}>{metric.trend}</span>
-                                    </div>
-                                </div>
-                                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors">
-                                    <Icon className={`w-6 h-6 ${metric.color}`} />
-                                </div>
-                            </div>
-                            <div className="mt-3 pt-3 border-t border-white/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                <span className="text-xs text-gray-500">Click para ver detalle →</span>
-                            </div>
-                        </motion.div>
-                    );
-                })}
+            {/* Metrics */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <MetricCard
+                    title="Ventas del Ciclo"
+                    value={`$${stats?.totalRevenue.toLocaleString()}`}
+                    subtext="COP"
+                    icon={DollarSign}
+                    trend={+12.5}
+                    color="var(--mallku-green)"
+                />
+                <MetricCard
+                    title="Guardianes"
+                    value={stats?.activeCustomers}
+                    subtext="Clientes Fieles"
+                    icon={Users}
+                    trend={+8.2}
+                    color="var(--mallku-gold)"
+                />
+                <MetricCard
+                    title="Efectividad"
+                    value={`${stats?.conversionRate}%`}
+                    subtext="Conversión"
+                    icon={Target}
+                    trend={-2.4}
+                    color="#0EA5E9"
+                />
+                <MetricCard
+                    title="Presencia Total"
+                    value={stats?.totalVisits || 0}
+                    subtext="Sesiones"
+                    icon={Eye}
+                    trend={+15.7}
+                    color="#F43F5E"
+                />
             </div>
 
-            {/* Conversion Funnel (RADAR DE INTENCIÓN) */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="max-w-7xl mx-auto mb-8 bg-gradient-to-br from-red-500/10 to-orange-500/10 backdrop-blur-lg rounded-2xl p-6 border border-red-500/30"
-            >
-                <div className="flex items-center gap-2 mb-4">
-                    <Target className="w-5 h-5 text-red-400" />
-                    <h2 className="text-xl font-bold">🎯 Radar de Intención (Funnel Sales)</h2>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    {funnel.map((stage, idx) => (
-                        <div key={idx} className="text-center">
-                            <div className="text-4xl font-bold text-white mb-1">{stage.count}</div>
-                            <div className="text-sm text-gray-400 mb-2">{stage.stage}</div>
-                            <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                                <motion.div
-                                    initial={{ width: 0 }}
-                                    animate={{ width: `${stage.rate}%` }}
-                                    transition={{ duration: 1, delay: 0.5 + idx * 0.1 }}
-                                    className="h-full bg-gradient-to-r from-red-500 to-orange-500"
-                                />
+            {/* Panels */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                <div className="lg:col-span-2 glass-card p-10 rounded-[3rem] bg-white border border-[var(--mallku-green)]/5">
+                    <div className="flex justify-between items-center mb-12">
+                        <div>
+                            <h3 className="text-3xl font-black tracking-tighter text-[var(--mallku-emerald)] uppercase">Deseo Botánico</h3>
+                            <p className="text-gray-400 text-[10px] uppercase font-black tracking-[3px] mt-1">Nivel de atracción por producto</p>
+                        </div>
+                        <BarChart3 className="w-8 h-8 text-[var(--mallku-green)] opacity-20" />
+                    </div>
+                    <div className="space-y-8">
+                        {heatmap.slice(0, 5).map((item, idx) => (
+                            <div key={idx} className="group">
+                                <div className="flex justify-between items-end mb-3">
+                                    <span className="text-[var(--mallku-emerald)] text-base font-black tracking-tight flex items-center gap-4">
+                                        <span className="text-gray-300 font-black">0{idx + 1}</span>
+                                        {item.product}
+                                    </span>
+                                    <span className="text-gray-400 text-[10px] uppercase font-black">{item.clicks} Intenciones</span>
+                                </div>
+                                <div className="w-full h-4 bg-[var(--mallku-bone)] rounded-full overflow-hidden">
+                                    <motion.div
+                                        initial={{ width: 0 }}
+                                        animate={{ width: `${(item.clicks / heatmap[0].clicks) * 100}%` }}
+                                        transition={{ duration: 1.2, delay: idx * 0.1 }}
+                                        className="h-full rounded-full bg-gradient-to-r from-[var(--mallku-green)]/50 to-[var(--mallku-green)]"
+                                    />
+                                </div>
                             </div>
-                            <div className="text-xs text-gray-500 mt-1">{stage.rate}% del anterior</div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="glass-card p-10 rounded-[3rem] bg-white border border-[var(--mallku-green)]/5">
+                    <div className="flex justify-between items-center mb-10">
+                        <h3 className="text-2xl font-black tracking-tighter text-[var(--mallku-emerald)] uppercase">Vibración Live</h3>
+                        <Activity className="w-6 h-6 text-emerald-500" />
+                    </div>
+                    <div className="space-y-8 max-h-[450px] overflow-y-auto pr-2 custom-scrollbar">
+                        {activity.slice(0, 10).map((act, idx) => (
+                            <div key={idx} className="flex gap-6 p-5 rounded-[2rem] bg-[var(--mallku-bone)]/50 hover:bg-[var(--mallku-bone)] transition-all border border-transparent hover:border-[var(--mallku-green)]/5">
+                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm ${act.action === 'checkout' ? 'bg-emerald-500 text-white' : 'bg-white text-[var(--mallku-green)]'
+                                    }`}>
+                                    {act.action === 'checkout' ? <ShoppingBag className="w-6 h-6" /> : <ShoppingCart className="w-6 h-6" />}
+                                </div>
+                                <div className="flex flex-col justify-center">
+                                    <p className="text-base font-black text-[var(--mallku-emerald)] leading-none mb-1.5">{act.product}</p>
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-[9px] text-gray-400 font-black uppercase tracking-wider">{act.action === 'added_to_cart' ? 'Seleccionado' : 'Ritual de Pago'}</span>
+                                        <span className="text-[9px] text-[var(--mallku-green)] font-black uppercase">Ahora</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* Inventory Alerts (Light Refined) */}
+            <div className="p-10 rounded-[3rem] bg-[var(--mallku-bone)] border border-rose-500/10 relative overflow-hidden">
+                <div className="flex items-center gap-6 mb-10">
+                    <div className="p-4 rounded-2xl bg-white shadow-xl text-rose-500">
+                        <AlertTriangle className="w-8 h-8" />
+                    </div>
+                    <div>
+                        <h3 className="text-3xl font-black text-[var(--mallku-emerald)] uppercase leading-none">Agotamiento de Origen</h3>
+                        <p className="text-rose-500/60 text-[10px] font-black uppercase tracking-[4px] mt-2">Reposición Requerida</p>
+                    </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                    {stock.filter(s => s.status === 'low').map((item, idx) => (
+                        <div key={idx} className="p-6 rounded-[2rem] bg-white border border-rose-500/5 shadow-sm">
+                            <p className="text-gray-400 text-[10px] font-black uppercase tracking-widest mb-3">{item.product}</p>
+                            <div className="flex justify-between items-end">
+                                <span className="text-4xl font-black text-rose-500 tracking-tighter">{item.quantity}</span>
+                                <span className="text-[9px] font-black text-white uppercase px-3 py-1.5 bg-rose-500 rounded-xl shadow-lg shadow-rose-500/20">Crítico</span>
+                            </div>
                         </div>
                     ))}
                 </div>
-                {stats?.funnelConversion && (
-                    <div className="mt-4 p-4 bg-white/5 rounded-lg">
-                        <p className="text-sm text-yellow-300">
-                            ⚠️ De {stats.funnelConversion.visits} visitas, solo {stats.funnelConversion.purchases} compraron.
-                            <strong className="text-white"> Estás perdiendo {((1 - stats.funnelConversion.purchases / stats.funnelConversion.visits) * 100).toFixed(0)}% de ventas potenciales.</strong>
-                        </p>
-                    </div>
-                )}
-            </motion.div>
-
-            {/* Stock Monitor & Abandoned Carts */}
-            <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                {/* Stock Monitor */}
-                <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10"
-                >
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-2">
-                            <Package className="w-5 h-5 text-blue-400" />
-                            <h2 className="text-xl font-bold">Monitor de Stock</h2>
-                        </div>
-                        <button className="text-xs px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full hover:bg-blue-500/30">
-                            Actualizar Inventario
-                        </button>
-                    </div>
-                    <div className="space-y-3">
-                        {stock.map((item, idx) => (
-                            <div key={idx} className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5">
-                                <div className="flex items-center gap-3">
-                                    {item.status === 'low' && <AlertTriangle className="w-4 h-4 text-red-400 animate-pulse" />}
-                                    <span className="text-sm text-gray-300">{item.product}</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <span className={`text-lg font-bold ${item.status === 'low' ? 'text-red-400' : item.status === 'medium' ? 'text-yellow-400' : 'text-green-400'}`}>
-                                        {item.quantity}
-                                    </span>
-                                    <span className="text-xs text-gray-500">unidades</span>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </motion.div>
-
-                {/* Abandoned Carts */}
-                <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.6 }}
-                    className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10"
-                >
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-2">
-                            <ShoppingBag className="w-5 h-5 text-purple-400" />
-                            <h2 className="text-xl font-bold">Carritos Abandonados</h2>
-                        </div>
-                        <span className="text-xs px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full">
-                            {abandonedCarts.length} oportunidades
-                        </span>
-                    </div>
-                    <div className="space-y-2 max-h-64 overflow-y-auto scrollbar-hide">
-                        {abandonedCarts.map((cart, idx) => (
-                            <motion.div
-                                key={cart.id}
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.05 }}
-                                className="p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
-                            >
-                                <div className="flex items-center justify-between mb-1">
-                                    <span className="text-sm font-medium text-white">${cart.totalAmount.toLocaleString()}</span>
-                                    <span className="text-xs text-gray-500">{new Date(cart.timestamp).toLocaleDateString()}</span>
-                                </div>
-                                <div className="text-xs text-gray-400">{cart.products.join(', ')}</div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </motion.div>
-            </div>
-
-            {/* Product Heatmap & Real-time Activity */}
-            <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.7 }}
-                    className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10"
-                >
-                    <div className="flex items-center gap-2 mb-4">
-                        <BarChart3 className="w-5 h-5 text-[#39FF14]" />
-                        <h2 className="text-xl font-bold">Top Products (Heatmap)</h2>
-                    </div>
-                    <div className="space-y-3">
-                        {heatmap.slice(0, 5).map((item, idx) => (
-                            <div key={idx} className="flex items-center justify-between">
-                                <span className="text-sm text-gray-300">{item.product}</span>
-                                <div className="flex items-center gap-2">
-                                    <div className="w-32 h-2 bg-white/5 rounded-full overflow-hidden">
-                                        <motion.div
-                                            initial={{ width: 0 }}
-                                            animate={{ width: `${(item.clicks / (heatmap[0]?.clicks || 1)) * 100}%` }}
-                                            transition={{ duration: 1, delay: 0.8 + idx * 0.1 }}
-                                            className="h-full bg-[#39FF14]"
-                                        />
-                                    </div>
-                                    <span className="text-sm font-semibold text-white w-8 text-right">{item.clicks}</span>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.8 }}
-                    className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10"
-                >
-                    <div className="flex items-center gap-2 mb-4">
-                        <Eye className="w-5 h-5 text-orange-400" />
-                        <h2 className="text-xl font-bold">Actividad en Tiempo Real</h2>
-                    </div>
-                    <div className="space-y-2 max-h-64 overflow-y-auto scrollbar-hide">
-                        {activity.slice(0, 10).map((act, idx) => (
-                            <motion.div
-                                key={act.id}
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.05 }}
-                                className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors"
-                            >
-                                <div className="w-2 h-2 rounded-full bg-[#39FF14] animate-pulse" />
-                                <div className="flex-1">
-                                    <p className="text-sm text-white">{act.product}</p>
-                                    <p className="text-xs text-gray-500">{new Date(act.timestamp).toLocaleTimeString()}</p>
-                                </div>
-                                <ShoppingCart className="w-4 h-4 text-gray-400" />
-                            </motion.div>
-                        ))}
-                    </div>
-                </motion.div>
-            </div>
-
-            {/* Customer LTV */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9 }}
-                className="max-w-7xl mx-auto bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10"
-            >
-                <h2 className="text-xl font-bold mb-4">Top Customers (Lifetime Value)</h2>
-                <div className="overflow-x-auto">
-                    <table className="w-full">
-                        <thead>
-                            <tr className="border-b border-white/10">
-                                <th className="text-left py-3 px-4 text-gray-400 font-medium">Cliente</th>
-                                <th className="text-left py-3 px-4 text-gray-400 font-medium">Total Gastado</th>
-                                <th className="text-left py-3 px-4 text-gray-400 font-medium">Pedidos</th>
-                                <th className="text-left py-3 px-4 text-gray-400 font-medium">Promedio</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {ltv.map((customer, idx) => (
-                                <tr key={idx} className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                                    <td className="py-3 px-4 text-white font-medium">{customer.name}</td>
-                                    <td className="py-3 px-4 text-[#39FF14] font-semibold">${customer.totalSpent.toLocaleString()}</td>
-                                    <td className="py-3 px-4 text-gray-300">{customer.orders}</td>
-                                    <td className="py-3 px-4 text-gray-300">${customer.avgOrder.toLocaleString()}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </motion.div>
-
-            {/* Footer */}
-            <div className="max-w-7xl mx-auto mt-8 text-center text-gray-500 text-sm">
-                <p>🧠 Central de Inteligencia con IA · Node.js Backend · React + Framer Motion</p>
             </div>
         </div>
     );
