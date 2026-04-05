@@ -23,25 +23,35 @@
     <!-- GSAP Animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
     <style>
         :root {
-            --mallku-emerald: #064e3b;
+            --mallku-emerald: #1a4d42;
             --mallku-gold: #c5a059;
-            --mallku-bone: #f8f5f0;
-            --mallku-lavender: #f3e8ff;
-            --mallku-mint: #f0fdf4;
-            --mallku-text: #1a2e2a;
-            --mallku-text-light: #4a5d5a;
+            --mallku-bone: #fdfbf7;
+            --mallku-lavender: #e0d7ff;
+            --mallku-mint: #e0f2f1;
+            --mallku-text: #2d3436;
+            --mallku-text-light: #636e72;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            color: var(--mallku-text);
-            /* Global Pastel Gradient Background */
-            background: linear-gradient(140deg, var(--mallku-lavender) 0%, var(--mallku-mint) 50%, var(--mallku-lavender) 100%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, var(--mallku-lavender) 0%, var(--mallku-mint) 100%);
             background-attachment: fixed;
-            overflow-x: hidden;
+            color: var(--mallku-text);
+            line-height: 1.6;
             scroll-behavior: smooth;
         }
 
@@ -597,12 +607,12 @@
         <div class="absolute top-20 right-20 opacity-[0.05] rotate-12">
             <i data-lucide="leaf" class="w-96 h-96 text-[var(--mallku-emerald)]"></i>
         </div>
-        <div class="max-w-7xl mx-auto px-10 grid grid-cols-1 lg:grid-cols-2 gap-32 items-center w-full relative z-10">
+        <div class="max-w-7xl mx-auto px-6 md:px-10 grid grid-cols-1 lg:grid-cols-2 gap-20 md:gap-32 items-center w-full relative z-10">
             <div class="reveal-up">
-                <span class="text-[var(--mallku-gold)] font-black text-[12px] uppercase tracking-[10px] mb-8 block">
+                <span class="text-[var(--mallku-gold)] font-black text-[10px] md:text-[12px] uppercase tracking-[6px] md:tracking-[10px] mb-6 md:mb-8 block">
                     Inspiración de la Cordillera
                 </span>
-                <h1 class="text-6xl md:text-[7rem] font-luxury text-[var(--mallku-emerald)] leading-[0.8] mb-12 uppercase">
+                <h1 class="text-4xl sm:text-5xl md:text-[7rem] font-luxury text-[var(--mallku-emerald)] leading-[0.9] md:leading-[0.8] mb-8 md:mb-12 uppercase">
                     Mallku <br> <span class="opacity-30 font-light lowercase">Sentires Andinos</span>
                 </h1>
                 
@@ -739,13 +749,12 @@
     </section>
 
     <!-- CATALOGO LIGHT -->
-    <section id="catalogo" class="py-32 px-10 bg-[var(--mallku-bone)]/20 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: url('https://www.transparenttextures.com/patterns/leaf.png');"></div>
+    <section id="catalogo" class="py-20 md:py-32 px-4 md:px-10 bg-[var(--mallku-bone)]/20 relative overflow-hidden">
         <div class="max-w-7xl mx-auto relative z-10">
-            <div class="text-center mb-24">
-                <span class="text-[var(--mallku-gold)] font-black text-[10px] uppercase tracking-[10px] mb-8 block">Selección Curada</span>
-                <h2 class="text-7xl md:text-8xl font-luxury text-[var(--mallku-emerald)] leading-none uppercase mb-12">Nuestros <br> <span class="opacity-40 font-light lowercase">Sentires</span></h2>
-                <p class="text-[var(--mallku-text-light)] text-xl font-light max-w-2xl mx-auto leading-relaxed">Cada producto es el resultado de una alquimia sagrada entre la tierra andina y la sabiduría ancestral.</p>
+            <div class="text-center mb-16 md:mb-24">
+                <span class="text-[var(--mallku-gold)] font-black text-[10px] uppercase tracking-[8px] md:tracking-[10px] mb-6 md:mb-8 block">Selección Curada</span>
+                <h2 class="text-5xl md:text-8xl font-luxury text-[var(--mallku-emerald)] leading-none uppercase mb-8 md:mb-12">Nuestros <br> <span class="opacity-40 font-light lowercase">Sentires</span></h2>
+                <p class="text-[var(--mallku-text-light)] text-base md:text-xl font-light max-w-2xl mx-auto leading-relaxed px-4">Cada producto es el resultado de una alquimia sagrada entre la tierra andina y la sabiduría ancestral.</p>
             </div>
             <div class="flex flex-col md:flex-row justify-center items-center mb-24 gap-12">
                 <div class="hidden">
@@ -770,30 +779,30 @@
     </section>
 
     <!-- CONTACTO LIGHT -->
-    <section id="contacto" class="py-40 px-10 bg-white/40 backdrop-blur-md">
+    <section id="contacto" class="py-24 md:py-40 px-4 md:px-10 bg-white/40 backdrop-blur-md">
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-20">
-                <i data-lucide="sparkles" class="w-16 h-16 text-[var(--mallku-gold)] mx-auto mb-8"></i>
-                <h2 class="text-4xl md:text-6xl font-luxury text-[var(--mallku-emerald)] uppercase mb-8 leading-tight">Sanación <br class="md:hidden"> Personalizada</h2>
-                <p class="text-lg md:text-xl text-[var(--mallku-text-light)] font-light px-4">Déjanos tus datos para guiarte en tu proceso de despertar botánico.</p>
+            <div class="text-center mb-12 md:mb-20">
+                <i data-lucide="sparkles" class="w-12 h-12 md:w-16 md:h-16 text-[var(--mallku-gold)] mx-auto mb-6"></i>
+                <h2 class="text-3xl md:text-6xl font-luxury text-[var(--mallku-emerald)] uppercase mb-6 leading-tight">Sanación <br class="md:hidden"> Personalizada</h2>
+                <p class="text-base md:text-xl text-[var(--mallku-text-light)] font-light px-2">Déjanos tus datos para guiarte en tu proceso de despertar botánico.</p>
             </div>
-            <div class="glass-modal p-24">
-                <div class="space-y-12">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="bg-white/80 backdrop-blur-xl p-6 sm:p-10 md:p-16 rounded-3xl md:rounded-[3.5rem] border border-[var(--mallku-emerald)]/10 shadow-xl">
+                <div class="space-y-6 md:space-y-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
                         <div>
-                            <label class="text-[10px] font-black uppercase tracking-[5px] text-[var(--mallku-emerald)] mb-4 block">Nombre Completo</label>
-                            <input type="text" id="contact-name" placeholder="Tu nombre" class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-10 py-6 text-base focus:border-[var(--mallku-emerald)] focus:outline-none transition-all shadow-inner">
+                            <label class="text-xs md:text-[10px] font-black uppercase tracking-[3px] md:tracking-[5px] text-[var(--mallku-emerald)] mb-3 block">Nombre Completo</label>
+                            <input type="text" id="contact-name" placeholder="Tu nombre" class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-5 md:px-10 py-4 md:py-6 text-base focus:border-[var(--mallku-emerald)] focus:outline-none transition-all">
                         </div>
                         <div>
-                            <label class="text-[10px] font-black uppercase tracking-[5px] text-[var(--mallku-emerald)] mb-4 block">WhatsApp</label>
-                            <input type="tel" id="contact-phone" placeholder="+57" class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-10 py-6 text-base focus:border-[var(--mallku-emerald)] focus:outline-none transition-all shadow-inner">
+                            <label class="text-xs md:text-[10px] font-black uppercase tracking-[3px] md:tracking-[5px] text-[var(--mallku-emerald)] mb-3 block">WhatsApp</label>
+                            <input type="tel" id="contact-phone" placeholder="+57 3XX XXX XXXX" class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-5 md:px-10 py-4 md:py-6 text-base focus:border-[var(--mallku-emerald)] focus:outline-none transition-all">
                         </div>
                     </div>
                     <div>
-                        <label class="text-[10px] font-black uppercase tracking-[5px] text-[var(--mallku-emerald)] mb-4 block">Mensaje (Opcional)</label>
-                        <textarea id="contact-message" rows="4" placeholder="¿En qué podemos ayudarte?" class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-10 py-6 text-base focus:border-[var(--mallku-emerald)] focus:outline-none transition-all shadow-inner"></textarea>
+                        <label class="text-xs md:text-[10px] font-black uppercase tracking-[3px] md:tracking-[5px] text-[var(--mallku-emerald)] mb-3 block">Mensaje (Opcional)</label>
+                        <textarea id="contact-message" rows="4" placeholder="¿En qué podemos ayudarte?" class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-5 md:px-10 py-4 md:py-6 text-base focus:border-[var(--mallku-emerald)] focus:outline-none transition-all resize-none"></textarea>
                     </div>
-                    <button onclick="sendContactData()" class="w-full btn-luxury">Solicitar Asesoría</button>
+                    <button onclick="sendContactData()" class="w-full btn-luxury py-5 md:py-6 text-sm md:text-base">Solicitar Asesoría</button>
                 </div>
             </div>
         </div>
@@ -890,77 +899,77 @@
         </div>
     </div>
 
-    <!-- FOOTER LIGHT -->
-    <footer class="bg-white/60 backdrop-blur-xl py-24 px-10 border-t border-[var(--mallku-emerald)]/5">
+    <!-- FOOTER LIGHT: pb-32 para que no lo tapen los botones flotantes en móvil -->
+    <footer class="bg-white/60 backdrop-blur-xl pt-24 pb-32 md:pb-24 px-6 md:px-10 border-t border-[var(--mallku-emerald)]/5">
         <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-24 mb-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 mb-20">
                 <!-- MALLKU BRAND -->
-                <div class="space-y-10 text-center md:text-left">
-                    <div class="flex items-center gap-8 justify-center md:justify-start">
-                        <img src="WhatsApp Image 2026-02-04 at 11.03.07 PM.jpeg" alt="Mallku Logo" class="w-32 h-32 rounded-full object-cover shadow-xl">
-                        <span class="font-luxury text-7xl font-black text-[var(--mallku-emerald)]">MALLKU</span>
+                <div class="space-y-8 md:space-y-10 text-center md:text-left">
+                    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-8 justify-center md:justify-start">
+                        <img src="WhatsApp Image 2026-02-04 at 11.03.07 PM.jpeg" alt="Mallku Logo" class="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover shadow-xl">
+                        <span class="font-luxury text-6xl md:text-7xl font-black text-[var(--mallku-emerald)]">MALLKU</span>
                     </div>
-                    <p class="text-xl md:text-2xl text-[var(--mallku-text-light)] font-light leading-relaxed max-w-xl mx-auto md:mx-0">
+                    <p class="text-lg md:text-2xl text-[var(--mallku-text-light)] font-light leading-relaxed max-w-xl mx-auto md:mx-0">
                         Saberes, sabores y tradiciones autóctonas de la medicina y cosmética desde las montañas del sur. Sanación consciente y natural para el alma.
                     </p>
-                    <div class="flex gap-8 justify-center md:justify-start">
+                    <div class="flex gap-6 md:gap-8 justify-center md:justify-start">
                         <!-- Círculo Emoji 1 -->
-                        <div class="w-16 h-16 rounded-full bg-white border-2 border-[#4ade80] flex items-center justify-center shadow-[0_0_20px_rgba(74,222,128,0.2)] text-3xl">
+                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white border-2 border-[#4ade80] flex items-center justify-center shadow-[0_0_20px_rgba(74,222,128,0.2)] text-2xl md:text-3xl">
                             🌿
                         </div>
                         <!-- Círculo Emoji 2 -->
-                        <div class="w-16 h-16 rounded-full bg-white border-2 border-[#4ade80] flex items-center justify-center shadow-[0_0_20px_rgba(74,222,128,0.2)] text-3xl">
+                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white border-2 border-[#4ade80] flex items-center justify-center shadow-[0_0_20px_rgba(74,222,128,0.2)] text-2xl md:text-3xl">
                             ✨
                         </div>
                     </div>
                 </div>
 
                 <!-- CONTACTO -->
-                    <ul class="space-y-8 flex flex-col items-start w-fit mx-auto md:mx-0">
+                    <ul class="space-y-6 md:space-y-8 flex flex-col items-start w-fit mx-auto md:mx-0 mt-8 md:mt-0">
                         <!-- Ubicación -->
-                        <li class="flex flex-row items-center justify-start gap-6 md:gap-8 group w-full">
-                            <div class="p-4 bg-white rounded-3xl border border-[#a855f7] text-blue-500 shadow-sm flex items-center justify-center shrink-0">
-                                <i data-lucide="map-pin" class="w-8 h-8"></i>
+                        <li class="flex flex-row items-center justify-start gap-4 md:gap-8 group w-full">
+                            <div class="p-3 md:p-4 bg-white rounded-3xl border border-[#a855f7] text-blue-500 shadow-sm flex items-center justify-center shrink-0">
+                                <i data-lucide="map-pin" class="w-6 h-6 md:w-8 md:h-8"></i>
                             </div>
-                            <span class="text-xl md:text-2xl text-[var(--mallku-text-light)] font-light">Pasto, Nariño, Colombia</span>
+                            <span class="text-lg md:text-2xl text-[var(--mallku-text-light)] font-light">Pasto, Nariño, Colombia</span>
                         </li>
                         <!-- Teléfono -->
-                        <li class="flex flex-row items-center justify-start gap-6 md:gap-8 group w-full">
-                            <div class="p-4 bg-white rounded-3xl border border-[#a855f7] text-[#25D366] shadow-sm flex items-center justify-center shrink-0">
-                                <i data-lucide="phone" class="w-8 h-8"></i>
+                        <li class="flex flex-row items-center justify-start gap-4 md:gap-8 group w-full">
+                            <div class="p-3 md:p-4 bg-white rounded-3xl border border-[#a855f7] text-[#25D366] shadow-sm flex items-center justify-center shrink-0">
+                                <i data-lucide="phone" class="w-6 h-6 md:w-8 md:h-8"></i>
                             </div>
-                            <span class="text-2xl md:text-3xl text-[var(--mallku-emerald)] font-black tracking-tight drop-shadow-lg">3170762467 - 3159452314</span>
+                            <span class="text-xl md:text-3xl text-[var(--mallku-emerald)] font-black tracking-tight drop-shadow-lg">3170762467 - 3159452314</span>
                         </li>
                         <!-- Correo -->
-                        <li class="flex flex-row items-center justify-start gap-6 md:gap-8 group w-full">
-                            <div class="p-4 bg-white rounded-3xl border border-[#a855f7] text-orange-400 shadow-sm flex items-center justify-center shrink-0">
-                                <i data-lucide="mail" class="w-8 h-8"></i>
+                        <li class="flex flex-row items-center justify-start gap-4 md:gap-8 group w-full">
+                            <div class="p-3 md:p-4 bg-white rounded-3xl border border-[#a855f7] text-orange-400 shadow-sm flex items-center justify-center shrink-0">
+                                <i data-lucide="mail" class="w-6 h-6 md:w-8 md:h-8"></i>
                             </div>
-                            <span class="text-xl md:text-2xl text-[var(--mallku-text-light)] font-light">mallkusentiresandinos@gmail.com</span>
+                            <span class="text-lg md:text-2xl text-[var(--mallku-text-light)] font-light">mallkusentiresandinos@gmail.com</span>
                         </li>
                         <!-- Instagram -->
-                        <li class="flex flex-row items-center justify-start gap-6 md:gap-8 group w-full">
-                            <div class="p-4 bg-white rounded-3xl border border-[#a855f7] shadow-sm text-[#E4405F] flex items-center justify-center shrink-0">
-                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        <li class="flex flex-row items-center justify-start gap-4 md:gap-8 group w-full">
+                            <div class="p-3 md:p-4 bg-white rounded-3xl border border-[#a855f7] shadow-sm text-[#E4405F] flex items-center justify-center shrink-0">
+                                <svg class="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                             </div>
-                            <a href="https://www.instagram.com/mallku_sentiresandinos/" target="_blank" class="text-xl md:text-2xl text-[var(--mallku-text-light)] font-bold hover:text-[#E4405F] transition-colors">@mallku_sentiresandinos</a>
+                            <a href="https://www.instagram.com/mallku_sentiresandinos/" target="_blank" class="text-base md:text-2xl text-[var(--mallku-text-light)] font-bold hover:text-[#E4405F] transition-colors overflow-hidden text-ellipsis whitespace-nowrap max-w-[200px] md:max-w-none">@mallku_sentiresandinos</a>
                         </li>
                         <!-- Facebook -->
-                        <li class="flex flex-row items-center justify-start gap-6 md:gap-8 group w-full">
-                            <div class="p-4 bg-white rounded-3xl border border-[#a855f7] shadow-sm text-[#1877F2] flex items-center justify-center shrink-0">
-                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        <li class="flex flex-row items-center justify-start gap-4 md:gap-8 group w-full">
+                            <div class="p-3 md:p-4 bg-white rounded-3xl border border-[#a855f7] shadow-sm text-[#1877F2] flex items-center justify-center shrink-0">
+                                <svg class="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                             </div>
-                            <a href="https://www.facebook.com/profile.php?id=61575117119143" target="_blank" class="text-xl md:text-2xl text-[var(--mallku-text-light)] font-bold hover:text-[#1877F2] transition-colors">Mallku Pasto</a>
+                            <a href="https://www.facebook.com/profile.php?id=61575117119143" target="_blank" class="text-base md:text-2xl text-[var(--mallku-text-light)] font-bold hover:text-[#1877F2] transition-colors">Mallku Pasto</a>
                         </li>
                     </ul>
                 </div>
             </div>
             
-            <div class="pt-12 border-t border-[var(--mallku-emerald)]/10 flex flex-col md:flex-row justify-center items-center gap-12 text-center">
-                <p class="text-[10px] md:text-sm font-black uppercase tracking-[0.3em] text-[var(--mallku-text-light)]/40">
+            <div class="pt-12 border-t border-[var(--mallku-emerald)]/10 flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12 text-center">
+                <p class="text-[9px] md:text-sm font-black uppercase tracking-[0.3em] text-[var(--mallku-text-light)]/40 max-w-[280px] md:max-w-none">
                     &copy; 2026 Mallku Sentires Andinos. Todos los derechos reservados.
                 </p>
-                <div class="flex gap-12 uppercase text-[10px] md:text-sm font-black tracking-[0.3em] text-[var(--mallku-text-light)]/60">
+                <div class="flex gap-8 md:gap-12 uppercase text-[9px] md:text-sm font-black tracking-[0.3em] text-[var(--mallku-text-light)]/60">
                     <a href="#" class="hover:text-[var(--mallku-gold)] transition-colors">Privacidad</a>
                     <a href="#" class="hover:text-[var(--mallku-gold)] transition-colors">Términos</a>
                     <span class="opacity-80">Hecho con Amor 🌿</span>
