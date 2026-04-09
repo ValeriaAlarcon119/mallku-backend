@@ -1,0 +1,1464 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MALLKU | Cat├ílogo Oficial</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts: Modern & Premium Typography -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- GSAP Animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --mallku-emerald: #1a4d42;
+            --mallku-gold: #c5a059;
+            --mallku-bone: #fdfbf7;
+            --mallku-lavender: #e0d7ff;
+            --mallku-mint: #e0f2f1;
+            --mallku-text: #2d3436;
+            --mallku-text-light: #636e72;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, var(--mallku-lavender) 0%, var(--mallku-mint) 100%);
+            background-attachment: fixed;
+            color: var(--mallku-text);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .font-luxury {
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.05em;
+            font-weight: 900;
+        }
+
+        .h1-mega {
+            font-size: clamp(3rem, 15vw, 8.5rem);
+            line-height: 0.9;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        /* Nav */
+        nav {
+            background: rgba(253, 251, 247, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(6, 78, 59, 0.1);
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 50px rgba(6, 78, 59, 0.08);
+        }
+
+        section {
+            scroll-margin-top: 140px;
+        }
+
+        .nav-link {
+            color: var(--mallku-text);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            padding: 8px 16px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(6, 78, 59, 0.05);
+            color: var(--mallku-gold);
+        }
+
+        /* Hero Light */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--mallku-bone);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-illustration {
+            position: absolute;
+            right: -10%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        /* Cards */
+        .product-card, .feature-card {
+            background: white;
+            border-radius: 50px;
+            padding: 3.5rem;
+            border: 4px solid var(--mallku-emerald);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 40px 80px -20px rgba(6, 78, 59, 0.15), 0 0 50px rgba(16, 185, 129, 0.1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .product-card:hover, .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 60px 120px -30px rgba(6, 78, 59, 0.2), 0 0 80px rgba(16, 185, 129, 0.3);
+        }
+
+        .icon-box {
+            width: 100px;
+            height: 100px;
+            background: rgba(6, 78, 59, 0.05);
+            border: 2px solid rgba(6, 78, 59, 0.1);
+            border-radius: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            transition: all 0.5s ease;
+        }
+
+        /* FIX: Asegurar que el icono sea BLANCO al pasar el mouse */
+        .feature-card:hover .icon-box {
+            background: var(--mallku-emerald) !important;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(6, 78, 59, 0.2);
+        }
+
+        .feature-card:hover .icon-box svg,
+        .feature-card:hover .icon-box i {
+            color: white !important;
+            stroke: white !important;
+            fill: none !important;
+            filter: brightness(5) !important; /* Brillo extremo para asegurar visibilidad */
+        }
+
+        .btn-luxury {
+            background: var(--mallku-emerald);
+            color: white;
+            padding: 20px 50px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            border-radius: 100px;
+            transition: all 0.4s ease;
+            box-shadow: 0 20px 40px -10px rgba(6, 78, 59, 0.2);
+        }
+
+        .btn-luxury:hover {
+            background: var(--mallku-gold);
+            transform: scale(1.05);
+            box-shadow: 0 30px 60px -10px rgba(180, 83, 9, 0.3);
+        }
+
+        /* Hero Accent */
+        .hero-pattern {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(6, 78, 59, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--mallku-emerald);
+            color: var(--mallku-emerald);
+            padding: 20px 50px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            border-radius: 100px;
+            transition: all 0.4s ease;
+        }
+
+        .btn-outline:hover {
+            background: var(--mallku-emerald);
+            color: white;
+        }
+
+        /* Modals */
+        .glass-modal {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 4px solid var(--mallku-emerald);
+            border-radius: 60px;
+            box-shadow: 0 100px 200px -50px rgba(6, 78, 59, 0.3), 0 0 100px rgba(16, 185, 129, 0.2);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 78, 59, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.6s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content-slide {
+            transform: translateX(100%);
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .active .modal-content-slide {
+            transform: translateX(0);
+        }
+
+        /* Catalog Pills ULTRA VISIBLES */
+        .cat-pill {
+            padding: 10px 24px;
+            border-radius: 50px;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            color: #64748b;
+            font-weight: 800;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cat-pill.active {
+            background: var(--mallku-emerald) !important;
+            color: white !important;
+            border-color: var(--mallku-emerald) !important;
+            box-shadow: 0 10px 20px rgba(6, 78, 59, 0.2);
+            transform: scale(1.05);
+        }
+
+        .cat-pill:hover:not(.active) {
+            border-color: var(--mallku-emerald);
+            color: var(--mallku-emerald);
+        }
+        /* Sidebar Drawer Elegant ULTIMATE High Contrast */
+        /* Sidebar Drawer Elegant MINIMALIST */
+        /* Sidebar Drawer Zen Emerald */
+        .sidebar-drawer {
+            position: fixed;
+            inset: 0;
+            left: -100%;
+            width: 260px; /* Un poco m├ís sutil */
+            background: #064e3b !important; /* VERDE MALLKU EXACTO */
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            padding: 60px 30px;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 20px 0 60px rgba(0,0,0,0.5); /* Sombra difuminada */
+            border-right: none !important; /* ELIMINADA LA L├ìNEA NARANJA */
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .sidebar-drawer.active {
+            left: 0;
+        }
+
+        /* FIX DEFINITIVO: Eliminar cualquier fondo blanco heredado o autom├ítico */
+        .sidebar-drawer * {
+            background: transparent !important;
+            backdrop-filter: none !important;
+            box-shadow: none !important;
+        }
+
+        .sidebar-item {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem; 
+            color: white !important;
+            text-transform: capitalize;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+            padding: 18px 0; /* Espacio para el separador */
+            opacity: 0.8;
+            border-bottom: 1px solid rgba(255,255,255,0.05); /* L├ìNEA DELGADITA SEPARADORA */
+            width: 100%;
+        }
+
+        .sidebar-item:hover {
+            color: #10B981 !important; /* Verde Esmeralda Claro (EN VEZ DE NARANJA) */
+            opacity: 1;
+            padding-left: 10px;
+        }
+
+        .sidebar-drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 1999;
+            opacity: 0;
+            transition: all 0.6s ease;
+            pointer-events: none;
+        }
+
+        .sidebar-drawer-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #product-modal-box {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 1100;
+        }
+
+        .active #product-modal-box {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1) translateY(0);
+        }
+
+        /* Global Blur for SweetAlert Ritual */
+        body.swal2-shown > *:not(.swal2-container) {
+            filter: blur(8px) brightness(0.9);
+            transition: filter 0.5s ease;
+        }
+
+        .swal-z-top {
+            z-index: 9999 !important;
+        }
+
+        .delivery-btn.active {
+            background-color: var(--mallku-bone);
+            border-color: var(--mallku-emerald) !important;
+        }
+
+        .input-luxury {
+            width: 100%;
+            background: var(--mallku-emerald-soft);
+            border: 1px solid rgba(6, 78, 59, 0.1);
+            padding: 20px;
+            border-radius: 20px;
+            outline: none;
+            color: var(--mallku-text);
+            transition: all 0.3s ease;
+        }
+
+        .input-luxury:focus {
+            border-color: var(--mallku-gold);
+            background: white;
+        }
+
+        .payment-option {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+    .payment-option.active {
+    border-color: var(--mallku-lime);
+    background: rgba(57, 255, 20, 0.1);
+    }
+
+    #particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    pointer-events: none;
+    }
+
+    /* Bot├│n de la marca (Estilo Green/Purple Neon) */
+    .btn-mallku {
+    background: #000;
+    color: white;
+    font-weight: 700;
+    padding: 16px 40px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 10;
+    /* Green Glow Bottom (Siempre visible) */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 4px solid var(--mallku-emerald);
+    box-shadow: 0 10px 20px -5px rgba(6, 78, 59, 0.4);
+    }
+
+    .btn-mallku:hover {
+    transform: translateY(-2px);
+    /* Purple Neon on Hover */
+    border-bottom-color: #9333EA;
+    /* Mallku Purple */
+    box-shadow: 0 10px 30px rgba(147, 51, 234, 0.6);
+    color: #fff;
+    text-shadow: 0 0 10px rgba(147, 51, 234, 0.8);
+    }
+
+    @keyframes kenBurns {
+    0% {
+    transform: scale(1) translate(0, 0);
+    }
+
+    50% {
+    transform: scale(1.1) translate(-2%, -2%);
+    }
+
+    100% {
+    transform: scale(1) translate(0, 0);
+    }
+    }
+
+    .animate-ken-burns {
+    animation: kenBurns 15s ease-in-out infinite alternate;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+    width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+    background: #050505;
+    }
+
+    ::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+    background: var(--mallku-lime);
+    }
+
+    @keyframes shake {
+    0% {
+    transform: rotate(0deg);
+    }
+
+    20% {
+    transform: rotate(10deg);
+    }
+
+    40% {
+    transform: rotate(-10deg);
+    }
+
+    60% {
+    transform: rotate(5deg);
+    }
+
+    80% {
+    transform: rotate(-5deg);
+    }
+
+    100% {
+    transform: rotate(0deg);
+    }
+    }
+
+    .cart-shake {
+    animation: shake 0.5s ease-in-out;
+    }
+
+    /* Product Card Fade In Animation */
+    @keyframes fadeInUp {
+    from {
+    opacity: 0;
+    transform: translateY(30px);
+    }
+
+    to {
+    opacity: 1;
+    transform: translateY(0);
+    }
+    }
+
+    .product-card {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+    }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-noise"></div>
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- SIDEBAR DRAWER Zen Emerald -->
+    <div id="sidebar-overlay" class="sidebar-drawer-overlay" onclick="toggleSidebar()"></div>
+    <aside id="sidebar" class="sidebar-drawer">
+        <!-- HEADER ALINEADO -->
+        <div class="flex items-center justify-between mb-16 w-full">
+            <span class="text-[#10B981] font-black text-sm uppercase tracking-[8px]">MALLKU</span>
+            <button onclick="toggleSidebar()" class="text-white/40 hover:text-white transition-all transform hover:rotate-90">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        
+        <div class="mb-10 p-0">
+            <nav class="flex flex-col p-0">
+                <a href="#hero" onclick="toggleSidebar()" class="sidebar-item">Inicio</a>
+                <a href="#esencia" onclick="toggleSidebar()" class="sidebar-item">Historia</a>
+                <a href="#catalogo" onclick="toggleSidebar()" class="sidebar-item">Colecci├│n</a>
+                <a href="#contacto" onclick="toggleSidebar()" class="sidebar-item">Sanaci├│n</a>
+                <a href="#contacto" onclick="toggleSidebar()" class="sidebar-item">Cont├íctanos</a>
+            </nav>
+        </div>
+
+        <div class="mt-auto border-t border-white/5 pt-10">
+            <p class="text-[9px] text-white/20 font-bold uppercase tracking-[4px] leading-relaxed">
+                Mallku &copy; 2026 <br> Sentires Andinos
+            </p>
+        </div>
+    </aside>
+
+    <nav class="fixed top-0 w-full z-50">
+        <div class="max-w-7xl mx-auto px-10 py-8 flex justify-between items-center">
+            <div class="flex items-center gap-6">
+                <!-- BOT├ôN HAMBURGUESA -->
+                <button onclick="toggleSidebar()" class="p-3 bg-white/10 backdrop-blur-md rounded-2xl text-[var(--mallku-emerald)] hover:bg-[var(--mallku-emerald)] hover:text-white transition-all border border-[var(--mallku-emerald)]/10">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+                
+                <div class="flex items-center gap-4">
+                    <img src="logo-mallku.jpg" alt="Mallku Logo" class="w-12 h-12 rounded-full object-cover">
+                    <span class="font-luxury text-3xl font-black text-[var(--mallku-emerald)] tracking-tighter uppercase hidden sm:block">Mallku</span>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center gap-12 ml-auto mr-16">
+                <a href="#esencia" class="nav-link font-black text-xs uppercase tracking-[0.2em]">Historia</a>
+                <a href="#catalogo" class="nav-link font-black text-xs uppercase tracking-[0.2em]">Colecci├│n</a>
+                <a href="#contacto" class="nav-link font-black text-xs uppercase tracking-[0.2em]">Sanaci├│n</a>
+            </div>
+
+            <button onclick="openCart()"
+                class="relative p-4 bg-white shadow-sm rounded-full border border-[var(--mallku-emerald)]/10 hover:border-[var(--mallku-emerald)] transition-all">
+                <i data-lucide="shopping-bag" class="w-6 h-6 text-[var(--mallku-emerald)]"></i>
+                <span id="cart-count-badge"
+                    class="absolute -top-1 -right-1 w-6 h-6 bg-[var(--mallku-gold)] text-white text-[10px] font-black rounded-full flex items-center justify-center hidden">0</span>
+            </button>
+        </div>
+    </nav>
+    <section id="hero" class="hero-section pt-40 md:pt-60 relative bg-transparent">
+        <div class="hero-pattern"></div>
+        <div class="absolute top-20 right-20 opacity-[0.05] rotate-12">
+            <i data-lucide="leaf" class="w-96 h-96 text-[var(--mallku-emerald)]"></i>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 md:px-10 grid grid-cols-1 lg:grid-cols-2 gap-20 md:gap-32 items-center w-full relative z-10">
+            <div class="reveal-up">
+                <span class="text-[var(--mallku-gold)] font-black text-[10px] md:text-[12px] uppercase tracking-[6px] md:tracking-[10px] mb-6 md:mb-8 block">
+                    Inspiraci├│n de la Cordillera
+                </span>
+                <h1 class="text-4xl sm:text-5xl md:text-[7rem] font-luxury text-[var(--mallku-emerald)] leading-[0.9] md:leading-[0.8] mb-8 md:mb-12 uppercase">
+                    Mallku <br> <span class="opacity-30 font-light lowercase">Sentires Andinos</span>
+                </h1>
+                
+                <div class="grid grid-cols-2 gap-y-4 gap-x-12 mb-12 max-w-xl">
+                    <div class="flex items-center gap-4">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[var(--mallku-gold)] shrink-0"></span>
+                        <span class="text-base font-black uppercase tracking-[0.3em] text-[var(--mallku-emerald)]">Oleatos</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[var(--mallku-gold)] shrink-0"></span>
+                        <span class="text-base font-black uppercase tracking-[0.3em] text-[var(--mallku-emerald)]">Tinturas</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[var(--mallku-gold)] shrink-0"></span>
+                        <span class="text-base font-black uppercase tracking-[0.3em] text-[var(--mallku-emerald)]">Ung├╝entos</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[var(--mallku-gold)] shrink-0"></span>
+                        <span class="text-base font-black uppercase tracking-[0.3em] text-[var(--mallku-emerald)]">Hidrolatos</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[var(--mallku-gold)] shrink-0"></span>
+                        <span class="text-base font-black uppercase tracking-[0.3em] text-[var(--mallku-emerald)]">Mermeladas</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[var(--mallku-gold)] shrink-0"></span>
+                        <span class="text-base font-black uppercase tracking-[0.3em] text-[var(--mallku-emerald)]">Arom├íticas</span>
+                    </div>
+                </div>
+
+                <!-- BOTONES ACCI├ôN: MISMO ANCHO Y ALTO EN M├ôVIL -->
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center sm:items-start w-full">
+                    <a href="https://wa.me/573170762467" target="_blank" class="w-[260px] sm:w-fit px-6 py-4 md:px-10 md:py-4 bg-[#25D366] text-white rounded-full text-sm md:text-base font-black uppercase tracking-widest hover:bg-[#128C7E] transition-all shadow-xl hover:scale-105 active:scale-95 text-center inline-block border-2 border-black/60">
+                        Comprar en WhatsApp
+                    </a>
+                    <button onclick="document.getElementById('catalogo').scrollIntoView({behavior: 'smooth'})" class="w-[260px] sm:w-fit px-6 py-4 md:px-10 md:py-4 bg-white border-2 border-[var(--mallku-emerald)] text-[var(--mallku-emerald)] rounded-full text-sm md:text-base font-black uppercase tracking-widest hover:bg-[var(--mallku-bone)] transition-all shadow-lg text-center">
+                        Conocer Cat├ílogo
+                    </button>
+                </div>
+            </div>
+            <div class="relative group h-full flex items-center justify-center max-w-lg mx-auto lg:mx-0">
+                <!-- CONTENEDOR REDIMENSIONADO -->
+                <div class="relative w-full aspect-square rounded-[5rem] overflow-hidden border-4 border-[#4ade80] shadow-[0_20px_50px_rgba(0,0,0,0.15),0_0_40px_rgba(74,222,128,0.4)] transform rotate-2 group-hover:rotate-0 transition-all duration-1000">
+                    <img id="hero-slider-img" src="MERMELADAS.jpg" 
+                        class="w-full h-full object-cover opacity-95 transition-all duration-1000 scale-100 group-hover:scale-110">
+                </div>
+                <div class="absolute -bottom-10 -left-10 w-60 h-60 bg-[var(--mallku-gold)] rounded-full -z-10 blur-[80px] opacity-20"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCI├ôN: NUESTRA ESENCIA LIGHT -->
+    <section id="esencia" class="py-32 px-10 relative overflow-hidden bg-white/30 backdrop-blur-sm">
+        <div class="absolute inset-0 opacity-[0.02] pointer-events-none" style="background-image: url('https://www.transparenttextures.com/patterns/leaf.png');"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
+                <div class="relative aspect-square rounded-[5rem] overflow-hidden shadow-xl border-8 border-white bg-white">
+                    <img src="logo-mallku.jpg" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[var(--mallku-emerald)]/20 to-transparent pointer-events-none"></div>
+                </div>
+                <div>
+                    <span
+                        class="text-[var(--mallku-gold)] font-black text-[12px] uppercase tracking-[8px] mb-10 block">Herencia
+                        Viva</span>
+                    <h2 class="text-7xl font-luxury text-[var(--mallku-emerald)] leading-none mb-12 uppercase">
+                        Saberes que <br> <span class="opacity-40 font-light lowercase">florecen</span></h2>
+                    <p class="text-2xl text-[var(--mallku-text-light)] font-light leading-relaxed mb-16">
+                        Nuestra sanaci├│n nace del di├ílogo constante entre el cultivo org├ínico y los ciclos maestros de
+                        la cordillera. Cada frasco es un pedazo de monta├▒a.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-24">
+                        <div class="feature-card text-center flex flex-col items-center">
+                            <div class="icon-box">
+                                <i data-lucide="sprout" class="w-12 h-12 text-[var(--mallku-emerald)] transition-all"></i>
+                            </div>
+                            <h4 class="text-3xl font-black mb-6 uppercase tracking-tight text-[var(--mallku-emerald)]">Org├ínico</h4>
+                            <p class="text-[var(--mallku-text-light)] text-lg leading-relaxed font-light">100% puro desde la ra├¡z hasta tu piel. Cosecha ritual.</p>
+                        </div>
+                        <div class="feature-card text-center flex flex-col items-center">
+                            <div class="icon-box">
+                                <i data-lucide="sparkles" class="w-12 h-12 text-[var(--mallku-emerald)] transition-all"></i>
+                            </div>
+                            <h4 class="text-3xl font-black mb-6 uppercase tracking-tight text-[var(--mallku-emerald)]">Lunar</h4>
+                            <p class="text-[var(--mallku-text-light)] text-lg leading-relaxed font-light">Macerados bajo ciclos celestiales y alquimia estelar.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NUESTRA PROMESA LIGHT -->
+    <section id="promesa" class="py-24 px-10 bg-transparent">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-24">
+                <span class="text-[var(--mallku-gold)] font-black text-[10px] uppercase tracking-[8px] mb-6 block">Sello de Calidad</span>
+                <h2 class="text-6xl font-luxury text-[var(--mallku-emerald)] uppercase leading-none">Pura Cordillera</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+                <!-- ORIGEN SAGRADO -->
+                <div class="feature-card text-center flex flex-col items-center">
+                    <div class="icon-box">
+                        <i data-lucide="mountain" class="w-12 h-12 text-[var(--mallku-emerald)] transition-all"></i>
+                    </div>
+                    <h3 class="text-3xl font-black mb-6 text-[var(--mallku-emerald)] uppercase tracking-tight">Origen Sagrado</h3>
+                    <p class="text-[var(--mallku-text-light)] text-lg leading-relaxed font-light">
+                        Cultivado en la chagra del sur colombiano, respetando los ciclos de la tierra y el agua pura.
+                    </p>
+                </div>
+
+                <!-- CIENCIA VIVA -->
+                <div class="feature-card text-center flex flex-col items-center">
+                    <div class="icon-box">
+                        <i data-lucide="flask-conical" class="w-12 h-12 text-[var(--mallku-emerald)] transition-all"></i>
+                    </div>
+                    <h3 class="text-3xl font-black mb-6 text-[var(--mallku-emerald)] uppercase tracking-tight">Ciencia Viva</h3>
+                    <p class="text-[var(--mallku-text-light)] text-lg leading-relaxed font-light">
+                        Macerados lentos que preservan la biodisponibilidad de cada terpeno y cannabinoide natural.
+                    </p>
+                </div>
+
+                <!-- EMPAQUE CONSCIENTE -->
+                <div class="feature-card text-center flex flex-col items-center">
+                    <div class="icon-box">
+                        <i data-lucide="package-check" class="w-12 h-12 text-[var(--mallku-emerald)] transition-all"></i>
+                    </div>
+                    <h3 class="text-3xl font-black mb-6 text-[var(--mallku-emerald)] uppercase tracking-tight">Empaque Consciente</h3>
+                    <p class="text-[var(--mallku-text-light)] text-lg leading-relaxed font-light">
+                        Vidrio ├ímbar m├¡stico para proteger la energ├¡a fotosensible de cada elixir bot├ínico.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATALOGO LIGHT -->
+    <section id="catalogo" class="py-20 md:py-32 px-4 md:px-10 bg-[var(--mallku-bone)]/20 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16 md:mb-24">
+                <span class="text-[var(--mallku-gold)] font-black text-[10px] uppercase tracking-[8px] md:tracking-[10px] mb-6 md:mb-8 block">Selecci├│n Curada</span>
+                <h2 class="text-5xl md:text-8xl font-luxury text-[var(--mallku-emerald)] leading-none uppercase mb-8 md:mb-12">Nuestros <br> <span class="opacity-40 font-light lowercase">Sentires</span></h2>
+                <p class="text-[var(--mallku-text-light)] text-base md:text-xl font-light max-w-2xl mx-auto leading-relaxed px-4">Cada producto es el resultado de una alquimia sagrada entre la tierra andina y la sabidur├¡a ancestral.</p>
+            </div>
+            <div class="flex flex-col md:flex-row justify-center items-center mb-24 gap-12">
+                <div class="hidden">
+                    <span
+                        class="text-[var(--mallku-gold)] font-black text-[12px] uppercase tracking-[8px] mb-6 block">Colecci├│n
+                        Maestra</span>
+                    <h2 class="text-7xl font-luxury text-[var(--mallku-emerald)] uppercase leading-none">Nuestros
+                        <span class="opacity-30 font-light lowercase">Elixires</span></h2>
+                </div>
+                <div class="flex flex-wrap justify-center gap-6" id="filters">
+                    <button onclick="filterProducts('all', this)" class="cat-pill active">Todo</button>
+                    <button onclick="filterProducts('aceites', this)" class="cat-pill">Aceites</button>
+                    <button onclick="filterProducts('hidrolatos', this)" class="cat-pill">Hidrolatos</button>
+                    <button onclick="filterProducts('cuidado', this)" class="cat-pill">Cuidado</button>
+                    <button onclick="filterProducts('aromaticas', this)" class="cat-pill">Arom├íticas</button>
+                </div>
+            </div>
+            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
+                <!-- LLena con JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO LIGHT -->
+    <section id="contacto" class="py-24 md:py-40 px-4 md:px-10 bg-white/40 backdrop-blur-md">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12 md:mb-20">
+                <i data-lucide="sparkles" class="w-12 h-12 md:w-16 md:h-16 text-[var(--mallku-gold)] mx-auto mb-6"></i>
+                <h2 class="text-3xl md:text-6xl font-luxury text-[var(--mallku-emerald)] uppercase mb-6 leading-tight">Sanaci├│n <br class="md:hidden"> Personalizada</h2>
+                <p class="text-base md:text-xl text-[var(--mallku-text-light)] font-light px-2">D├®janos tus datos para guiarte en tu proceso de despertar bot├ínico.</p>
+            </div>
+            <div class="bg-white/80 backdrop-blur-xl p-6 sm:p-10 md:p-16 rounded-3xl md:rounded-[3.5rem] border border-[var(--mallku-emerald)]/10 shadow-xl">
+                <div class="space-y-6 md:space-y-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+                        <div>
+                            <label class="text-xs md:text-[10px] font-black uppercase tracking-[3px] md:tracking-[5px] text-[var(--mallku-emerald)] mb-3 block">Nombre Completo</label>
+                            <input type="text" id="contact-name" placeholder="Tu nombre" class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-5 md:px-10 py-4 md:py-6 text-base focus:border-[var(--mallku-emerald)] focus:outline-none transition-all">
+                        </div>
+                        <div>
+                            <label class="text-xs md:text-[10px] font-black uppercase tracking-[3px] md:tracking-[5px] text-[var(--mallku-emerald)] mb-3 block">WhatsApp</label>
+                            <input type="tel" id="contact-phone" placeholder="+57 3XX XXX XXXX" class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-5 md:px-10 py-4 md:py-6 text-base focus:border-[var(--mallku-emerald)] focus:outline-none transition-all">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-xs md:text-[10px] font-black uppercase tracking-[3px] md:tracking-[5px] text-[var(--mallku-emerald)] mb-3 block">Mensaje (Opcional)</label>
+                        <textarea id="contact-message" rows="4" placeholder="┬┐En qu├® podemos ayudarte?" class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-5 md:px-10 py-4 md:py-6 text-base focus:border-[var(--mallku-emerald)] focus:outline-none transition-all resize-none"></textarea>
+                    </div>
+                    <button onclick="sendContactData()" class="w-full btn-luxury py-5 md:py-6 text-sm md:text-base">Solicitar Asesor├¡a</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bot├│n Flotante Carrito Light -->
+    <button id="floating-cart-btn" onclick="openCart()" class="fixed bottom-10 right-10 z-[100] group">
+        <div
+            class="w-20 h-20 bg-[var(--mallku-emerald)] rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-all">
+            <i data-lucide="shopping-bag" class="w-8 h-8 text-white"></i>
+            <span id="cart-count"
+                class="absolute -top-2 -right-2 bg-[var(--mallku-gold)] text-white font-black text-xs w-8 h-8 rounded-full flex items-center justify-center border-4 border-[var(--mallku-bone)]">0</span>
+        </div>
+    </button>
+
+    <a href="https://wa.me/573159452314" target="_blank" onclick="trackWhatsAppClick()"
+        class="fixed bottom-10 left-10 z-[100] group">
+        <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-all border-4 border-[#25D366] overflow-hidden">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-12 h-12" alt="WhatsApp Original">
+        </div>
+    </a>
+
+    <!-- MODAL CARRITO LIGHT -->
+    <div id="cart-modal" class="modal-overlay hidden fixed inset-0 z-[1100]">
+        <div class="flex justify-end w-full h-full">
+            <div class="modal-content-slide w-full sm:w-[500px] h-full bg-white shadow-2xl flex flex-col relative overflow-hidden">
+                <!-- Header -->
+                <div class="p-12 border-b border-[var(--mallku-emerald)]/10 flex justify-between items-center bg-[var(--mallku-bone)]">
+                    <h2 class="text-4xl font-luxury text-[var(--mallku-emerald)] font-black uppercase tracking-tight">Tu Carrito</h2>
+                    <button onclick="closeCart()" class="w-14 h-14 bg-white border border-[var(--mallku-emerald)]/10 flex items-center justify-center rounded-full hover:bg-[var(--mallku-emerald)] hover:text-white transition-all">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+
+                <!-- Items -->
+                <div class="flex-1 overflow-y-auto p-12" id="cart-items">
+                    <!-- JS rendered items -->
+                </div>
+
+                <!-- Total -->
+                <div class="p-12 bg-[var(--mallku-bone)] border-t border-[var(--mallku-emerald)]/5">
+                    <div class="flex justify-between items-center mb-10">
+                        <span class="text-[10px] font-black uppercase tracking-[4px]">Total Estimado</span>
+                        <span id="cart-total" class="text-5xl font-luxury text-[var(--mallku-emerald)] font-black">$0</span>
+                    </div>
+                    <button onclick="checkout()" class="w-full btn-luxury">Confirmar Pedido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PRODUCTO -->
+    <div id="product-modal" class="modal-overlay hidden flex items-center justify-center p-6 md:p-10 z-[1100]">
+        <div id="product-modal-box" class="glass-modal max-w-5xl w-full flex flex-col md:flex-row overflow-hidden h-auto max-h-[90vh] relative">
+            <button onclick="closeProductModal()"
+                class="absolute top-8 right-8 z-30 w-14 h-14 bg-white border border-[var(--mallku-emerald)]/10 flex items-center justify-center rounded-full hover:bg-[var(--mallku-emerald)] hover:text-white transition-all shadow-xl">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            
+            <!-- Imagen -->
+            <div class="w-full md:w-1/2 relative bg-[var(--mallku-bone)] min-h-[400px]">
+                <img id="modal-img" src="" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-[var(--mallku-emerald)]/20 to-transparent"></div>
+                <div class="absolute bottom-10 left-10 bg-[var(--mallku-emerald)] text-white px-8 py-4 rounded-2xl shadow-2xl">
+                    <span id="modal-price-float" class="text-3xl font-luxury font-black tracking-tight">$0</span>
+                </div>
+            </div>
+
+            <!-- Contenido -->
+            <div class="w-full md:w-1/2 p-12 md:p-20 flex flex-col bg-white overflow-y-auto">
+                <span id="modal-cat" class="text-[10px] font-black uppercase tracking-[6px] text-[var(--mallku-gold)] mb-6">Categor├¡a</span>
+                <h2 id="modal-title" class="text-5xl md:text-6xl font-luxury text-[var(--mallku-emerald)] font-black uppercase leading-[0.9] mb-10">Nombre</h2>
+                
+                <div class="space-y-8 mb-16">
+                    <div class="flex items-center gap-4 text-[var(--mallku-emerald)]">
+                        <div class="w-10 h-10 rounded-xl bg-[var(--mallku-emerald)]/5 flex items-center justify-center">
+                            <i data-lucide="beaker" class="w-5 h-5"></i>
+                        </div>
+                        <span id="modal-size" class="text-sm font-bold uppercase tracking-widest text-[var(--mallku-text-light)]">Tama├▒o</span>
+                    </div>
+                    <div class="p-8 rounded-3xl bg-[var(--mallku-bone)] border border-[var(--mallku-emerald)]/5 italic text-lg leading-relaxed text-[var(--mallku-text-light)] font-light">
+                        <i data-lucide="quote" class="w-6 h-6 text-[var(--mallku-emerald)]/20 mb-4"></i>
+                        <p id="modal-desc">Descripci├│n...</p>
+                    </div>
+                </div>
+
+                <div class="mt-auto">
+                    <button id="modal-add-btn" class="w-full btn-luxury flex items-center justify-center gap-4">
+                        A├▒adir a mi selecci├│n <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                    </button>
+                    <p class="text-[10px] text-center mt-6 text-[var(--mallku-text-light)] uppercase tracking-[3px] opacity-50">Sanaci├│n garantizada por Mallku</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER LIGHT: pb-32 para que no lo tapen los botones flotantes en m├│vil -->
+    <footer class="bg-white/60 backdrop-blur-xl pt-24 pb-32 md:pb-24 px-6 md:px-10 border-t border-[var(--mallku-emerald)]/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 mb-20">
+                <!-- MALLKU BRAND -->
+                <div class="space-y-8 md:space-y-10 text-center md:text-left">
+                    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-8 justify-center md:justify-start">
+                        <img src="WhatsApp Image 2026-02-04 at 11.03.07 PM.jpeg" alt="Mallku Logo" class="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover shadow-xl">
+                        <span class="font-luxury text-6xl md:text-7xl font-black text-[var(--mallku-emerald)]">MALLKU</span>
+                    </div>
+                    <p class="text-lg md:text-2xl text-[var(--mallku-text-light)] font-light leading-relaxed max-w-xl mx-auto md:mx-0">
+                        Saberes, sabores y tradiciones aut├│ctonas de la medicina y cosm├®tica desde las monta├▒as del sur. Sanaci├│n consciente y natural para el alma.
+                    </p>
+                    <div class="flex gap-6 md:gap-8 justify-center md:justify-start">
+                        <!-- C├¡rculo Emoji 1 -->
+                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white border-2 border-[#4ade80] flex items-center justify-center shadow-[0_0_20px_rgba(74,222,128,0.2)] text-2xl md:text-3xl">
+                            ­ƒî┐
+                        </div>
+                        <!-- C├¡rculo Emoji 2 -->
+                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white border-2 border-[#4ade80] flex items-center justify-center shadow-[0_0_20px_rgba(74,222,128,0.2)] text-2xl md:text-3xl">
+                            Ô£¿
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTACTO -->
+                    <ul class="space-y-6 md:space-y-8 flex flex-col items-start w-fit mx-auto md:mx-0 mt-8 md:mt-0">
+                        <!-- Ubicaci├│n -->
+                        <li class="flex flex-row items-center justify-start gap-4 md:gap-8 group w-full">
+                            <div class="p-3 md:p-4 bg-white rounded-3xl border border-[#a855f7] text-blue-500 shadow-sm flex items-center justify-center shrink-0">
+                                <i data-lucide="map-pin" class="w-6 h-6 md:w-8 md:h-8"></i>
+                            </div>
+                            <span class="text-lg md:text-2xl text-[var(--mallku-text-light)] font-light">Pasto, Nari├▒o, Colombia</span>
+                        </li>
+                        <!-- Tel├®fono -->
+                        <li class="flex flex-row items-center justify-start gap-4 md:gap-8 group w-full">
+                            <div class="p-3 md:p-4 bg-white rounded-3xl border border-[#a855f7] text-[#25D366] shadow-sm flex items-center justify-center shrink-0">
+                                <i data-lucide="phone" class="w-6 h-6 md:w-8 md:h-8"></i>
+                            </div>
+                            <span class="text-xl md:text-3xl text-[var(--mallku-emerald)] font-black tracking-tight drop-shadow-lg">3170762467 - 3159452314</span>
+                        </li>
+                        <!-- Correo -->
+                        <li class="flex flex-row items-center justify-start gap-4 md:gap-8 group w-full">
+                            <div class="p-3 md:p-4 bg-white rounded-3xl border border-[#a855f7] text-orange-400 shadow-sm flex items-center justify-center shrink-0">
+                                <i data-lucide="mail" class="w-6 h-6 md:w-8 md:h-8"></i>
+                            </div>
+                            <span class="text-lg md:text-2xl text-[var(--mallku-text-light)] font-light">mallkusentiresandinos@gmail.com</span>
+                        </li>
+                        <!-- Instagram -->
+                        <li class="flex flex-row items-center justify-start gap-4 md:gap-8 group w-full">
+                            <div class="p-3 md:p-4 bg-white rounded-3xl border border-[#a855f7] shadow-sm text-[#E4405F] flex items-center justify-center shrink-0">
+                                <svg class="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                            </div>
+                            <a href="https://www.instagram.com/mallku_sentiresandinos/" target="_blank" class="text-base md:text-2xl text-[var(--mallku-text-light)] font-bold hover:text-[#E4405F] transition-colors overflow-hidden text-ellipsis whitespace-nowrap max-w-[200px] md:max-w-none">@mallku_sentiresandinos</a>
+                        </li>
+                        <!-- Facebook -->
+                        <li class="flex flex-row items-center justify-start gap-4 md:gap-8 group w-full">
+                            <div class="p-3 md:p-4 bg-white rounded-3xl border border-[#a855f7] shadow-sm text-[#1877F2] flex items-center justify-center shrink-0">
+                                <svg class="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            </div>
+                            <a href="https://www.facebook.com/profile.php?id=61575117119143" target="_blank" class="text-base md:text-2xl text-[var(--mallku-text-light)] font-bold hover:text-[#1877F2] transition-colors">Mallku Pasto</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-12 border-t border-[var(--mallku-emerald)]/10 flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12 text-center">
+                <p class="text-[9px] md:text-sm font-black uppercase tracking-[0.3em] text-[var(--mallku-text-light)]/40 max-w-[280px] md:max-w-none">
+                    &copy; 2026 Mallku Sentires Andinos. Todos los derechos reservados.
+                </p>
+                <div class="flex gap-8 md:gap-12 uppercase text-[9px] md:text-sm font-black tracking-[0.3em] text-[var(--mallku-text-light)]/60">
+                    <a href="#" class="hover:text-[var(--mallku-gold)] transition-colors">Privacidad</a>
+                    <a href="#" class="hover:text-[var(--mallku-gold)] transition-colors">T├®rminos</a>
+                    <span class="opacity-80">Hecho con Amor ­ƒî┐</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Hidden Netlify Form for Orders -->
+    <form name="orders" method="POST" data-netlify="true" hidden>
+        <input type="hidden" name="form-name" value="orders" />
+        <input type="text" name="name" />
+        <input type="text" name="phone" />
+        <input type="email" name="email" />
+        <textarea name="details"></textarea>
+        <input type="text" name="total" />
+        <input type="text" name="payment_method" />
+        <input type="text" name="delivery_type" />
+    </form>
+
+    <!-- Hidden Netlify Form for Contact -->
+    <form name="contact" method="POST" data-netlify="true" hidden>
+        <input type="hidden" name="form-name" value="contact" />
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="text" name="phone" />
+        <textarea name="message"></textarea>
+    </form>
+
+    <script>
+        // DATA DE PRODUCTOS
+        const products = [
+            // ACEITES ESENCIALES
+            { id: 1, name: "Aceite Esencial Cannabis (CBD)", cat: "aceites", price: 40000, size: "15 ML", desc: "Antiinflamatorio, Analg├®sico, Neuroprotector, Relajante Calmante. (2 a 5 gotas).", img: "assets/cannabis_premium.png" },
+            { id: 2, name: "Aceite Esencial Cannabis Fullspectrum (CBD+THC)", cat: "aceites", price: 70000, size: "15 ML", desc: "Antiinflamatorio, Analg├®sico, Neuroprotector, Relajante Calmante, Sedante. (2 a 3 gotas).", img: "assets/cannabis_original.png" },
+            { id: 3, name: "Aceite Esencial Tomillo", cat: "aceites", price: 30000, size: "15 ML", desc: "Antiinflamatorio, Analg├®sico, Antif├║ngico, Calmante, Antis├®ptico. (5 a 7 gotas).", img: "assets/tomillo.png" },
+            { id: 4, name: "Aceite Esencial Or├®gano", cat: "aceites", price: 30000, size: "15 ML", desc: "Antiinflamatorio, Analg├®sico, Antioxidante, Neuroprotector, Relajante, mejora el ├ínimo. (5 a 7 gotas).", img: "assets/oregano.png" },
+            { id: 5, name: "Aceite Esencial Cal├®ndula", cat: "aceites", price: 30000, size: "15 ML", desc: "Analg├®sico, Antiinflamatorio, Cicatrizante, Neuroprotector, Relajante Calmante, Antioxidante. (5 a 7 gotas).", img: "assets/calendula_clean.png" },
+            { id: 6, name: "Aceite Esencial Manzanilla", cat: "aceites", price: 30000, size: "15 ML", desc: "Antiinflamatorio, Analg├®sico, Antioxidante, Calmante. (5 a 7 gotas).", img: "assets/manzanilla.png" },
+            { id: 22, name: "Aceite Esencial Cannabis (Mascotas)", cat: "aceites", price: 35000, size: "15 ML", desc: "Formulaci├│n especial para el bienestar de tus guardianes peludos. Analg├®sico y calmante natural.", img: "mascotas.jpg" },
+
+            // HIDROLATOS
+            { id: 7, name: "Hidrolato Lavanda", cat: "hidrolatos", price: 35000, size: "50 ML", desc: "Relajante, Antiinflamatorio, Cicatrizante, Analg├®sico, Antiespasm├│dico. (uso t├│pico, directo a la piel y rostro como desmaquillante, en aromaterapia 20 gotas en el difusor).", img: "20221019_154904.jpg" },
+            { id: 8, name: "Hidrolato C├¡trico", cat: "hidrolatos", price: 35000, size: "50 ML", desc: "Hidratante, Antiinflamatorio, Calmante, Antioxidante. (uso t├│pico, directo a la piel y rostro como desmaquillante, en aromaterapia 20 gotas en el difusor).", img: "20221019_154924.jpg" },
+            { id: 9, name: "Hidrolato Romero", cat: "hidrolatos", price: 35000, size: "50 ML", desc: "Antiinflamatorio, crecimiento capilar, antibacterial, Analg├®sico. (uso t├│pico, directo a la piel y rostro como desmaquillante, en aromaterapia 20 gotas en el difusor).", img: "20221019_154915.jpg" },
+
+            // TINTURA Y UNG├£ENTO
+            { id: 10, name: "Tintura a Base de Plantas", cat: "cuidado", price: 15000, size: "120 ML", desc: "Relajante, Antiinflamatorio, Analg├®sico. (uso t├│pico, directo a la piel y hacer masajes circulares en la zona afectada).", img: "20230125_161658.jpg" },
+            { id: 11, name: "Ung├╝ento Recuperador Muscular a Base de Plantas", cat: "cuidado", price: 10000, size: "22 G", desc: "Ayuda en dolores musculares, inflamaciones, espasmos, artritis, tendinitis, varices. (uso t├│pico, directo en la zona afectada con masajes circulares).", img: "20230125_161802.jpg" },
+
+            // AROMATICAS 25G
+            { id: 12, name: "Arom├ítica Manzanilla", cat: "aromaticas", price: 8000, size: "25 G", desc: "Selecci├│n de flores. Antiinflamatorio, Analg├®sico, Antioxidante, Calmante.", img: "20230914_105916.jpg" },
+            { id: 13, name: "Arom├ítica Stevia", cat: "aromaticas", price: 8000, size: "25 G", desc: "Selecci├│n de hojas. Analg├®sico, Antiinflamatorio, Antioxidante, Relajante.", img: "20230914_105933.jpg" },
+            { id: 14, name: "Arom├ítica Cal├®ndula", cat: "aromaticas", price: 8000, size: "25 G", desc: "Selecci├│n de flores. Analg├®sico, Antiinflamatorio, Cicatrizante, Relajante.", img: "20230914_105934.jpg" },
+            { id: 15, name: "Arom├ítica Cannabis", cat: "aromaticas", price: 8000, size: "25 G", desc: "Selecci├│n de hojas (CBD). Antiinflamatorio, Antioxidante, Relajante, Antidepresivo.", img: "20230916_113544.jpg" },
+            { id: 16, name: "Arom├ítica Mix", cat: "aromaticas", price: 8000, size: "25 G", desc: "Mezcla de Stevia, Cannabis, Manzanilla y Cal├®ndula. Analg├®sico, Antiinflamatorio.", img: "IMG-20211202-WA0110.jpg" },
+
+            // AROMATICAS FRASCO 50G
+            { id: 17, name: "Arom├ítica Frasco Manzanilla", cat: "aromaticas", price: 17000, size: "50 G", desc: "Selecci├│n de flores. Antiinflamatorio, Analg├®sico, Antioxidante, Calmante.", img: "IMG-20211202-WA0111.jpg" },
+            { id: 18, name: "Arom├ítica Frasco Cal├®ndula", cat: "aromaticas", price: 17000, size: "50 G", desc: "Selecci├│n de flores. Analg├®sico, Antiflamatorio, Cicatrizante.", img: "IMG-20211202-WA0118.jpg" },
+            { id: 19, name: "Arom├ítica Frasco Stevia", cat: "aromaticas", price: 17000, size: "50 G", desc: "Selecci├│n de hojas. Analg├®sico, Antioxidante, Relajante.", img: "IMG-20220528-WA0048.jpeg" },
+            { id: 20, name: "Arom├ítica Frasco Cannabis", cat: "aromaticas", price: 17000, size: "50 G", desc: "Selecci├│n de hojas. Antiflamatorio, Relajante, Antidepresivo.", img: "IMG-20220730-WA0021.jpeg" },
+            { id: 21, name: "Arom├ítica Mix Frasco", cat: "aromaticas", price: 17000, size: "50 G", desc: "Mix plantas. Analg├®sico, Antiflamatorio, Antioxidante, Relajante.", img: "IMG-20220803-WA0052.jpg" }
+        ];
+
+        // INIT
+        gsap.registerPlugin(ScrollTrigger);
+        lucide.createIcons();
+        renderProducts();
+
+        let cart = [];
+        let selectedPayment = 'Nequi';
+
+        // INITIAL REVEAL ANIMATIONS
+        window.addEventListener('load', () => {
+            gsap.from("h1 span", { y: 50, opacity: 0, duration: 1.5, ease: "power4.out" });
+            gsap.from("h1", { opacity: 0, scale: 0.95, duration: 2, ease: "power4.out" });
+        });
+
+
+        // FUNCTIONS
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+            const filtered = filter === 'all' ? products : products.filter(p => p.cat === filter);
+
+            filtered.forEach((product, index) => {
+                const card = document.createElement('div');
+                card.className = 'product-card flex flex-col group bg-white rounded-[3rem] border border-[var(--mallku-emerald)]/10 shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden';
+                card.onclick = () => {
+                    openProductModal(product);
+                };
+
+                card.innerHTML = `
+                    <div class="h-[320px] relative bg-white flex items-center justify-center p-8 overflow-hidden rounded-t-[3rem]">
+                        <!-- Solid Neon Green Line Border Thinner -->
+                        <div class="w-full h-full rounded-[2rem] border-[1.5px] border-[#4ade80] shadow-[0_0_20px_rgba(74,222,128,0.4)] overflow-hidden bg-white flex items-center justify-center p-4">
+                            <img src="${product.img}" alt="${product.name}" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-1000">
+                        </div>
+                    </div>
+                    <div class="p-10 flex flex-col flex-1">
+                        <span class="text-[10px] font-black uppercase tracking-[5px] text-[var(--mallku-gold)] mb-4">${product.cat}</span>
+                        <h3 class="text-3xl font-luxury text-[var(--mallku-emerald)] mb-4 leading-tight uppercase font-black tracking-tight">${product.name}</h3>
+                        <p class="text-base text-[var(--mallku-text-light)] font-light mb-10 leading-relaxed">${product.desc}</p>
+                        
+                        <div class="mt-auto pt-8 border-t border-[var(--mallku-emerald)]/5 flex justify-between items-center gap-6">
+                            <span class="text-3xl font-luxury text-[var(--mallku-emerald)] font-black truncate">$${product.price.toLocaleString()}</span>
+                            <button onclick="event.stopPropagation(); addToCart(${product.id})" 
+                                class="px-5 py-2.5 bg-[var(--mallku-emerald)] text-white rounded-full hover:bg-[var(--mallku-gold)] text-[9px] font-black uppercase tracking-widest transition-all shadow-lg hover:scale-105 shrink-0 translate-x-2">
+                                A├▒adir
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        function filterProducts(category, btn) {
+            document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderProducts(category);
+        }
+
+        function updateCartUI() {
+            const itemsCont = document.getElementById('cart-items');
+            const counts = document.querySelectorAll('#cart-count, #cart-count-badge');
+            const totalEl = document.getElementById('cart-total');
+
+            itemsCont.innerHTML = '';
+            let total = 0;
+            let qty = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price * item.qty;
+                qty += item.qty;
+
+                const div = document.createElement('div');
+                div.className = 'flex items-center gap-6 py-6 border-b border-[var(--mallku-emerald)]/5';
+                div.innerHTML = `
+                    <img src="${item.img}" class="w-20 h-20 rounded-2xl object-cover shadow-sm">
+                    <div class="flex-1">
+                        <h4 class="font-bold text-[var(--mallku-emerald)]">${item.name}</h4>
+                        <p class="text-xs text-[var(--mallku-text-light)]">x${item.qty} ÔÇö $${(item.price * item.qty).toLocaleString()}</p>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="p-2 text-red-300 hover:text-red-500 transition-colors">
+                        <i data-lucide="trash-2" class="w-5 h-5"></i>
+                    </button>
+                `;
+                itemsCont.appendChild(div);
+            });
+
+            counts.forEach(c => {
+                c.innerText = qty;
+                c.classList.toggle('hidden', qty === 0);
+            });
+            totalEl.innerText = `$${total.toLocaleString()}`;
+            lucide.createIcons();
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            if (existing) existing.qty++; else cart.push({ ...product, qty: 1 });
+            updateCartUI();
+
+            Swal.fire({
+                title: '┬íAl Carrito!',
+                text: `${product.name} a├▒adido correctamente.`,
+                icon: 'success',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                background: '#fff',
+                color: 'var(--mallku-emerald)',
+                iconColor: 'var(--mallku-emerald)',
+                customClass: { popup: 'rounded-3xl border border-[var(--mallku-emerald)]/10' }
+            });
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        async function checkout() {
+            if (cart.length === 0) return;
+            closeCart();
+
+            // PASO 1: VALIDACI├ôN DE TEL├ëFONO (LOOKUP)
+            const { value: phone, isConfirmed: phoneConfirmed } = await Swal.fire({
+                title: 'Identificaci├│n Ritual',
+                html: `
+                    <div class="text-left space-y-4 p-4">
+                        <label class="text-[10px] font-black uppercase tracking-[4px] text-[var(--mallku-emerald)] mb-2 block">WhatsApp / Tel├®fono</label>
+                        <input id="swal-input-phone" type="tel" class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-6 py-4 focus:border-[var(--mallku-emerald)] focus:outline-none transition-all" placeholder="Solo n├║meros (ej: 315...)">
+                    </div>
+                `,
+                confirmButtonText: 'Siguiente Paso',
+                showCancelButton: true,
+                cancelButtonText: 'Seguir Comprando',
+                background: '#fff',
+                color: 'var(--mallku-emerald)',
+                confirmButtonColor: 'var(--mallku-emerald)',
+                backdrop: `rgba(6,78,59,0.3)`,
+                customClass: { popup: 'rounded-[3rem] p-10 shadow-2xl', container: 'swal-z-top' },
+                preConfirm: () => {
+                    const val = document.getElementById('swal-input-phone').value.trim();
+                    if (!val || !/^\d+$/.test(val)) {
+                        Swal.showValidationMessage('Solo n├║meros por favor');
+                        return false;
+                    }
+                    return val;
+                }
+            });
+
+            if (!phoneConfirmed) { 
+                // Si cancela, reabrimos el carrito para que no tenga que empezar de cero
+                openCart(); 
+                return; 
+            }
+
+            // MOSTRAR LOADING MIENTRAS BUSCA
+            Swal.fire({
+                title: 'Buscando tu Esencia...',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading(); }
+            });
+
+            // CONSULTAR CLIENTE
+            let customerData = { name: '', address: '', phone: phone };
+            try {
+                // Usamos la API_BASE configurada al inicio o localhost como fallback
+                const api = (window.API_BASE || 'http://localhost:3000/api');
+                const res = await fetch(`${api}/customers/lookup/${phone}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.found) {
+                        customerData.name = data.customer.name;
+                        customerData.address = data.customer.address || '';
+                    }
+                }
+            } catch (e) { 
+                console.warn("Modo Offline: Procediendo como nuevo"); 
+            }
+            
+            Swal.close(); // Cerramos el loading
+
+            // PASO 2: NOMBRE Y DIRECCI├ôN (CON AUTOCOMPLETE)
+            const isNew = !customerData.name;
+            const step2 = await Swal.fire({
+                title: isNew ? '­ƒî© ┬íBienvenide a la Familia!' : '­ƒî┐ Confirma tus Datos',
+                html: `
+                    <div class="text-left space-y-6 p-4">
+                        ${isNew ? `
+                            <p class="text-xs text-[var(--mallku-emerald)]/70 bg-[var(--mallku-bone)] p-6 rounded-2xl italic leading-relaxed border border-[var(--mallku-emerald)]/5">
+                                Como es tu primera vez sembrando con nosotros, necesitamos estos datos para asegurarnos de que tu medicina ritual llegue perfecta a tus manos.
+                            </p>
+                        ` : ''}
+                        <div class="${isNew ? '' : 'opacity-70'}">
+                            <label class="text-[10px] font-black uppercase tracking-[4px] text-[var(--mallku-emerald)] mb-2 block">Nombre Completo</label>
+                            <input id="swal-input-name" class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-6 py-4 focus:border-[var(--mallku-emerald)] focus:outline-none transition-all" value="${customerData.name}" placeholder="Tu nombre">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-[4px] text-[var(--mallku-emerald)] mb-2 block">Direcci├│n de Entrega</label>
+                            <input id="swal-input-address" class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-6 py-4 focus:border-[var(--mallku-emerald)] focus:outline-none transition-all" value="${customerData.address}" placeholder="Ciudad, Barrio, Calle">
+                        </div>
+                    </div>
+                `,
+                confirmButtonText: 'Siguiente: Env├¡o',
+                showCancelButton: true,
+                cancelButtonText: 'Atr├ís',
+                background: '#fff',
+                color: 'var(--mallku-emerald)',
+                confirmButtonColor: 'var(--mallku-emerald)',
+                customClass: { popup: 'rounded-[3rem] p-10', container: 'swal-z-top' },
+                preConfirm: () => {
+                    const name = document.getElementById('swal-input-name').value.trim();
+                    const address = document.getElementById('swal-input-address').value.trim();
+                    if (!name || /\d/.test(name)) {
+                        Swal.showValidationMessage('Nombre sin n├║meros por favor');
+                        return false;
+                    }
+                    if (!address) {
+                        Swal.showValidationMessage('Direcci├│n requerida');
+                        return false;
+                    }
+                    return { name, address, phone };
+                }
+            });
+
+            if (!step2.isConfirmed) return;
+            const userData = step2.value;
+
+            // PASO 3: ENTREGA Y PAGO
+            const step3 = await Swal.fire({
+                title: 'Finaliza tu Pedido',
+                html: `
+                    <div class="text-left space-y-8 p-4">
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-[4px] text-[var(--mallku-emerald)] mb-4 block">Tipo de Entrega</label>
+                            <div class="grid grid-cols-2 gap-4">
+                                <button type="button" id="btn-env-dom" onclick="setDelivery('Domicilio', this)" class="delivery-btn p-4 border-2 border-[var(--mallku-emerald)] rounded-2xl text-sm font-bold bg-[var(--mallku-bone)]">Domicilio</button>
+                                <button type="button" id="btn-env-rec" onclick="setDelivery('Recogida', this)" class="delivery-btn p-4 border-2 border-[var(--mallku-emerald)]/10 rounded-2xl text-sm font-bold">Recoger</button>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-[4px] text-[var(--mallku-emerald)] mb-4 block">Medio de Pago</label>
+                            <select id="swal-input-payment" class="w-full bg-[var(--mallku-bone)] border-2 border-[var(--mallku-emerald)]/10 rounded-2xl px-6 py-4 focus:border-[var(--mallku-emerald)] focus:outline-none transition-all">
+                                <option value="Nequi">Nequi</option>
+                                <option value="Bancolombia">Bancolombia</option>
+                                <option value="Efectivo">Efectivo (Solo en local)</option>
+                                <option value="Daviplata">Daviplata</option>
+                            </select>
+                        </div>
+                    </div>
+                `,
+                confirmButtonText: 'Confirmar Pedido',
+                showCancelButton: true,
+                cancelButtonText: 'Atr├ís',
+                background: '#fff',
+                color: 'var(--mallku-emerald)',
+                confirmButtonColor: 'var(--mallku-emerald)',
+                customClass: { popup: 'rounded-[3rem] p-10', container: 'swal-z-top' },
+            });
+
+            if (step3.isConfirmed) {
+                const payment = document.getElementById('swal-input-payment').value;
+                const delivery = window.deliveryChoice || 'Domicilio';
+
+                // GENERAR MENSAJE
+                let msg = `*MALLKU ­ƒî┐ ÔÇö NUEVO PEDIDO*\n\n`;
+                msg += `­ƒæñ *Cliente:* ${userData.name}\n`;
+                msg += `­ƒô× *WhatsApp:* ${userData.phone}\n`;
+                msg += `­ƒôì *Direcci├│n:* ${userData.address}\n`;
+                msg += `­ƒÜÜ *Entrega:* ${delivery}\n`;
+                msg += `­ƒÆ│ *Pago:* ${payment}\n\n`;
+                msg += `­ƒøÆ *PRODUCTOS:*\n`;
+                
+                let total = 0;
+                cart.forEach(i => {
+                    msg += `ÔÇó ${i.name} x${i.qty} ÔÇö $${(i.price * i.qty).toLocaleString()}\n`;
+                    total += i.price * i.qty;
+                });
+                msg += `\n­ƒÆ░ *TOTAL:* $${total.toLocaleString()}\n\n`;
+                msg += `_┬íVuelve a tu esencia!_ Ô£¿`;
+
+                window.open(`https://wa.me/573159452314?text=${encodeURIComponent(msg)}`, '_blank');
+                
+                // Track & Save
+                fetch('http://localhost:3000/api/sales', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        customerName: userData.name,
+                        phone: userData.phone,
+                        amount: total,
+                        products: cart.map(i => i.name)
+                    })
+                });
+
+                cart = []; updateCartUI();
+                Swal.fire({
+                    icon: 'success',
+                    title: '┬íRitual Iniciado!',
+                    timer: 3000,
+                    showConfirmButton: false,
+                    background: '#fff',
+                    color: 'var(--mallku-emerald)',
+                    customClass: { popup: 'rounded-[3rem]' }
+                });
+            }
+        }
+
+        function setDelivery(choice, btn) {
+            window.deliveryChoice = choice;
+            document.querySelectorAll('.delivery-btn').forEach(b => {
+                b.classList.remove('bg-[var(--mallku-bone)]', 'border-[var(--mallku-emerald)]');
+                b.classList.add('border-[var(--mallku-emerald)]/10');
+            });
+            btn.classList.add('bg-[var(--mallku-bone)]', 'border-[var(--mallku-emerald)]');
+            btn.classList.remove('border-[var(--mallku-emerald)]/10');
+        }
+
+        function openCart() { 
+            const cart = document.getElementById('cart-modal');
+            const overlay = document.getElementById('global-overlay');
+            cart.classList.remove('hidden'); 
+            cart.classList.add('flex');
+            setTimeout(() => {
+                cart.classList.add('active');
+                overlay.classList.add('active');
+            }, 10);
+        }
+
+        function closeCart() { 
+            const cart = document.getElementById('cart-modal');
+            const overlay = document.getElementById('global-overlay');
+            cart.classList.remove('active');
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                cart.classList.add('hidden'); 
+                cart.classList.remove('flex');
+            }, 600);
+        }
+
+        function openProductModal(p) {
+            document.getElementById('modal-img').src = p.img;
+            document.getElementById('modal-title').innerText = p.name;
+            document.getElementById('modal-cat').innerText = p.cat;
+            document.getElementById('modal-desc').innerText = p.desc;
+            document.getElementById('modal-price-float').innerText = `$${p.price.toLocaleString()}`;
+            document.getElementById('modal-size').innerText = p.size;
+            document.getElementById('modal-add-btn').onclick = () => { addToCart(p.id); closeProductModal(); };
+            
+            const prodModal = document.getElementById('product-modal');
+            const overlay = document.getElementById('global-overlay');
+            
+            prodModal.classList.remove('hidden');
+            prodModal.classList.add('flex');
+            setTimeout(() => {
+                prodModal.classList.add('active');
+                overlay.classList.add('active');
+            }, 10);
+        }
+
+        function closeProductModal() {
+            const prodModal = document.getElementById('product-modal');
+            const overlay = document.getElementById('global-overlay');
+            
+            prodModal.classList.remove('active');
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                prodModal.classList.remove('flex');
+                prodModal.classList.add('hidden');
+            }, 600);
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // Particles Deep Emerald
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles = [];
+        function resize() { width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height; }
+        class Particle {
+            constructor() { this.reset(); }
+            reset() { this.x = Math.random() * width; this.y = height + 20; this.vx = 0; this.vy = -Math.random() * 0.5 - 0.2; this.size = Math.random() * 2; this.alpha = Math.random() * 0.2; }
+            update() { this.y += this.vy; this.alpha -= 0.001; if (this.alpha <= 0) this.reset(); }
+            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(6, 78, 59, ${this.alpha})`; ctx.fill(); }
+        }
+        function init() { particles = []; for (let i = 0; i < 30; i++) particles.push(new Particle()); }
+        function animate() { ctx.clearRect(0, 0, width, height); particles.forEach(p => { p.update(); p.draw() }); requestAnimationFrame(animate); }
+        window.addEventListener('resize', resize); resize(); init(); animate();
+        // HERO SLIDER LOGIC
+        const heroImages = [
+            'MERMELADAS.jpg',
+            'assets/cbdmascotas.JPG',
+            'assets/calendula.jpg',
+            'aceites.png'
+        ];
+        let currentHeroIndex = 0;
+        const heroImgElement = document.getElementById('hero-slider-img');
+
+        if (heroImgElement) {
+            setInterval(() => {
+                currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
+                
+                // Interesting Transition: Slide + Blur + Fade
+                heroImgElement.style.opacity = '0';
+                heroImgElement.style.filter = 'blur(10px)';
+                heroImgElement.style.transform = 'translateX(20px) scale(0.9)';
+                
+                setTimeout(() => {
+                    heroImgElement.src = heroImages[currentHeroIndex];
+                    heroImgElement.style.opacity = '1';
+                    heroImgElement.style.filter = 'blur(0px)';
+                    heroImgElement.style.transform = 'translateX(0) scale(1)';
+                }, 600); 
+            }, 5000); // 5 Seconds as requested
+        }
+    </script>
+</body>
+
+</html>

@@ -510,6 +510,16 @@
       ],
       "channel": "online",
       "timestamp": "2026-03-21T00:16:21.217Z"
+    },
+    {
+      "id": "1775358920636",
+      "customerId": "cust_1775358920636",
+      "amount": 8000,
+      "products": [
+        "Aromática Stevia"
+      ],
+      "channel": "online",
+      "timestamp": "2026-04-05T03:15:20.636Z"
     }
   ],
   "cartActivity": [
@@ -949,6 +959,11 @@
       "id": "cust_1774052181217",
       "name": "ersds",
       "firstPurchase": "2026-03-21T00:16:21.217Z"
+    },
+    "cust_1775358920636": {
+      "id": "cust_1775358920636",
+      "name": "dfsdfdsfds",
+      "firstPurchase": "2026-04-05T03:15:20.637Z"
     }
   },
   "whatsappClicks": [

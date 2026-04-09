@@ -1,87 +1,99 @@
 # 🌿 Mallku - Ecosistema de Medicina Ancestral & Inteligencia de Datos
 
-> Plataforma unificada que integra una tienda de medicina viva, un backend robusto y un dashboard de inteligencia analítica impulsado por IA.
+> Una plataforma integral que fusiona la sabiduría botánica andina con arquitecturas de software de vanguardia, inteligencia analítica y procesamiento de imágenes impulsado por IA.
+
+---
+
+<p align="center">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white" />
+  <img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white" />
+</p>
 
 ---
 
 ## 🏗️ Arquitectura del Sistema Consolidado
 
-Este repositorio contiene todo el ecosistema de **Mallku Sentires Andinos**, organizado para un flujo de datos en tiempo real y una experiencia de usuario premium:
+Mallku está diseñado bajo un modelo de **Ecosistema Unificado**, separando la inteligencia analítica del núcleo de ventas, pero manteniendo una sincronización de datos perfecta.
 
 ```bash
 Mallku/
-├── mallku-react/       # ⚛️ App Principal (Dashboard + Temas de Interés + Panel de Control)
-├── server.js           # 🚀 Backend Integrado (API + Servidor de Archivos Estáticos)
-├── index.html          # 🛒 Tienda Legacy (Interfaz de cliente de alta fidelidad)
-└── package.json        # 📂 Dependencias del Backend
+├── ⚛️ mallku-react/       # Dashboard de Inteligencia Analítica (React 19 + Vite)
+├── 🚀 server.js           # API Core & Procesamiento de Datos (Node.js + Express)
+├── 🛒 index.html          # Interfaz de Cliente "Botanical Luxury" (Frontend Legacy)
+└── 🧠 data.json           # Estructura de Datos de Inventario y Ventas
 ```
 
 ---
 
-## 🚀 Inicio Rápido Profesional
+## 🛠️ Stack Tecnológico de Alto Rendimiento
 
-Sigue estos pasos para correr el ecosistema completo localmente:
+### **Frontend & Experiencia de Usuario**
+*   **React 19 (Latest):** Implementado en el `mallku-react/` para gestionar un estado complejo de analíticas en tiempo real y componentes interactivos de alta fidelidad.
+*   **Vite:** Seleccionado como motor de construcción por su velocidad superior en el HMR (Hot Module Replacement), garantizando un desarrollo ágil.
+*   **Tailwind CSS:** Utilizado para materializar la estética **"Botanical Luxury"**, permitiendo un diseño responsive impecable con un sistema de diseño consistente.
+*   **Framer Motion:** Orquesta micro-animaciones fluidas y transiciones de página cinematográficas en el dashboard.
+*   **Lucide React:** Set de iconos premium que aportan claridad visual a la interfaz analítica.
 
-### 1. Iniciar el Núcleo del Sistema (Backend & Tienda)
-El servidor ahora sirve tanto la API como la tienda local:
+### **Backend & Procesamiento**
+*   **Node.js & Express:** El corazón del sistema, encargado de la orquestación de la API, el servicio de activos estáticos y la gestión de pedidos.
+*   **IA de Procesamiento de Imágenes:** Integración de `@imgly/background-removal-node` para la automatización estética de catálogos, permitiendo eliminar fondos de productos de forma quirúrgica.
+*   **CORS & Body-Parser:** Middleware configurado para una comunicación segura y fluida entre el Dashboard de React y el Servidor API.
+
+---
+
+## 🌟 Características Destacadas
+
+### 1. **Centro de Inteligencia Analítica**
+Un panel administrativo estilo SaaS diseñado para la toma de decisiones basada en datos. Monitorea tendencias de productos (Lavanda, Cannabis, Manzanilla) con visualizaciones dinámicas.
+
+### 2. **Diseño "Botanical Luxury"**
+La interfaz de cliente (`index.html`) ha sido elevada a una categoría premium de alta costura digital.
+*   **Paleta de Colores:** Obsidian, Gold y Forest Green.
+*   **Tipografía:** Curada para reflejar elegancia y confianza.
+*   **Layout:** Estructura editorial inspirada en catálogos de lujo andinos.
+
+### 3. **Procesamiento de Activos con IA**
+Capacidad nativa para procesar imágenes de productos, eliminando fondos automáticamente para generar stickers, etiquetas y material promocional de alta calidad sin intervención manual.
+
+---
+
+## 🚀 Implementación Local
+
+### **Prerrequisitos**
+*   Node.js (>= 18.0.0)
+*   NPM (>= 9.0.0)
+
+### **Paso 1: Núcleo del Sistema (Servidor & API)**
 ```powershell
-cd Mallku
+# Instalar dependencias del core
 npm install
+
+# Iniciar backend y servidor de tienda
 npm run server
 ```
-✅ **Backend & Tienda Legacy:** `http://localhost:3000`
+> URL Local: `http://localhost:3000`
 
-### 2. Iniciar el Panel de Inteligencia (React)
-Asegúrate de entrar a la subcarpeta del Dashboard:
+### **Paso 2: Panel de Inteligencia (React)**
 ```powershell
+# Acceder al directorio de React
 cd mallku-react
+
+# Instalar dependencias del frontend
 npm install
+
+# Iniciar servidor de desarrollo Vite
 npm run dev
 ```
-✅ **Centro de Inteligencia:** `http://localhost:5173`
+> URL Local: `http://localhost:5173`
 
 ---
 
-## 📚 Mallku: Sabiduría Ancestral & Ciencia
-
-Hemos incluido un nuevo panel de **Temas de Interés** con información real recopilada de los saberes de Mallku:
-
-### 🌱 Medicina Viva
-Transformamos plantas aromáticas de la región andina (Manzanilla, Caléndula, Cannabis, Lavanda) en productos de bienestar de grado premium.
-*   **Absorción:** Compuestos micro-moléculares que penetran profundamente.
-*   **Cannabis:** Tratamiento efectivo para ansiedad, estrés y dolores crónicos.
-*   **Macerados:** Procesos artesanales conservados en vidrio ámbar para máxima pureza.
-
----
-
-## 🎨 Actualizaciones de Diseño (Última Versión)
-
-*   ✅ **Navegación Lateral (Sidebar):** El Dashboard cuenta con un nuevo panel a la izquierda estilo SaaS profesional.
-*   ✅ **Estética Botanical Luxury:** Rediseño total de la tienda legacy (`index.html`) con tipografía `Playfair Display`, paleta de colores `Obsidian & Gold`, y layout editorial.
-*   ✅ **Etiquetado Premium:** Nuevas etiquetas para productos (e.g., Caléndula) con diseño minimalista de lujo, ilustraciones botánicas en oro y tipografía curada.
-*   ✅ **Panel de Temas:** Nueva sección con iconos actualizados (`lucide-react`) y micro-animaciones (`framer-motion`).
-*   ✅ **Fusión de Ecosistema:** Ahora todo está conectado. Puedes ver la tienda, los datos y la información desde un solo lugar.
-
----
-
-## 📦 Instrucciones para el Push
-
-Para guardar y subir todos los cambios de manera profesional:
-
-1. **Añade todos los archivos:**
-   ```bash
-   git add .
-   ```
-2. **Commit con mensaje claro:**
-   ```bash
-   git commit -m "feat: consolidate ecosystem with sidebar layout and information panel"
-   ```
-3. **Push a la rama principal:**
-   ```bash
-   git push origin main
-   ```
-
----
+## 📜 Filosofía Mallku
+**Mallku** no es solo una plataforma de ventas; es un puente entre la sabiduría herbolaria de las montañas andinas y las capacidades ilimitadas de la tecnología moderna. Cada línea de código está optimizada para honrar la pureza de la medicina viva que representamos.
 
 🌿 **Mallku** - *De las montañas andinas a la inteligencia de datos.*
-*(Actualizado: Marzo 2026)*
+*(Versión 2026 - Master Integration)*
